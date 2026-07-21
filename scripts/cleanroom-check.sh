@@ -5,9 +5,10 @@
 fail=0
 
 for f in $(git diff --cached --name-only --diff-filter=ACM); do
-  # The guard and the discipline doc name the marker literally; skip them.
+  # The guard and the discipline doc (and its curated copies, e.g. the
+  # public-export overlay) name the marker literally; skip them.
   case "$f" in
-    scripts/cleanroom-check.sh|docs/CLEAN-ROOM.md) continue ;;
+    scripts/cleanroom-check.sh|docs/CLEAN-ROOM.md|*/CLEAN-ROOM.md) continue ;;
   esac
 
   case "$f" in

@@ -161,7 +161,7 @@ async function addForum(f) {
    silent gBrain substitution) when it did not. The corpus graph stays one
    click away, clearly labelled. */
 function currentRun() {
-  return new URLSearchParams(location.search).get('run') || hooks.run || 'ferrite-full';
+  return new URLSearchParams(location.search).get('run') || hooks.run || 'ferrite-inverted';
 }
 
 // Register the current run's out-dir room as a forum, once. Null when the run

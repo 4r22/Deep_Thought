@@ -18,7 +18,7 @@ live app.
 ```sh
 # from the repo root — no build step, any static server
 python3 -m http.server 8617
-# open http://localhost:8617/experience/?run=ferrite-full
+# open http://localhost:8617/experience/?run=ferrite-inverted
 
 # OR, to also enable the palette's agent register (natural language):
 python3 scripts/agent_server.py 8621
@@ -66,10 +66,10 @@ market data.
 Every page is a URL — bookmarkable, shareable, back/forward-safe:
 
 ```
-?run=ferrite-full&view=entity&e=person:nadia-eghbal&fn=PRE
-?run=ferrite-full&view=entity&e=forum:ferrite-inverted&fn=ADJ
-?run=ferrite-full&view=entity&e=signal:sig-004
-?run=ferrite-full&view=network
+?run=ferrite-inverted&view=entity&e=person:nadia-eghbal&fn=PRE
+?run=ferrite-inverted&view=entity&e=forum:ferrite-inverted&fn=ADJ
+?run=ferrite-inverted&view=entity&e=signal:sig-004
+?run=ferrite-inverted&view=network
 ```
 
 ### The network view (key 6 / `net`)
@@ -92,7 +92,7 @@ Three modules mount on the existing skeleton+skin system; none of them touch
   index** (`id → entity`, plus a search haystack per entity). Owns the
   palette, the fuzzy scorer, the grammar parser, and the router. Entity ids
   are typed and canonical: `person:nadia-eghbal`, `forum:ferrite-inverted`,
-  `signal:sig-004`, `run:ferrite-full`.
+  `signal:sig-004`, `run:ferrite-inverted`.
 - **[entity.js](entity.js)** — one renderer per entity type. Person pages
   carry invitation, mandate, opening lean, post-debate movement, and the
   residual position; PRE/POST/DEB tabs lazily fetch the markdown. Signal

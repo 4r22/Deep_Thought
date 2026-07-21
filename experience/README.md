@@ -15,7 +15,7 @@ python3 -m http.server 8617
 # landing page (architecture rundown + doors into everything):
 #   http://localhost:8617/
 # run viewer directly:
-#   http://localhost:8617/experience/?run=ferrite-full&view=overview
+#   http://localhost:8617/experience/?run=ferrite-inverted&view=overview
 ```
 
 The landing page is `/index.html` at the repo root ([landing.css](landing.css));

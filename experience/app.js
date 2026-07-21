@@ -9,7 +9,7 @@ export const RUN = (() => {
   const fromUrl = new URLSearchParams(location.search).get('run');
   let r = fromUrl;
   if (!r) { try { r = sessionStorage.getItem('vcbrain-run:v1'); } catch { /* private mode */ } }
-  r = r || 'ferrite-full';
+  r = r || 'ferrite-inverted';
   try { sessionStorage.setItem('vcbrain-run:v1', r); } catch { /* private mode */ }
   return r;
 })();

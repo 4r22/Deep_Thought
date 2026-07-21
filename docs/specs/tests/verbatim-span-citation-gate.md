@@ -26,7 +26,8 @@ required source-field resolution order made explicit.
 
 1. **Gate zero — characterization (run first, commit the report).** A script or test
    fixture pass over the **frozen ferrite corpus** — the tapes
-   `intelligence/out/ferrite-inverted/` and `intelligence/out/ferrite-full/`, whose
+   `intelligence/out/ferrite-inverted/` and `intelligence/out/ferrite-full/`
+   (the latter in the working repo only; this public copy ships `ferrite-inverted`), whose
    memos cite `sig-001`…`sig-006` (and, in ferrite-inverted, the literal id
    `application`); verified 2026-07-21. No `signals.json` sits adjacent to any memo
    tape under `intelligence/out/`: the `signals.json` files elsewhere in an internal

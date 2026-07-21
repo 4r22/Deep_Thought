@@ -21,7 +21,7 @@ tapes failing their own verifier, and the landing/site pipeline stages HTML by h
 
 1. **Token-leak scan (corpus tapes).** The **scan set** is exactly the tapes named in
    `experience/corpus.json`'s `runs` array, each resolved to `intelligence/out/<name>`
-   (day-one: `ferrite-full`, `ferrite-inverted`) — the same set point 4
+   (day-one in this public copy: `ferrite-inverted`; the working repo adds `ferrite-full`) — the same set point 4
    walks; it is *not* "every committed `out/` dir". Extend the `verify_artifacts.py`
    walk (or a sibling test): for each tape in the scan set, every string value in every
    JSON artifact — including `memo.json` and the `memo-docs/*.json` (memo artifacts are

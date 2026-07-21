@@ -141,7 +141,7 @@ which spec landed it).
   (dated 2026-07-21) — and gate everything else. Regenerate-or-grandfather is the same
   discipline as the verbatim-span gate.
 - **Signals pairing for rule 2 (via the shared resolution helper).** The *frozen-ferrite
-  pair* — `ferrite-full` + `ferrite-inverted` — resolves against the committed
+  pair* — `ferrite-full` (working repo only) + `ferrite-inverted` — resolves against the committed
   fixtures `intelligence/fixtures/signals-ferrite.json` (ids `sig-001..006`) +
   `application-ferrite.json`; name this the frozen-pair rule, and run the fatal merge
   gate against this pair only. The other committed tapes cite `sig-gh-*` ids
