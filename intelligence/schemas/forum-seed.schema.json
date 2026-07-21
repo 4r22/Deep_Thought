@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["crux_restatement", "attendants", "room_note"],
+  "properties": {
+    "crux_restatement": { "type": "string", "description": "The non-empirical crux this room presses, one sentence — copied in substance from triage.crux, not reinvented." },
+    "attendants": {
+      "type": "array",
+      "description": "Exactly N attendants (N supplied as {{N_SEATS}}). Each is a PERSON: a real named voice (historical or contemporary) whose published work bears on the crux, invited because the evidence record pulls apart along positions they actually hold. Invented persons and composite archetypes are banned. The room must SPAN the disagreement. A room that all leans one way is a seeding failure.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "handle", "slug", "invitation", "lens", "mandate", "evidence_refs", "decisive_question", "opening_lean"],
+        "properties": {
+          "id": { "type": "string", "description": "seat-1, seat-2, ... stable, in array order." },
+          "handle": { "type": "string", "description": "The person's real name, e.g. 'Joel Spolsky'. Never a role label." },
+          "slug": { "type": "string", "description": "kebab-case of the name, e.g. 'joel-spolsky'. Used for interview filenames." },
+          "invitation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["invited_by", "reason"],
+            "properties": {
+              "invited_by": { "type": "string", "description": "What surfaced this person: 'evidence-record', 'primary-references', 'operator', ..." },
+              "reason": { "type": "string", "description": "The specific published work, essay, talk, or artifact of theirs that bears on the crux — the seed of the invitation." }
+            }
+          },
+          "lens": { "type": "string", "description": "One or two sentences: what this attendant reads the opportunity through." },
+          "mandate": { "type": "string", "description": "What it pressure-tests. Must reference specific evidence in this deal — a mandate with no signal behind it is not a seat." },
+          "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "Signal ids motivating this attendant's existence. No evidence, no seat." },
+          "decisive_question": { "type": "string", "description": "The single question this attendant exists to answer. Distinct from every other attendant's." },
+          "opening_lean": { "type": "string", "enum": ["for", "against", "genuinely-split"], "description": "The pole this attendant leans toward BEFORE its interview — the pole-seeding judgment, not a verdict. The interview and debate may move it." }
+        }
+      }
+    },
+    "room_note": { "type": "string", "description": "One line: how the attendants cover the crux without redundancy, and which one can argue against the majority. A stacked room is a failure." }
+  }
+}

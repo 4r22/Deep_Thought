@@ -1,0 +1,15 @@
+{
+  "fund": "Example Fund I",
+  "sectors": ["ai-infrastructure", "devtools", "applied-ai-b2b"],
+  "stage": ["pre-seed", "seed"],
+  "geography": ["EU", "US"],
+  "check_usd": 100000,
+  "ownership_target_pct": [1, 3],
+  "risk_appetite": "high — pre-track-record founders explicitly in scope; cold start is not a disqualifier",
+  "disqualifiers": [
+    "crypto/web3 tokens",
+    "regulated medical devices without a domain founder",
+    "pure consulting / services revenue models"
+  ],
+  "notes": "Backs technical founders before their first institutional round. Conviction on evidence of shipping velocity over pedigree."
+}

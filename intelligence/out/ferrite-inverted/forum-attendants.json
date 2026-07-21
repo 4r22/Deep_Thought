@@ -1,0 +1,95 @@
+{
+  "crux_restatement": "If commercial checks shrink true paid/active scale toward registry-order magnitude, does the fund’s shipping-velocity/cold-start posture still underwrite a $100k fast check on Mara’s solo technical execution alone, or does contested traction require waiting for reconciled revenue/install proof before any check?",
+  "attendants": [
+    {
+      "id": "seat-1",
+      "handle": "Nadia Eghbal",
+      "slug": "nadia-eghbal",
+      "invitation": {
+        "invited_by": "evidence-record",
+        "reason": "Working in Public (Stripe Press, 2020)—and earlier Roads and Bridges—on how public OSS consumption signals (downloads, stars, visible adoption) systematically misread actual usage and distribution, and why those proxies cannot be treated as interchangeable with production install base."
+      },
+      "lens": "Reads the deck-vs-registry contradiction as a category error until distribution surfaces and metric definitions are named: public package downloads are one consumption channel, not a census of active installs.",
+      "mandate": "Pressure-test whether sig-004’s 2,900 lifetime / ~340 weekly public downloads falsify sig-001’s 3,100 active installs across 240 orgs, or only measure a different surface (registry vs private mirrors, binaries, containers, self-host) that the deck never mapped.",
+      "evidence_refs": [
+        "sig-001",
+        "sig-004"
+      ],
+      "decisive_question": "Can Ferrite reconcile 3,100 ‘active installations’ with 2,900 lifetime public downloads via non-registry distribution and a precise ‘active’ definition, or is the deck count definitionally inconsistent with the verified registry?",
+      "opening_lean": "genuinely-split"
+    },
+    {
+      "id": "seat-2",
+      "handle": "Bill Gurley",
+      "slug": "bill-gurley",
+      "invitation": {
+        "invited_by": "evidence-record",
+        "reason": "All Revenue is Not Created Equal: The Keys to the 10X Revenue Club (Above the Crowd, 2011)—on refusing to treat headline revenue/growth as investable without quality, predictability, and source-system integrity behind the number."
+      },
+      "lens": "Treats claimed MRR and MoM acceleration as non-evidence until billing reality matches, especially when the same deck’s scale story already collides with independent counts.",
+      "mandate": "Pressure-test sig-001’s $18k MRR and +40% MoM for three months against the install-scale contradiction in sig-004—whether any fast check can underwrite those commercial claims before a payment-processor/billing export with plan mix and refunds.",
+      "evidence_refs": [
+        "sig-001",
+        "sig-004"
+      ],
+      "decisive_question": "If reconciled paid/active scale compresses toward registry order, does the $18k MRR / 40% MoM claim survive as underwritable, or must billing export clear before any $100k check?",
+      "opening_lean": "against"
+    },
+    {
+      "id": "seat-3",
+      "handle": "Paul Graham",
+      "slug": "paul-graham",
+      "invitation": {
+        "invited_by": "primary-references",
+        "reason": "Do Things That Don't Scale (2013) and related YC essays arguing early conviction comes from founder execution and intimate early users—not polished dashboards—and that cold-start technical founders are exactly whom small checks should underwrite."
+      },
+      "lens": "Filters the deal through shipping velocity and early-user intimacy: weekly releases, competitive validation, and self-identified production users can carry a small check when pedigree is thin and scale claims are still messy.",
+      "mandate": "Weigh independently verified weekly shipping (sig-002), the Hack-Nation win (sig-003), and launch-thread production users (sig-005) as the wedge if commercial install/MRR claims compress toward registry order.",
+      "evidence_refs": [
+        "sig-002",
+        "sig-003",
+        "sig-005"
+      ],
+      "decisive_question": "Does Mara’s solo weekly-release execution plus documented production users underwrite a $100k cold-start check even if deck install/MRR claims shrink to registry-order magnitude?",
+      "opening_lean": "for"
+    },
+    {
+      "id": "seat-4",
+      "handle": "Charity Majors",
+      "slug": "charity-majors",
+      "invitation": {
+        "invited_by": "evidence-record",
+        "reason": "Observability Engineering (O’Reilly, with Liz Fong-Jones) and essays such as Notes on the Perfidy of Dashboards (charity.wtf)—arguing aggregate vanity metrics without high-cardinality definitions and protocols are not knowledge, and ‘10x’ claims without measurement design are theater."
+      },
+      "lens": "Reads ‘active installations’ and ‘10x agent-CI cost reduction’ as undefined dashboards until telemetry definition and benchmark protocol exist; shipping cadence is real, but it does not substitute for a measurable install or cost claim.",
+      "mandate": "Force a product-telemetry definition of ‘active install’/org count for the deck window in sig-001 and a reproducible 10x benchmark protocol (workload mix, before/after CI spend), using sig-002 only as proof the team can instrument—not as proof the claimed magnitudes are true.",
+      "evidence_refs": [
+        "sig-001",
+        "sig-002"
+      ],
+      "decisive_question": "Without a telemetry definition of ‘active’ and a reproducible 10x protocol, should contested scale force waiting for measurement—or can verified shipping stand in for those claims on a fast check?",
+      "opening_lean": "against"
+    },
+    {
+      "id": "seat-5",
+      "handle": "Mike Maples Jr.",
+      "slug": "mike-maples-jr",
+      "invitation": {
+        "invited_by": "operator",
+        "reason": "Pattern Breakers (2024, with Peter Ziebelman)—on underwriting non-consensus technical founders at inflective moments with asymmetric early evidence, pricing uncertainty honestly rather than waiting for consensus-grade traction dashboards."
+      },
+      "lens": "Prices cold-start durability as named uncertainty around contested scale versus independent product presence—asking whether agent-CI caching is inflective enough that thin-but-real shipping evidence outweighs unreconciled deck metrics for a small check.",
+      "mandate": "Hold the cold-start durability question across the live tension: if sig-001’s scale narrative fails against sig-004, do sig-002/sig-003/sig-005 still justify a $100k check on solo technical execution, or does the fund’s posture still require reconciled proof first—without treating absence of prior fundraise as a quiet penalty.",
+      "evidence_refs": [
+        "sig-001",
+        "sig-002",
+        "sig-003",
+        "sig-004",
+        "sig-005"
+      ],
+      "decisive_question": "Is agent-driven CI caching at a sharp enough inflection that shipping, hackathon validation, and launch production users outweigh unreconciled install/MRR claims for this $100k fast check?",
+      "opening_lean": "for"
+    }
+  ],
+  "room_note": "Eghbal spans the install/download category gap; Gurley and Majors press commercial and measurement proof; Graham and Maples underwrite cold-start shipping—if the room coheres around velocity, Gurley is the clearest minority wait-for-reconciled-proof counterweight."
+}

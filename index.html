@@ -1,101 +1,322 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VC Brain — an AI operating system for early-stage venture</title>
-<meta name="description" content="Discover exceptional founders, run honest diligence, and produce a decision-ready memo — fast enough to deploy a $100K check inside 24 hours.">
-<style>
-  :root {
-    --bg: #0d0f12; --panel: #14171c; --line: #262b33;
-    --ink: #e8eaed; --dim: #9aa3ad; --accent: #d8b26a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 62rem; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
-  .eyebrow {
-    font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--accent); margin: 0 0 1.25rem;
-  }
-  h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.1; margin: 0 0 1.25rem; font-weight: 600; }
-  .lede { font-size: clamp(1.05rem, 2.4vw, 1.3rem); color: var(--dim); max-width: 46rem; margin: 0 0 3.5rem; }
-  .lede strong { color: var(--ink); font-weight: 600; }
-  h2 {
-    font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--dim); margin: 3.5rem 0 1.25rem; font-weight: 600;
-  }
-  .layers { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: .6rem; padding: 1.35rem; }
-  .card h3 { margin: 0 0 .5rem; font-size: 1rem; font-weight: 600; }
-  .card p { margin: 0; color: var(--dim); font-size: .92rem; }
-  .stats { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
-  .stat { border-left: 2px solid var(--accent); padding: .15rem 0 .15rem 1rem; }
-  .stat b { display: block; font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .stat span { color: var(--dim); font-size: .85rem; }
-  .note {
-    margin-top: 3.5rem; padding: 1.15rem 1.35rem; border: 1px dashed var(--line);
-    border-radius: .6rem; color: var(--dim); font-size: .92rem;
-  }
-  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--dim); font-size: .82rem; }
-  a { color: var(--accent); }
-</style>
+  <meta charset="utf-8">
+  <title>vc.brain — a data- and AI-first operating system for early-stage venture</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="experience/skeleton.css">
+  <link rel="stylesheet" href="experience/app.css?v=2026-07-21-2">
+  <link rel="stylesheet" href="experience/landing.css?v=2026-07-19-1">
+  <link rel="stylesheet" href="experience/skins/alu.css">
+  <link rel="stylesheet" href="experience/skins/glass.css">
+  <script>
+    // Skin/theme LOCKED to dark aluminium (operator decision, bead
+    // vc-brain-toe.5, 2026-07-21) — matches the run viewer's lock. No
+    // switching, no localStorage branching; glass-driver never mounts.
+    document.documentElement.classList.add('skin-alu', 'theme-dark');
+  </script>
 </head>
 <body>
-<div class="wrap">
-  <p class="eyebrow">Hack-Nation × MIT · Challenge 02</p>
-  <h1>VC Brain</h1>
-  <p class="lede">
-    A data- and AI-first operating system for early-stage venture: <strong>discover
-    exceptional founders, run honest diligence, and produce a decision-ready memo</strong>
-    — fast enough to deploy a $100K check inside 24 hours.
-  </p>
 
-  <h2>Three layers</h2>
-  <div class="layers">
-    <div class="card">
-      <h3>Memory</h3>
-      <p>A structured, deduplicated knowledge base of founders, companies, and signals —
-      housing a persistent Founder Score that follows the person across startups and
-      never resets, with an explicit method for pricing thin evidence rather than
-      penalising it.</p>
+<div class="band-flash" aria-hidden="true"></div>
+
+<header class="topbar" data-skin="bar">
+  <a class="brand" href="./">vc<span class="brand-dot">.</span>brain</a>
+  <div class="topbar-tools">
+    <a class="sk-btn" data-skin="btn" href="experience/howto.html">terminal — how to</a>
+    <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-full&view=overview">open the run viewer</a>
+  </div>
+</header>
+
+<main class="land">
+
+  <section class="land-hero">
+    <h1>vc<span class="brand-dot">.</span>brain</h1>
+    <p class="land-tag">A data- and AI-first operating system for early-stage venture —
+      discover exceptional founders, run honest diligence, and land a decision-ready memo
+      <strong>fast enough to deploy a $100K check inside 24 hours</strong>.</p>
+    <div class="axis-chips">
+      <span class="sk-chip">sourcing → screening → diligence → decision</span>
+      <span class="sk-chip">hack-nation × mit</span>
+      <span class="sk-chip">challenge 02 — maschmeyer group</span>
     </div>
-    <div class="card">
-      <h3>Intelligence</h3>
-      <p>The reasoning layer. A per-deal forum builds the reference space first; a
-      standing counsel of three offices — Founder, Market, Idea-vs-Market — then
-      cross-examines that record and scores independently. The axes are never
-      averaged into one number: disagreement is signal.</p>
+    <div class="land-cta">
+      <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-full&view=overview">see a live run →</a>
+      <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-inverted&view=forum">watch a forum argue →</a>
     </div>
-    <div class="card">
-      <h3>Experience</h3>
-      <p>Investor-grade interface: Notion-approachable, Bloomberg-deep. A run viewer
-      over committed pipeline tapes and a keyboard-driven terminal over the research
-      corpus, both hand-rolled with zero runtime dependencies.</p>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">how a decision happens</span><span class="rule"></span>
+      <span class="sk-chip blue">the room comes before the number</span></div>
+    <p class="flow-intro">Two funnels, one screen: inbound applications and outbound-discovered
+      founders converge into the same pipeline — application + public signals + an explicit
+      fund thesis in, a priced decision out. The load-bearing inversion: a forum of real
+      named voices is built <em>first</em>, and the score is a projection of that room,
+      computed last. Scores never enter the room.</p>
+    <div class="land-flow">
+      <div class="flow-step"><span class="sk-label">screen</span>
+        <p>fast, cheap thesis fit — advance · reject · contested, with red flags cited to evidence</p></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step"><span class="sk-label">triage</span>
+        <p>every empirical question routed to its cheapest decisive check; names the one crux no check can settle</p></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step"><span class="sk-label">forum</span>
+        <p>the reference space: named voices seated on the crux — blind interviews, one moderated debate, typed adjudication</p></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step"><span class="sk-label">counsel</span>
+        <p>three standing offices — founder · market · idea-vs-market — blindly cross-examine the room record; scored independently, never averaged</p></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step"><span class="sk-label">memo</span>
+        <p>every claim priced with a trust tier and its quote; gaps flagged, never silently filled</p></div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step"><span class="sk-label">human gate</span>
+        <p>the investor decides. everything above is agent-derived input — and says so</p></div>
     </div>
+    <svg width="100%" viewBox="0 0 680 252" role="img" aria-label="workflow: two funnels converge into memory, then screen, triage, forum, axes, memo, human gate; decisions feed back into memory" style="display:block;margin-top:18px">
+      <title>how a decision flows</title>
+      <g style="font-family:var(--font-mono);font-size:11px">
+        <rect x="150" y="18" width="170" height="38" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="235" y="36" text-anchor="middle" style="fill:var(--ink)">inbound</text>
+        <text x="235" y="49" text-anchor="middle" style="fill:var(--ink-faint);font-size:10px">application + deck</text>
+        <rect x="360" y="18" width="170" height="38" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="445" y="36" text-anchor="middle" style="fill:var(--ink)">outbound</text>
+        <text x="445" y="49" text-anchor="middle" style="fill:var(--ink-faint);font-size:10px">public signals</text>
+        <path d="M235 56 L330 82" style="stroke:var(--ink-faint);fill:none"/>
+        <path d="M445 56 L350 82" style="stroke:var(--ink-faint);fill:none"/>
+        <path d="M336 78 L340 86 L344 78" style="stroke:var(--ink-faint);fill:none"/>
+        <rect x="230" y="88" width="220" height="38" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="340" y="106" text-anchor="middle" style="fill:var(--ink)">memory</text>
+        <text x="340" y="119" text-anchor="middle" style="fill:var(--ink-faint);font-size:10px">signals · founder score</text>
+        <path d="M340 126 L340 148 M336 142 L340 150 L344 142" style="stroke:var(--ink-faint);fill:none"/>
+        <rect x="40" y="152" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="86" y="174" text-anchor="middle" style="fill:var(--ink)">screen</text>
+        <rect x="141" y="152" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="187" y="174" text-anchor="middle" style="fill:var(--ink)">triage</text>
+        <rect x="242" y="152" width="92" height="36" rx="3" style="fill:none;stroke:var(--blue)"/>
+        <text x="288" y="174" text-anchor="middle" style="fill:var(--blue)">forum</text>
+        <rect x="343" y="152" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="389" y="174" text-anchor="middle" style="fill:var(--ink)">counsel</text>
+        <rect x="444" y="152" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="490" y="174" text-anchor="middle" style="fill:var(--ink)">memo</text>
+        <rect x="545" y="152" width="95" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="592" y="174" text-anchor="middle" style="fill:var(--ink)">human gate</text>
+        <path d="M132 170 L139 170 M141 152 L141 152" style="stroke:var(--ink-faint)"/>
+        <path d="M233 170 L240 170" style="stroke:var(--ink-faint)"/>
+        <path d="M334 170 L341 170" style="stroke:var(--ink-faint)"/>
+        <path d="M435 170 L442 170" style="stroke:var(--ink-faint)"/>
+        <path d="M536 170 L543 170" style="stroke:var(--ink-faint)"/>
+        <path d="M592 152 L592 107 L458 107 M466 103 L456 107 L466 111" style="stroke:var(--ink-faint);fill:none"/>
+        <text x="586" y="134" text-anchor="end" style="fill:var(--ink-faint);font-size:10px">decisions feed</text>
+        <text x="586" y="146" text-anchor="end" style="fill:var(--ink-faint);font-size:10px">back to memory</text>
+        <text x="288" y="204" text-anchor="middle" style="fill:var(--blue);font-size:10px">fires only when contested — blind interviews,</text>
+        <text x="288" y="217" text-anchor="middle" style="fill:var(--blue);font-size:10px">one debate, typed adjudication</text>
+        <text x="340" y="242" text-anchor="middle" style="fill:var(--ink-muted)">the room comes before the number — scores are computed after the forum, never inside it</text>
+      </g>
+    </svg>
+  </section>
+
+  <div class="land-grid">
+    <a class="over-card" href="experience/?run=ferrite-inverted&view=network">
+      <span class="layer-name">memory</span>
+      <span class="layer-sub">who has been seen</span>
+      <p>Structured, timestamped, deduplicated knowledge of founders, companies and signals.
+        The persistent <strong>Founder Score</strong> follows the person across startups —
+        it never resets.</p>
+      <div class="card-go">person network →</div>
+    </a>
+    <a class="over-card" href="experience/?run=ferrite-inverted&view=axes">
+      <span class="layer-name">intelligence</span>
+      <span class="layer-sub">how it reasons</span>
+      <p>The deliberation engine: per-claim <strong>Trust Score</strong> on an explicit
+        evidence ladder, a forum of real named voices seated on the crux, and a standing
+        counsel whose three axes are never collapsed into one number — disagreement is
+        signal, not noise.</p>
+      <div class="card-go">three axes on a contested run →</div>
+    </a>
+    <a class="over-card" href="experience/?run=ferrite-full&view=overview">
+      <span class="layer-name">experience</span>
+      <span class="layer-sub">how it feels</span>
+      <p>Notion-approachable, Bloomberg-deep: a run viewer over pipeline tapes and a
+        <strong>⌘K terminal</strong> over the research corpus — entities × functions,
+        keyboard-first, every claim one click from its evidence.</p>
+      <div class="card-go">run viewer →</div>
+    </a>
   </div>
 
-  <h2>Measured, not demoed</h2>
-  <div class="stats">
-    <div class="stat"><b>25</b><span>applications run end-to-end overnight, zero failures</span></div>
-    <div class="stat"><b>580</b><span>real repositories passed through the sourcing gate</span></div>
-    <div class="stat"><b>171s</b><span>fastest run: public signals to decision-ready memo</span></div>
-    <div class="stat"><b>152</b><span>tests passing across the pipeline</span></div>
+  <div class="land-grid">
+    <a class="over-card" href="experience/?run=ferrite-full&view=overview">
+      <span class="layer-name">ferrite-full</span>
+      <span class="layer-sub">demo tape · fictional deal</span>
+      <p>The full pipeline end-to-end on a fictional deal: screen, triage, forum, counsel,
+        memo — every stage on tape, every claim one click from its evidence; gates before
+        any wire.</p>
+      <div class="card-go">open the run →</div>
+    </a>
+    <a class="over-card" href="experience/?run=ferrite-inverted&view=overview">
+      <span class="layer-name">ferrite</span>
+      <span class="layer-sub">demo tape · fictional deal, labelled as such</span>
+      <p>The contested showcase on the inverted pipeline: named voices seated on one crux —
+        blind interviews, one moderated debate, typed adjudication — then the counsel scores
+        the room. First tape to come back green from every artifact verifier.</p>
+      <div class="card-go">open the run →</div>
+    </a>
+    <a class="over-card" href="research/gbrain/specs/store-organ.md">
+      <span class="layer-name">g-brain</span>
+      <span class="layer-sub">store spec · clean-room extraction</span>
+      <p>Memory's designs weren't invented here — they were extracted from Garry Tan's
+        G-Brain via a clean-room process, then re-pointed from a private
+        network onto public founder footprints.</p>
+      <div class="card-go">read the store spec →</div>
+    </a>
   </div>
 
-  <p class="note">
-    <strong>Deployment placeholder.</strong> The full source, architecture
-    documentation, and the labelled demo tapes are being published to this repository
-    and will appear at this address shortly.
-  </p>
+  <p class="ledger-note sk-label">note: forum voices are AI-simulated counterfactual personas
+    of public figures, reasoned from their published work — not their real views or
+    participation.</p>
 
-  <footer>
-    Every claim traces to evidence at a stated confidence tier; gaps are flagged, never
-    silently filled. One human stays in the loop for the final decision.
-  </footer>
-</div>
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the structure</span><span class="rule"></span>
+      <span class="sk-chip">three layers · one contract</span></div>
+    <svg width="100%" viewBox="0 0 680 330" role="img" aria-label="technical structure: memory, frozen contracts, intelligence, experience layers with build status" style="display:block">
+      <title>the technical structure</title>
+      <g style="font-family:var(--font-mono);font-size:11px">
+        <text x="40" y="26" style="fill:var(--ink-faint);font-size:10px;letter-spacing:1px">memory — the data foundation</text>
+        <rect x="40" y="34" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="110" y="56" text-anchor="middle" style="fill:var(--ink)">github channel</text>
+        <rect x="193" y="34" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="263" y="56" text-anchor="middle" style="fill:var(--ink)">raw archive</text>
+        <rect x="346" y="34" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="416" y="56" text-anchor="middle" style="fill:var(--ink)">founders + signals</text>
+        <rect x="499" y="34" width="140" height="36" rx="3" style="fill:none;stroke:var(--blue)"/>
+        <text x="569" y="56" text-anchor="middle" style="fill:var(--blue)">bitemporal store</text>
+        <path d="M340 70 L340 90 M336 84 L340 92 L344 84" style="stroke:var(--ink-faint);fill:none"/>
+        <rect x="170" y="94" width="340" height="34" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="340" y="115" text-anchor="middle" style="fill:var(--ink)">founder · signal · memo — frozen contracts</text>
+        <path d="M340 128 L340 148 M336 142 L340 150 L344 142" style="stroke:var(--ink-faint);fill:none"/>
+        <text x="40" y="146" style="fill:var(--ink-faint);font-size:10px;letter-spacing:1px">intelligence — the reasoning layer</text>
+        <rect x="40" y="154" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="86" y="176" text-anchor="middle" style="fill:var(--ink)">screen</text>
+        <rect x="141" y="154" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="187" y="176" text-anchor="middle" style="fill:var(--ink)">triage</text>
+        <rect x="242" y="154" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="288" y="176" text-anchor="middle" style="fill:var(--ink)">forum</text>
+        <rect x="343" y="154" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="389" y="176" text-anchor="middle" style="fill:var(--ink)">counsel</text>
+        <rect x="444" y="154" width="92" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="490" y="176" text-anchor="middle" style="fill:var(--ink)">memo</text>
+        <rect x="545" y="154" width="95" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="592" y="176" text-anchor="middle" style="fill:var(--ink)">human gate</text>
+        <path d="M340 190 L340 210 M336 204 L340 212 L344 204" style="stroke:var(--ink-faint);fill:none"/>
+        <text x="40" y="208" style="fill:var(--ink-faint);font-size:10px;letter-spacing:1px">experience — the investor surface</text>
+        <rect x="40" y="216" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="110" y="238" text-anchor="middle" style="fill:var(--ink)">run viewer</text>
+        <rect x="193" y="216" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="263" y="238" text-anchor="middle" style="fill:var(--ink)">⌘k terminal</text>
+        <rect x="346" y="216" width="140" height="36" rx="3" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="416" y="238" text-anchor="middle" style="fill:var(--ink)">network graph</text>
+        <rect x="499" y="216" width="140" height="36" rx="3" style="fill:none;stroke:var(--ink-faint);stroke-dasharray:4 3"/>
+        <text x="569" y="238" text-anchor="middle" style="fill:var(--ink-faint)">agent register</text>
+        <rect x="40" y="286" width="12" height="12" rx="2" style="fill:none;stroke:var(--line-soft)"/>
+        <text x="60" y="296" style="fill:var(--ink-muted);font-size:10px">shipped</text>
+        <rect x="130" y="286" width="12" height="12" rx="2" style="fill:none;stroke:var(--blue)"/>
+        <text x="150" y="296" style="fill:var(--ink-muted);font-size:10px">in flight</text>
+        <rect x="225" y="286" width="12" height="12" rx="2" style="fill:none;stroke:var(--ink-faint);stroke-dasharray:4 3"/>
+        <text x="245" y="296" style="fill:var(--ink-muted);font-size:10px">designed</text>
+        <text x="640" y="296" text-anchor="end" style="fill:var(--ink-faint);font-size:10px">the schemas are the only coupling between layers</text>
+      </g>
+    </svg>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the honesty contract</span><span class="rule"></span></div>
+    <ul class="commit-list">
+      <li><span class="sk-chip">evidence</span><span>Every claim traces to evidence at a stated
+        confidence tier; gaps are flagged, never silently filled.</span></li>
+      <li><span class="sk-chip">axes</span><span>The three screening axes are never collapsed into
+        one number — when they disagree, that disagreement is the finding.</span></li>
+      <li><span class="sk-chip">score</span><span>The Founder Score is one input to the founder
+        axis, not a substitute for it.</span></li>
+      <li><span class="sk-chip">cold start</span><span>A founder with no funding history, no
+        network and a thin footprint is priced transparently, not penalised by default.</span></li>
+      <li><span class="sk-chip">human</span><span>One human holds the gate. The system drafts the
+        decision; it does not wire the money.</span></li>
+    </ul>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the distance to the terminal</span><span class="rule"></span>
+      <span class="sk-chip blue">weeks of engineering · one honest long game</span></div>
+    <p class="flow-intro">The destination is a terminal: live feeds in, analysis running whether
+      or not anyone is watching, and a login that shows the current state of every founder we
+      track. This page is not that yet — it is a static build over committed run tapes, and it
+      says so. But the distance is shorter than it looks, because the always-on parts already
+      exist as batch machinery. What follows is the exact inventory: built, not yet, and the
+      path between.</p>
+    <ul class="dir-list">
+      <li><span class="sk-chip">built</span><span><strong>The inverted pipeline with a standing
+        counsel</strong> — screen → triage → forum → counsel → memo, an explicit fund thesis
+        injected at every stage. <strong>ferrite-inverted</strong> is the first tape to come back
+        green from every artifact verifier.</span></li>
+      <li><span class="sk-chip">built</span><span><strong>A measured sourcing gate</strong> —
+        580 real archived repos pushed through the harvest → junk/thin/pass gate, where “pass” is
+        defined as opening the pipeline's input gate, so sourcing and pipeline cannot drift
+        apart.</span></li>
+      <li><span class="sk-chip">built</span><span><strong>A batch farm runner</strong> — the full
+        pipeline over any folder of sourced applications, on three interchangeable workers
+        (API, cursor-agent, headless Claude); 25 sourced applications ran end-to-end overnight (runs excluded from this public copy).
+        “Analysis all the time” is a scheduler entry away, not an invention away.</span></li>
+      <li><span class="sk-chip">built</span><span><strong>Speed as evidence</strong> — a real outbound
+        candidate went from public GitHub signals to a decision-ready memo in
+        171 seconds, with a mechanical (code, not prompt) forum fire gate (run excluded
+        from this public copy).</span></li>
+      <li><span class="sk-chip warn">not yet</span><span><strong>A live store</strong> — memory
+        is JSON files in git; the persistent store that everything reads and writes is in
+        progress. Until it lands, “dynamic update” means “rebuild and recommit”.</span></li>
+      <li><span class="sk-chip warn">not yet</span><span><strong>Scheduled harvesters</strong> —
+        sourcing has only ever run on demand against archives. No live collectors, no
+        watermarks, no delta detection. The gate is proven; the cadence is not.</span></li>
+      <li><span class="sk-chip warn">not yet</span><span><strong>A served terminal</strong> —
+        no server, no accounts, no live queries. The viewer renders what was true at the last
+        corpus build.</span></li>
+      <li><span class="sk-chip blue">the path</span><span><strong>Store → harvesters → triggers →
+        serving</strong>, in that order, each unblocking the next: the store becomes the single
+        read/write path (tapes become views of it); collectors write deltas through the existing
+        gate on a schedule; a tiered ladder reacts to deltas — deterministic score always, triage
+        on threshold, a full room only on material change; then a thin authenticated API and this
+        viewer reads live, with watchlists and alerts. Each step is days-to-a-week of
+        agent-driven engineering on machinery that already runs in batch.</span></li>
+      <li><span class="sk-chip bad">the long game</span><span><strong>Bloomberg-grade validated
+        feeds</strong> — entity resolution across sources, licensed data, and validation ops are
+        the one part that does not compress into weeks. We say so instead of pretending: every
+        signal carries provenance from day one so that moat can be built without
+        rework.</span></li>
+    </ul>
+    <p class="ledger-note sk-label">deliberate cuts — hosted DBs, submission platforms,
+      breadth-over-depth channels — are cuts, not gaps. full map: docs/ROADMAP.md</p>
+  </section>
+
+</main>
+
+<footer class="site-footer sk-label">
+  vc brain · sourcing → screening → diligence → decision · hack-nation × mit
+</footer>
+
+<script type="module">
+  // Scroll progress drives the skins' dichroic ring (same var the app writes).
+  let ticking = false;
+  const write = () => {
+    ticking = false;
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    document.documentElement.style.setProperty('--scroll',
+      String(Math.min(1, Math.max(0, scrollY / max))));
+  };
+  addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(write); }
+  }, { passive: true });
+</script>
 </body>
 </html>

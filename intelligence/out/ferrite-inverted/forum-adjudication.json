@@ -1,0 +1,101 @@
+{
+  "outcome": "stable-fork-plus-instrument",
+  "converged": [
+    {
+      "action": "Treat deck 3,100 active installs / 240 orgs and $18k MRR / +40% MoM as uncleared non-evidence that cannot carry underwriting until reconciled",
+      "turn": 11
+    },
+    {
+      "action": "Keep Ferrite in diligence on independently verified shipping and launch-thread presence; do not kill solely on public registry totals",
+      "turn": 19
+    }
+  ],
+  "residual": [
+    {
+      "fork": "Under registry-order compression with deck commercial claims at zero weight: write $100k on execution residual (shipping + inflection + reachable production users) vs wait for reconciled billing/telemetry before any check",
+      "positions": [
+        {
+          "attendant": "seat-1",
+          "position": "Wait under the compression/failed-reconciliation assumption—category error blocks treating registry lifetime as a hard falsification, but unresolved scale after a failed channel map blocks a fast check; shipping keeps diligence open only"
+        },
+        {
+          "attendant": "seat-2",
+          "position": "Wait—billing export must clear first; shipping and launch users keep diligence open but do not repair a broken commercial measurement chain on the same ask"
+        },
+        {
+          "attendant": "seat-3",
+          "position": "Write $100k if two or three reachable production users still name a concrete agent-CI cost/latency win this week; contested dashboards are diligence debt, not a veto at this check size"
+        },
+        {
+          "attendant": "seat-4",
+          "position": "Wait for same-window active-install telemetry definition and a reproducible 10x protocol; presence ≠ protocol and cannot stand in for contested primary magnitudes"
+        },
+        {
+          "attendant": "seat-5",
+          "position": "Write $100k—zero-weight failed deck scale as priced uncertainty; inflection plus verified craft and thin-but-reachable users is enough residue unless usage path evaporates"
+        }
+      ]
+    }
+  ],
+  "instrument": [
+    {
+      "for_fork": "Under registry-order compression with deck commercial claims at zero weight: write $100k on execution residual (shipping + inflection + reachable production users) vs wait for reconciled billing/telemetry before any check",
+      "move": "Same-week diligence packet: (1) contact the three launch-thread production users or two founder-introduced current users for an unscripted agent-CI cost/latency win; (2) pull trailing-4-month payment-processor/billing export (plan mix, refunds, customer count) plus product telemetry/admin export defining active install and organization with an explicit distribution-channel map for the deck window (and a one-page 10x protocol). Collapse rule: if users evaporate or show no production residue → write-side joins wait; if billing/telemetry clears coherent paid/active reality (or an honest correction with residual usage) → wait-side reassesses off the block; if reconciliation fails and residue disappears → all seats wait."
+    }
+  ],
+  "evolution": [
+    {
+      "attendant": "seat-1",
+      "movement": "conceded",
+      "turns": [
+        2,
+        8,
+        19,
+        24
+      ]
+    },
+    {
+      "attendant": "seat-2",
+      "movement": "held",
+      "turns": [
+        3,
+        10,
+        17,
+        23
+      ]
+    },
+    {
+      "attendant": "seat-3",
+      "movement": "held",
+      "turns": [
+        4,
+        9,
+        14,
+        20,
+        26
+      ]
+    },
+    {
+      "attendant": "seat-4",
+      "movement": "held",
+      "turns": [
+        5,
+        13,
+        15,
+        22
+      ]
+    },
+    {
+      "attendant": "seat-5",
+      "movement": "held",
+      "turns": [
+        6,
+        12,
+        18,
+        25
+      ]
+    }
+  ],
+  "suggested_attendants": [],
+  "authority_note": "Agent-derived adjudication from the forum record—material for the investor to argue with, not an authority. Forum verdicts never settle their own case."
+}

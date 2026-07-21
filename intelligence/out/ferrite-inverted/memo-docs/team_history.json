@@ -1,0 +1,195 @@
+{
+  "body_md": "## Team & history\n\n### Founder\n**Mara Voss** is Ferrite's sole founder: technical, based in Berlin [C1]. She is a first-time founder with no prior fundraise [C2]. Background is self-reported only: four years of infrastructure work at a mid-size fintech, including an internal remote-cache that she says cut CI spend ~60% [C3]. That employment and impact claim is **unverified** on file—no manager/peer reference or employment artifact is attached.\n\n### Execution residue (independent)\nWhat the record can verify about her as an operator is shipping and public presence, not pedigree:\n\n- Public repo history shows sustained, founder-dominated delivery: **1,400 commits over 11 months**, **86% by the founder**, **weekly releases for the last 20 weeks**, plus CI with real test coverage [C4]. The same archive shows **9 external contributors**, **412 stars**, **61 forks**—contributors, not a disclosed exec team [C5].\n- May 2026: **Hack-Nation Global AI Hackathon** infrastructure-track winner (~400 teams) for Ferrite as content-addressed caching for agent CI [C6].\n- 2 June 2026 launch: aggregator front page ~6 hours; founder answered **41** in-thread comments with technical depth; **three** commenters self-identified as production users [C7].\n\nAn illustrative Founder Score fixture on file marks `cold_start: true` and scores **71 [58, 80]** (medium confidence), explicitly tying the score to shipping cadence and the hackathon win—not to deck traction [C8]. That fixture is labeled fictional / not Memory-layer output; weigh, do not treat as an independent underwriting authority.\n\n### Exec team & single-founder red flag\nNo co-founder, CTO/CEO split, or other named executives appear in the application or archived signals [C1]. The operating footprint is Mara plus open-source contributors on the public repo [C5]. Example Fund I's stated posture puts pre-track-record / cold-start technical founders in scope and prioritizes shipping velocity over pedigree; solo founding is therefore a diligence concentration risk, not an automatic disqualifier under that thesis.\n\nIndependently archived residue available for solo-founder assessment: weekly shipping, the hackathon win, and launch-thread self-identified production users [C9]. Deck installs/MRR are not part of that independent residue. Agent-derived forum adjudication (deliberation input, not a company signal) left a **stable fork**: write $100k on that residue vs wait for reconciled billing/telemetry. Comfort with the single-founder concentration is therefore **conditional** on the same-week user-contact + billing/telemetry instrument collapsing that fork—not settled by pedigree or by the fixture score.\n\n### Company timeline (founding → today)\nExact legal incorporation / founding date is **not disclosed**. Observable product history as of mid-July 2026:\n\n| When | What | Trust |\n|------|------|--------|\n| ~11 months of commit history (through mid-July 2026 observation) | Founder-dominated build of the public Ferrite repo | verified-online [C4] |\n| May 2026 | Hack-Nation infrastructure-track win | verified-online [C6] |\n| 2 June 2026 | Public launch; self-identified production users in-thread | verified-online [C7] |\n| 17 July 2026 | Applied for $500k pre-seed / $100k fast check (solo technical founder, no prior fundraise) | subject application [C1][C2] |\n\nNo prior institutional round is claimed; none is evidenced on file beyond the cold-start flag [C2][C8].",
+  "claims": [
+    {
+      "text": "Mara Voss is Ferrite's solo technical founder, located in Berlin, DE.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "solo founder, technical"
+        },
+        {
+          "signal_id": "application",
+          "quote": "Berlin, DE"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Mara Voss is a first-time founder with no prior fundraise.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "First-time founder. No prior fundraise."
+        },
+        {
+          "signal_id": "sig-006",
+          "quote": "cold_start true (no prior fundraise, no prior company)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Founder claims four years of infra at a mid-size fintech and authorship of an internal remote-cache that cut CI spend 60%.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public Ferrite repository shows 1,400 commits over 11 months with 86% authored by the founder, and weekly release cadence for the last 20 weeks, with CI config showing real test coverage.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public Ferrite repository has 412 stars, 61 forks, and 9 external contributors.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 in a judged field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "On 2 June 2026 launch, the founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Illustrative Founder Score fixture lists score 71 [58, 80], confidence medium, cold_start true, with rationale pointing at shipping cadence and hackathon win; fixture is explicitly not Memory-layer output.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-006",
+          "quote": "FICTIONAL FIXTURE — illustrative Founder Score for the invented Ferrite deal: 71 [58, 80], confidence medium, cold_start true (no prior fundraise, no prior company), rationale: shipping cadence (sig-002) and hackathon win (sig-003). Hand-written example of the founder.schema shape; NOT produced by the Memory layer (real Memory records live in memory/founders.json)."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Independently archived signals show weekly release cadence for the last 20 weeks, a May 2026 Hack-Nation infrastructure-track win, and three launch-thread commenters who identified themselves as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Weekly release cadence for the last 20 weeks."
+        },
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        },
+        {
+          "signal_id": "sig-005",
+          "quote": "three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "Legal founding / incorporation date",
+      "note": "Not disclosed; timeline reconstructed only from repo commit span, hackathon, launch, and application date."
+    },
+    {
+      "field": "Co-founders / exec team roster",
+      "note": "Application states solo founder; no other named executives, advisors with equity, or org chart on file."
+    },
+    {
+      "field": "Prior-employer / remote-cache reference check",
+      "note": "Fintech infra tenure and ~60% CI-spend claim are subject-only; no employment verification, manager/peer reference, or internal artifact attached (triage routed check open)."
+    },
+    {
+      "field": "Cap table / equity ownership",
+      "note": "Not disclosed."
+    },
+    {
+      "field": "Prior company history beyond cold-start flag",
+      "note": "No prior company names, exits, or failed ventures on file beyond 'no prior company' in the illustrative Founder Score fixture."
+    },
+    {
+      "field": "Launch-thread production-user identities / references",
+      "note": "Three self-identified production users noted in archived launch thread; no outbound contact notes or customer references on file yet (instrument for the residual fork)."
+    },
+    {
+      "field": "Forum adjudication as primary evidence",
+      "note": "Stable-fork-plus-instrument outcome (write on shipping residue vs wait for billing/telemetry) is agent-derived deliberation input, not an archived independent signal; solo-founder underwriting comfort remains conditional on that instrument."
+    }
+  ]
+}

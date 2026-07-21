@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["score", "band", "rating", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"],
+  "properties": {
+    "score": { "type": "integer", "description": "0-100. Attractiveness of the market under the fund's mandate: sizing, competitor clusters, structural why-now. Must agree directionally with `rating`." },
+    "band": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "[low, high]. Code-side check enforces 0<=low<=score<=high<=100." },
+    "rating": { "type": "string", "enum": ["bullish", "neutral", "bearish"], "description": "The categorical call, exactly one. The numeric score is its projection for presentation; the two must not point in opposite directions." },
+    "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room. Required (>=1) when the room convened; must be empty when it did not." },
+    "room_effect": { "type": "string", "description": "How the room moved this dimension. Empty string in degraded no-room mode." },
+    "mandate_refs": { "type": "array", "items": { "type": "string" }, "description": "Thesis field names that shaped this rating." },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "note"],
+      "properties": {
+        "declared": { "type": "boolean" },
+        "note": { "type": "string", "description": "Non-empty iff declared." }
+      }
+    },
+    "coverage_challenges": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string", "description": "Sizing sketch, competitor clusters, the structural why-now — or why-not." }
+  }
+}

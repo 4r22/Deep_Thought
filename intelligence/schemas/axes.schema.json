@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["room", "founder", "market", "idea_vs_market", "disagreement"],
+  "properties": {
+    "room": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["convened", "note"],
+      "properties": {
+        "convened": { "type": "boolean", "description": "True when a forum ran and its reference space is being projected here. False = degraded no-room mode (reject path)." },
+        "note": { "type": "string", "description": "One line: convened + how the room shaped the mapping, OR skipped + why (degraded mode: wide bands, confidence at most medium)." }
+      }
+    },
+    "founder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "band", "trend", "confidence", "cold_start", "evidence_refs", "position_refs", "room_effect", "notes"],
+      "properties": {
+        "score": { "type": "integer", "description": "0-100. Who they are: traits, track record, execution evidence. A projection of the room, not computed inside it. The persistent Founder Score from Memory is one input, not a substitute." },
+        "band": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "[low, high]. Thin evidence or an unresolved fork touching this axis = wide band. Code-side check enforces 0<=low<=score<=high<=100." },
+        "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+        "cold_start": { "type": "boolean", "description": "True when scored on public footprint only. Cold start widens the band; it never counts as negative evidence." },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "Signal ids grounding any movement off the prior. No evidence, no score movement." },
+        "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room: 'seat-N/pre', 'seat-N/post', 'debate', 'adjudication' (optionally with a fragment like 'debate#turn-11'); 'bull/pre' etc. for 2-pole rooms. Required (>=1) when room.convened." },
+        "room_effect": { "type": "string", "description": "How the room moved this axis off the prior — which held/refined/conceded position drove it. Empty string in degraded no-room mode." },
+        "notes": { "type": "string" }
+      }
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rating", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "notes"],
+      "properties": {
+        "rating": { "type": "string", "enum": ["bullish", "neutral", "bearish"] },
+        "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room. Required (>=1) when room.convened." },
+        "room_effect": { "type": "string", "description": "How the room moved this axis. Empty string in degraded no-room mode." },
+        "notes": { "type": "string", "description": "Sizing sketch, competitor clusters, the structural why-now — or why-not." }
+      }
+    },
+    "idea_vs_market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "notes"],
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": ["survives-as-is", "pivot-likely-team-strong", "pivot-likely-team-weak", "fails-scrutiny"],
+          "description": "Does the idea survive scrutiny as-is, or is the team strong enough to pivot? Deliberately entangles idea quality with team adaptability — that is the axis."
+        },
+        "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room. Required (>=1) when room.convened." },
+        "room_effect": { "type": "string", "description": "How the room moved this axis. Empty string in degraded no-room mode." },
+        "notes": { "type": "string" }
+      }
+    },
+    "disagreement": {
+      "type": "string",
+      "description": "Where the three axes point in different directions, stated plainly. The axes are NEVER averaged — disagreement is the signal an investor needs to see. Empty string only when all three genuinely agree. NO forum_trigger lives here anymore; the forum ran before this stage."
+    }
+  }
+}

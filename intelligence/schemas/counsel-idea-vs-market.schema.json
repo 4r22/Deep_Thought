@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["score", "band", "verdict", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"],
+  "properties": {
+    "score": { "type": "integer", "description": "0-100. How strongly the idea-with-this-team survives scrutiny: high = survives as-is or the team clearly pivots through; low = fails scrutiny with a team unlikely to adapt. Must agree directionally with `verdict`." },
+    "band": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "[low, high]. Code-side check enforces 0<=low<=score<=high<=100." },
+    "verdict": {
+      "type": "string",
+      "enum": ["survives-as-is", "pivot-likely-team-strong", "pivot-likely-team-weak", "fails-scrutiny"],
+      "description": "Does the idea survive scrutiny as-is, or is the team strong enough to pivot? Deliberately entangles idea quality with team adaptability — that is the dimension."
+    },
+    "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room. Required (>=1) when the room convened; must be empty when it did not." },
+    "room_effect": { "type": "string", "description": "How the room moved this dimension. Empty string in degraded no-room mode." },
+    "mandate_refs": { "type": "array", "items": { "type": "string" }, "description": "Thesis field names that shaped this rating." },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "note"],
+      "properties": {
+        "declared": { "type": "boolean" },
+        "note": { "type": "string", "description": "Non-empty iff declared." }
+      }
+    },
+    "coverage_challenges": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" }
+  }
+}

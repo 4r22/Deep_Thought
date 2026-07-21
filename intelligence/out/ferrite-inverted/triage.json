@@ -1,0 +1,49 @@
+{
+  "routed_checks": [
+    "Deck $18k MRR and +40% MoM for 3 months -> request payment-processor (or billing) export for the trailing 4 months with plan mix and refunds",
+    "Deck 3,100 active installations / 240 orgs -> request product telemetry or admin export defining 'active install' and org count for the same window as the deck",
+    "Registry 2,900 lifetime / 340 weekly downloads vs install claim -> map distribution surfaces (public registry, private mirrors, binaries, containers, self-host) and reconcile counts to one definition",
+    "10x agent-CI cost reduction -> request benchmark protocol, workload mix, and any customer before/after CI spend artifact",
+    "Named design partners (Series-B devtools; AI lab) -> founder intros or written confirmation of partnership scope and status",
+    "Founder claim: mid-size fintech infra + internal remote-cache with ~60% CI cut -> employment/reference check with prior manager or infra peer",
+    "Launch-thread self-identified production users -> contact those commenters or obtain 2–3 customer references with workload and spend context",
+    "GitHub shipping cadence already independently archived -> spot-check release notes and CI logs against the claimed weekly cadence only if commercial checks fail"
+  ],
+  "tensions": [
+    {
+      "name": "deck active-install scale vs public registry download totals",
+      "side_a": {
+        "claim": "Deck asserts 3,100 active installations across 240 organizations as current traction scale.",
+        "evidence_refs": [
+          "sig-001"
+        ]
+      },
+      "side_b": {
+        "claim": "Public package registry shows 2,900 lifetime downloads and ~340/week — lifetime downloads below the claimed active-install count.",
+        "evidence_refs": [
+          "sig-004"
+        ]
+      }
+    },
+    {
+      "name": "independent product-presence signals vs registry-implied distribution scale",
+      "side_a": {
+        "claim": "Independent signals show sustained shipping, competitive validation, and self-identified production users after launch.",
+        "evidence_refs": [
+          "sig-002",
+          "sig-003",
+          "sig-005"
+        ]
+      },
+      "side_b": {
+        "claim": "Verified public download totals imply a much smaller install base than the deck’s active-install narrative.",
+        "evidence_refs": [
+          "sig-004"
+        ]
+      }
+    }
+  ],
+  "crux": "If commercial checks shrink true paid/active scale toward registry-order magnitude, does the fund’s stated posture—shipping velocity over pedigree, cold start in scope—still underwrite a $100k fast check on Mara’s solo technical execution alone, or does contested traction require waiting for reconciled revenue/install proof before any check?",
+  "room_brief": "Seat the room across the live install-count contradiction (deck vs registry), not around pedigree. Cover the empirical gaps the checks will settle—MRR/MoM, install definition, design-partner substance, 10x benchmark, prior-employer remote-cache claim—then press the cold-start durability question: whether weekly-release shipping, hackathon win, and launch-thread production users are enough wedge if commercial metrics compress. Avoid stacking seats that only argue ‘shipped code = traction’ or only ‘registry kills the deck’; the disagreement to span is how much independent shipping evidence can carry conviction when the strongest scale claims are contested.",
+  "confidence": "medium"
+}

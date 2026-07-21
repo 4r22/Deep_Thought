@@ -1,0 +1,17 @@
+{
+  "generated": "2026-07-21",
+  "runs": [
+    "ferrite-full",
+    "ferrite-inverted"
+  ],
+  "forums": [
+    {
+      "id": "ferrite-inverted",
+      "title": "ferrite-inverted",
+      "path": "../intelligence/out/ferrite-inverted",
+      "layout": "run",
+      "run": "ferrite-inverted",
+      "docs": []
+    }
+  ]
+}

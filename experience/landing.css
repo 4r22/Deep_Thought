@@ -1,0 +1,85 @@
+/* Landing page structure — the architecture rundown at the repo root.
+   Loads AFTER skeleton.css + app.css (the shared chrome: topbar, run-card,
+   over-card, card-head) and BEFORE skins/*.css, which dress those classes
+   unchanged. Only landing-specific structure lives here — no material. */
+
+/* anchors dressed as skeleton buttons / cards */
+a.sk-btn { display: inline-block; text-decoration: none; text-align: center; }
+a.over-card { display: block; text-decoration: none; color: inherit; }
+
+/* ── main column ────────────────────────────────────────────────────────── */
+.land {
+  max-width: var(--col-width);
+  margin: 0 auto;
+  padding: 24px 0 60px;
+}
+
+/* ── hero ───────────────────────────────────────────────────────────────── */
+.land-hero { padding: 44px 2px 34px; }
+.land-hero h1 {
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+.land-tag {
+  margin: 14px 0 0;
+  font-size: 19px;
+  max-width: 62ch;
+  color: var(--ink-muted);
+}
+.land-tag strong { color: var(--ink); }
+.land-hero .axis-chips { margin-top: 16px; }
+.land-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ── decision flow: the pipeline as architecture (no clocks here) ───────── */
+.flow-intro { margin: 0 0 14px; font-size: 15px; max-width: 76ch; }
+.land-flow { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; }
+.flow-step {
+  flex: 1 1 130px;
+  min-width: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--sub-radius);
+  padding: 10px 12px;
+}
+.flow-step .sk-label { display: block; color: var(--ink); }
+.flow-step p { margin: 4px 0 0; font-size: 12.5px; color: var(--ink-muted); line-height: 1.45; }
+.flow-arrow { align-self: center; color: var(--ink-faint); font-family: var(--font-mono); font-size: 12px; }
+@media (max-width: 720px) {
+  .land-flow { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); align-self: flex-start; margin-left: 18px; }
+}
+
+/* ── three layers + demo tapes: door cards into the app ─────────────────── */
+.land-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.layer-name { font-size: 24px; font-weight: 700; letter-spacing: var(--header-spacing); }
+.over-card .layer-sub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.over-card p { hyphens: none; }
+.card-go { margin-top: 10px; font-size: 12.5px; color: var(--blue); font-family: var(--font-mono); letter-spacing: 0.5px; }
+
+/* ── commitments + direction lists ──────────────────────────────────────── */
+.commit-list, .dir-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.commit-list li, .dir-list li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--sub-radius);
+  padding: 10px 14px;
+  font-size: 14.5px;
+}
+.commit-list li > span:last-child, .dir-list li > span:last-child { min-width: 0; }
+.dir-list .sk-chip { flex: 0 0 auto; }
+.ledger-note { margin: 12px 0 0; }

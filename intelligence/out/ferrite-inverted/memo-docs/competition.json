@@ -1,0 +1,171 @@
+{
+  "body_md": "## Competition\n\n### Record posture\nNamed competitor products, vendors, and clusters are **absent** from the application and from every independent signal on file (GitHub, registry, hackathon archive, launch thread). This document cannot deliver the judges’ brief of named clusters with per-cluster differentiation; the gaps inventory is the binding statement. What follows is Ferrite’s stated wedge, category-presence signals, contested capture scale, and explicitly reconstructed later-threat *classes* (not evidenced entities).\n\n### Stated wedge (claimed differentiation; no named foil)\nFerrite’s application positions the product as a “Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet” [C1]. Deck claims include “10x cost reduction on agent-driven CI workloads (internal benchmark)” [C2]. Both are subject claims of how Ferrite differs from unspecified alternatives. The record has no named competitor comparison and no independent competitive teardown.\n\n### Category / presence signals (field validation, not a rival map)\nIndependent signals show public selection and early production interest without identifying adjacent products:\n- Hack-Nation Global AI Hackathon May 2026: winner, infrastructure track, for “Ferrite: content-addressed caching for agent CI”; judged field of ~400 teams [C3].\n- GitHub (archived): 412 stars, 61 forks, 9 external contributors; weekly release cadence for the last 20 weeks [C4].\n- Launch post, 2 June: front page of a major aggregator for ~6 hours; three commenters identified themselves as production users [C5].\n\nThese support category interest and product presence, not a competitive set.\n\n### Capture scale (early vs. locked — contested)\nPublic package registry: 340 downloads/week, 2,900 downloads total lifetime [C6]. Deck: “3,100 active installations across 240 organizations” [C7]. Lifetime registry downloads sit below the claimed active-install count—tension on file, not smoothed. If verified distribution compresses toward registry order, capture is early rather than category-owning against whoever later ships agent-aware caching.\n\n### Who could become a threat later\n**No named later threats are on file.** Reconstructed placeholder classes only (not entities on file): remote-cache / CI platforms adding agent-step dedupe; agent-orchestration vendors bundling cache; a design partner or AI lab shipping an internal equivalent. Design partners appear only as “one Series-B devtools company, one AI lab (names withheld in deck)” [C8]—potential build-vs-buy actors, not competitive intel.\n\n### Confidence\nCompetition confidence is **low**. Wedge and category presence have anchors; named clusters, per-cluster differentiation, and named later threats cannot be filled without fabrication. Agent-derived forum residual (write on shipping/inflection/reachable users vs wait for billing/telemetry) tempers check timing, not the competitive map—see gaps.\n",
+  "claims": [
+    {
+      "text": "Ferrite’s application positions the product as a content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The deck claims a 10x cost reduction on agent-driven CI workloads via an internal benchmark.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 for content-addressed caching for agent CI, in a judged field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The archived Ferrite GitHub repository shows 412 stars, 61 forks, 9 external contributors, and a weekly release cadence for the last 20 weeks.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "After the 2 June launch post reached the front page of a major aggregator for ~6 hours, three commenters identified themselves as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The public package registry for ferrite-cache shows 340 downloads/week and 2,900 downloads total lifetime.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "The deck asserts 3,100 active installations across 240 organizations.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Design partners are disclosed only as one Series-B devtools company and one AI lab, with names withheld in the deck.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "named_competitor_clusters",
+      "note": "No named competitor products, vendors, or clusters appear in the application, deck (sig-001), GitHub (sig-002), hackathon archive (sig-003), registry (sig-004), or launch thread (sig-005). Judges’ brief cannot be filled from this file."
+    },
+    {
+      "field": "per_cluster_differentiation",
+      "note": "No side-by-side differentiation versus named alternatives. Only Ferrite’s self-positioned agent-CI content-addressed cache wedge (application/deck) exists."
+    },
+    {
+      "field": "named_later_threats",
+      "note": "No incumbent remote-cache vendor, CI platform, build system, or agent-infra product is identified as a future threat. Body placeholder classes (CI/remote-cache expansion; agent-orchestration bundling; partner internal builds) are reconstructed, not evidenced."
+    },
+    {
+      "field": "competitive_teardown_or_win_loss",
+      "note": "No win/loss notes, bake-offs, substitute analysis, or feature matrix. Hackathon win (sig-003) is field validation among ~400 teams, not a named-rival comparison."
+    },
+    {
+      "field": "design_partner_identities",
+      "note": "Series-B devtools and AI lab design partners are name-withheld; cannot assess whether they are distribution channels, future competitors, or both."
+    },
+    {
+      "field": "10x_benchmark_vs_alternatives",
+      "note": "10x agent-CI cost reduction is an internal benchmark claim with no protocol, baseline product, or customer before/after artifact—cannot anchor competitive performance claims."
+    },
+    {
+      "field": "market_share_or_category_sizing",
+      "note": "No TAM/SAM, category spend, or share versus remote-cache/CI/agent-infra alternatives. Three-axis market notes (agent-derived) flag sizing/competitor clusters as thin; not independently verified."
+    },
+    {
+      "field": "founder_prior_remote_cache_as_competitive_context",
+      "note": "Founder claims prior internal remote-cache that cut CI spend ~60% (application background)—employment/reference unchecked; not usable as competitive moat or landscape evidence."
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "room": {
+    "convened": true,
+    "note": "convened; three axis offices read the full proceedings blind and projected the room"
+  },
+  "members": {
+    "founder": {
+      "score": 73,
+      "band": [
+        56,
+        86
+      ],
+      "trend": "stable",
+      "confidence": "medium",
+      "cold_start": true,
+      "evidence_refs": [
+        "sig-002",
+        "sig-003",
+        "sig-005",
+        "sig-006"
+      ],
+      "position_refs": [
+        "seat-3/pre",
+        "seat-3/post",
+        "seat-5/pre",
+        "seat-5/post",
+        "seat-2/post",
+        "seat-4/post",
+        "seat-1/post",
+        "debate#turn-11",
+        "debate#turn-21",
+        "adjudication"
+      ],
+      "room_effect": "Graham and Maples held under pressure that verified weekly shipping, hackathon win, and reachable production users remain underwritable founder residue once deck MRR/installs are zero-weighted; Gurley/Majors and Eghbal-under-compression wait on commercial measurement without downgrading craft—leaving the adjudication residual fork on execution-vs-proof that caps confidence and widens the band.",
+      "mandate_refs": [
+        "risk_appetite",
+        "notes",
+        "stage",
+        "sectors",
+        "geography",
+        "check_usd"
+      ],
+      "deviation": {
+        "declared": false,
+        "note": ""
+      },
+      "coverage_challenges": [
+        "Routed employment/reference check on the claimed mid-size fintech remote-cache (~60% CI cut) was never seated or pressed; founder track-record DNA beyond public shipping went untested.",
+        "Solo-founder key-person durability (86% founder commits, weekly cadence as single-operator dependency) was not argued as a founder-risk tension opposite the shipping-praise pole.",
+        "Graham named knowing metric inflation as a character kill switch, but no seat cross-examined deception vs definitional mismatch beyond the install/registry numbers themselves."
+      ],
+      "open_questions": [
+        "Request employment or peer reference check with Mara’s prior fintech infra manager on the internal remote-cache and ~60% CI-spend cut claim.",
+        "Contact the three launch-thread production users (or two founder-introduced current users) this week for an unscripted agent-CI cost or latency win in their words.",
+        "Request a founder-owned distribution-channel map plus written active-install definition for the deck window that either reconciles below 3,100 or cleanly corrects the slide without dual books."
+      ],
+      "notes": "Cold-start solo technical founder scored on public footprint: independently verified weekly releases for ~20 weeks, Hack-Nation infra-track win, and launch-thread production-user intimacy (sig-002/003/005). Memory fixture 71 [58,80] weighed as prior shape, not copied. Room converged that contested deck scale/MRR cannot carry underwriting and that shipping keeps diligence open; the stable fork is whether that execution residual alone clears a $100k check—priced as wider band and medium confidence, not as a founder-quality downgrade. Inside mandate: high risk appetite and shipping-over-pedigree notes; cold start not charged negative."
+    },
+    "market": {
+      "score": 56,
+      "band": [
+        40,
+        72
+      ],
+      "rating": "neutral",
+      "trend": "stable",
+      "confidence": "medium",
+      "evidence_refs": [
+        "sig-001",
+        "sig-003",
+        "sig-004",
+        "sig-005"
+      ],
+      "position_refs": [
+        "seat-5/pre",
+        "seat-5/post",
+        "seat-4/pre",
+        "seat-4/post",
+        "seat-3/pre",
+        "debate#turn-6",
+        "debate#turn-12",
+        "debate#turn-21",
+        "adjudication"
+      ],
+      "room_effect": "Maples held agent-driven CI as the investable inflection and priced failed deck scale as uncertainty; Majors held that unreproducible 10x leaves the why-now magnitude undefined—leaving Market with a coherent structural premise but no cleared sizing, and the stable write-vs-wait residual caps conviction.",
+      "mandate_refs": [
+        "sectors",
+        "stage",
+        "geography",
+        "check_usd",
+        "notes"
+      ],
+      "deviation": {
+        "declared": false,
+        "note": ""
+      },
+      "coverage_challenges": [
+        "No seat mapped competitor clusters—incumbent remote/build caches, CI-vendor native caches, or adjacent agent-CI infra—so substitution and capture risk were never pressed.",
+        "No seat sized addressable spend, buyer concentration, or near-term SAM for agent-driven CI dedupe; deck installs/MRR were zero-weighted without a replacement market-sizing probe.",
+        "Triage routed design-partner substance (Series-B devtools; AI lab) but the room never tested those partners as category or pull evidence.",
+        "Whether agent-CI caching is a durable category versus a feature absorbed by CI platforms went unargued across both forks."
+      ],
+      "open_questions": [
+        "Request written confirmation from the two claimed design partners on partnership scope, status, and whether spend is net-new agent-CI cost versus replacement of an existing remote cache.",
+        "Request the one-page 10x protocol (workload mix, before/after CI spend artifact, environment) so a third party can rerun the cost claim that carries the why-now magnitude.",
+        "Request a founder-supplied displacement map: which alternatives each paying or production user evaluated or replaced (vendor CI cache, Bazel/BuildKit-style remote cache, other).",
+        "Request trailing-4-month billing export with plan mix and customer count as a proxy for which buyer segment is actually paying under registry-order compression."
+      ],
+      "notes": "Under the mandate’s ai-infrastructure/devtools pre-seed lane, the only load-bearing Market claim on file is structural why-now: LLM-agent CI regenerating fleet build steps makes content-addressed dedupe newly valuable (seat-5 held; hackathon framing in sig-003). That premise is directionally attractive and in-thesis, but sizing and competitor structure are absent from the room. Deck 3,100 installs / $18k MRR cannot proxy penetration (room convergence + sig-001 vs sig-004); registry-order compression leaves near-term captured demand thin and unverified (sig-004, sig-005). 10x remains an undefined internal benchmark (seat-4), so why-now magnitude is unpriced. Result: coherent inflection thesis without cleared TAM, clusters, or durable-category proof—neutral Market with a wide band until the diligence packet answers partner pull, protocol, and displacement."
+    },
+    "idea_vs_market": {
+      "score": 70,
+      "band": [
+        54,
+        84
+      ],
+      "verdict": "survives-as-is",
+      "trend": "stable",
+      "confidence": "medium",
+      "evidence_refs": [
+        "sig-002",
+        "sig-003",
+        "sig-005",
+        "sig-001",
+        "sig-004"
+      ],
+      "position_refs": [
+        "seat-5/pre",
+        "seat-5/post",
+        "seat-3/pre",
+        "seat-3/post",
+        "seat-4/pre",
+        "seat-4/post",
+        "seat-2/post",
+        "seat-1/post",
+        "debate#turn-11",
+        "debate#turn-12",
+        "debate#turn-21",
+        "debate#turn-25",
+        "debate#turn-26",
+        "adjudication"
+      ],
+      "room_effect": "Adjudication left a stable write-vs-wait fork on check timing, but both poles zero-weighted uncleared deck scale and kept the agent-CI caching idea plus verified shipping/users as live residue rather than a failed-idea or pivot case; Maples/Graham held inflection-and-craft under compression while Gurley/Majors/Eghbal blocked the check on measurement integrity, not on idea death.",
+      "mandate_refs": [
+        "sectors",
+        "stage",
+        "geography",
+        "check_usd",
+        "risk_appetite",
+        "notes"
+      ],
+      "deviation": {
+        "declared": false,
+        "note": ""
+      },
+      "coverage_challenges": [
+        "No seat pressure-tested whether content-addressed agent-CI dedupe is differentiated from ordinary remote/build caches once the LLM-agent workload assumption is stripped—idea survival was asserted via inflection framing, not competed against substitutes.",
+        "Solo-founder adaptability if the agent-CI inflection is wrong went unargued; the room tested shipping and intimacy as underwriting residue, not pivot capacity.",
+        "Design-partner substance (Series-B devtools; AI lab) as market-validation evidence was routed in triage but never cross-examined in debate as a market signal distinct from launch-thread users."
+      ],
+      "open_questions": [
+        "Contact the three launch-thread production users (or two founder-introduced current users) this week for an unscripted agent-CI cost/latency win.",
+        "Request trailing-4-month payment-processor/billing export with plan mix, refunds, and customer count reconciled to the deck MRR window.",
+        "Request same-window product telemetry/admin export defining active install and organization plus an explicit distribution-channel map against the public registry.",
+        "Request a one-page reproducible 10x benchmark protocol (workload mix, before/after CI spend artifact, environment).",
+        "Request founder intros or written confirmation of design-partner scope and status for the named Series-B and AI-lab partners."
+      ],
+      "notes": "Idea-vs-market reads the record as an intact agent-CI caching thesis with a shipping-capable solo technical founder, not as a weak idea needing a pivot. Independent craft and presence (weekly releases, Hack-Nation win, launch production users) survive after deck installs/MRR are set to non-evidence; the live residual is whether that residue clears a $100k check before billing/telemetry, which caps confidence and widens the band without flipping the idea to fails-scrutiny. Mandate fit is comfortable: EU pre-seed AI infra/devtools, cold-start in scope, shipping velocity over pedigree, $100k fast-check size."
+    }
+  },
+  "aggregation": {
+    "per_axis_scores": {
+      "founder": 73,
+      "market": 56,
+      "idea_vs_market": 70
+    },
+    "cross_axis_note": "Per-axis scores only. The cross-axis mean is presentational — computed in the Experience layer, never persisted in artifacts, never an input to any stage. The axes are never averaged here; disagreement is signal."
+  }
+}

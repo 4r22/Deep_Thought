@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["score", "band", "trend", "confidence", "cold_start", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"],
+  "properties": {
+    "score": { "type": "integer", "description": "0-100. Who they are: traits, track record, execution evidence. A projection of the room, not a vote taken in it. The persistent Founder Score from Memory is one input, not a substitute." },
+    "band": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2, "description": "[low, high]. Thin evidence or an unresolved fork touching this dimension = wide band. Code-side check enforces 0<=low<=score<=high<=100." },
+    "trend": { "type": "string", "enum": ["improving", "stable", "declining"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] },
+    "cold_start": { "type": "boolean", "description": "True when scored on public footprint only. Cold start widens the band; it never counts as negative evidence." },
+    "evidence_refs": { "type": "array", "items": { "type": "string" }, "description": "Signal ids grounding any movement off the prior. No evidence, no score movement." },
+    "position_refs": { "type": "array", "items": { "type": "string" }, "description": "Seat references into the room: 'seat-N/pre', 'seat-N/post', 'debate', 'adjudication' (optionally with a fragment like 'debate#turn-11'); 'bull/pre' etc. for 2-pole rooms. Required (>=1) when the room convened; must be empty when it did not." },
+    "room_effect": { "type": "string", "description": "How the room moved this dimension off the prior — which held/refined/conceded position drove it. Empty string in degraded no-room mode." },
+    "mandate_refs": { "type": "array", "items": { "type": "string" }, "description": "Thesis field names that shaped this rating (e.g. 'risk_appetite', 'disqualifiers'). The counsel is the mandate's keeper — an office rating cites its charter." },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "note"],
+      "properties": {
+        "declared": { "type": "boolean", "description": "True when this rating goes against the mandate's grain. Deviations are allowed but must be declared; an undeclared deviation is a defect." },
+        "note": { "type": "string", "description": "Which mandate field is deviated from and what in the record forces it. Non-empty iff declared." }
+      }
+    },
+    "coverage_challenges": { "type": "array", "items": { "type": "string" }, "description": "What the room failed to test on this dimension — an unpressed tension, an unconsulted evidence class, an unargued minority position. Empty when coverage was genuine, and in no-room mode." },
+    "open_questions": { "type": "array", "items": { "type": "string" }, "description": "Questions on this dimension no document on file settles, each phrased as its cheapest decisive check. Flow into memo conditions and the diligence log. Never answered here." },
+    "notes": { "type": "string" }
+  }
+}

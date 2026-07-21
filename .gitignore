@@ -1,0 +1,38 @@
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+*.log
+
+# Ruby (if the Rails platform gets vendored in)
+/vendor/bundle
+/.bundle
+tmp/
+log/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

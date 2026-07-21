@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["company", "diligence_log", "decision", "provenance"],
+  "properties": {
+    "company": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "one_liner"],
+      "properties": {
+        "name": { "type": "string" },
+        "one_liner": { "type": "string" }
+      }
+    },
+    "diligence_log": {
+      "type": "array",
+      "description": "What was checked and what remains open. Every open item names its cheapest decisive check — the concrete instrument, not 'do more research'.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item", "status", "instrument"],
+        "properties": {
+          "item": { "type": "string" },
+          "status": { "type": "string", "enum": ["done", "open"] },
+          "instrument": { "type": "string", "description": "For done: what was run and what it showed. For open: the named cheapest decisive check that would close it." }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recommendation", "check_usd", "conditions", "rationale"],
+      "properties": {
+        "recommendation": { "type": "string", "enum": ["fund", "pass", "contested"] },
+        "check_usd": { "type": "integer" },
+        "conditions": { "type": "array", "items": { "type": "string" }, "description": "Milestone gates or tranche conditions — drawn from the forum adjudication's Instrument when one ran." },
+        "rationale": { "type": "string", "description": "The recommendation a human investor acts on within 24 hours. The human is the gate; this is agent-derived input, and says so." }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "One line per major conclusion, machine-countable: [prov: C3 / traction / sig-014]. The claim slot holds a real global claim id and the signal slot a real signal id — never a label. One line per (claim, signal) pair."
+    }
+  }
+}

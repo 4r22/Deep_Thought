@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["routed_checks", "tensions", "crux", "room_brief", "confidence"],
+  "properties": {
+    "routed_checks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Every empirical sub-question, each as 'empirical question -> named cheapest decisive check' (e.g. 'MRR claim -> request payment-processor export'). Checks outrank debates on questions a check can settle."
+    },
+    "tensions": {
+      "type": "array",
+      "description": "Evidence-vs-evidence tensions in the record. NOT bull/bear stances: each side cites its own evidence. A tension whose sides cannot each anchor to a signal is not a tension.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "side_a", "side_b"],
+        "properties": {
+          "name": { "type": "string", "description": "One line naming the tension, e.g. 'deck install-count vs registry downloads'." },
+          "side_a": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["claim", "evidence_refs"],
+            "properties": {
+              "claim": { "type": "string" },
+              "evidence_refs": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Signal ids backing this side. At least one — a side with no evidence is not a side." }
+            }
+          },
+          "side_b": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["claim", "evidence_refs"],
+            "properties": {
+              "claim": { "type": "string" },
+              "evidence_refs": { "type": "array", "items": { "type": "string" }, "minItems": 1, "description": "Signal ids backing this side. At least one." }
+            }
+          }
+        }
+      }
+    },
+    "crux": {
+      "type": "string",
+      "description": "ALWAYS non-blank. The sharpest judgment fork no routed check can settle — posture, risk-tolerance, conviction. For a clean record with no live fork, the dominant what-would-have-to-be-true. This seeds the room."
+    },
+    "room_brief": {
+      "type": "string",
+      "description": "What the room must cover — contradictions, gaps, cold-start, the wedge. Guidance for seating, not a verdict."
+    },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] }
+  }
+}

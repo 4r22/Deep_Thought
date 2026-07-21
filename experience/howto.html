@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>terminal — how to</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./skeleton.css">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="./landing.css?v=2026-07-19-1">
+  <link rel="stylesheet" href="./skins/alu.css">
+  <link rel="stylesheet" href="./skins/glass.css">
+  <style>
+    /* how-to page only — tokens-only polish over the shared classes */
+    .howto-fn-list li span:nth-child(2) { flex: 1; min-width: 0; }
+    .howto-eg li code.mono { flex: 0 0 auto; }
+    .sk-chip.howto-shipped  { color: var(--ink); border-color: var(--line-soft); }
+    .sk-chip.howto-designed { color: var(--ink-faint); border-color: var(--line-soft); border-style: dashed; }
+  </style>
+  <script>
+    // Pre-paint stamps — same keys as the run viewer, so the landing wears
+    // whatever theme + skin the visitor last chose in the app.
+    (function () {
+      var root = document.documentElement;
+      try {
+        if (localStorage.getItem('vcbrain-theme') === 'dark') root.classList.add('theme-dark');
+        var skin = localStorage.getItem('vcbrain-skin:v1');
+        if (skin !== null && skin !== 'glass' && skin !== 'alu' && skin !== 'skeleton') {
+          localStorage.removeItem('vcbrain-skin:v1');
+          skin = null;
+        }
+        if (skin === null) skin = 'glass'; // default showcase skin (operator decision)
+        if (skin === 'glass') root.classList.add('skin-glass');
+        else if (skin === 'alu') root.classList.add('skin-alu');
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+<div class="band-flash" aria-hidden="true"></div>
+
+<header class="topbar" data-skin="bar">
+  <a class="brand" href="../">vc<span class="brand-dot">.</span>brain</a>
+  <div class="topbar-tools">
+    <a class="sk-btn" data-skin="btn" href="./?run=ferrite-full&view=overview">open the run viewer</a>
+  </div>
+</header>
+
+<main class="land">
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">terminal — how to</span><span class="rule"></span>
+      <span class="sk-chip blue">⌘K</span></div>
+    <p class="flow-intro" style="font-size:16px">Everything in the corpus is an <strong>entity</strong> — a person,
+      a forum, an evidence signal, a run, a document. Every page is an <strong>entity × function</strong>. One command
+      line reaches all of it: press <code class="mono">⌘K</code> (or <code class="mono">/</code>), type a few letters
+      of what you want, optionally name a function, press enter. No menus, no paths — the whole corpus behind one prompt.</p>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the grammar</span><span class="rule"></span></div>
+    <p>The line parses right-to-left: if the <em>last</em> word is a function mnemonic, it is the function, and
+      everything before it is the entity query. Three shapes:</p>
+    <ul class="adj-list howto-fn-list">
+      <li><span class="sk-chip blue">entity&nbsp;FUNC</span><span><code class="mono">spolsky pre</code> — fuzzy-match an
+        entity, then open a named function on it.</span></li>
+      <li><span class="sk-chip">entity</span><span><code class="mono">gsig-008</code> — no function named, so the
+        entity's default page opens (the first in its function list).</span></li>
+      <li><span class="sk-chip">FUNC</span><span><code class="mono">net</code>, <code class="mono">help</code> — a bare
+        function; the two global commands need no entity at all.</span></li>
+    </ul>
+    <p class="axis-notes">Matching is fuzzy and forgiving — an fzf-style subsequence score over each entity's searchable
+      text, with bonuses for hits at word boundaries and in an unbroken run, small penalties for scattered gaps.
+      <code class="mono">joel</code>, <code class="mono">spolsky</code>, and <code class="mono">jspol</code> all land on
+      the same seat. Naming a function first narrows the pool to the entity types that accept it — so a line ending in
+      <code class="mono">adj</code> only ever ranks forums.</p>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">functions</span><span class="rule"></span>
+      <span class="sk-chip">mnemonic · what it opens · types</span></div>
+    <ul class="adj-list howto-fn-list">
+      <li><span class="sk-chip blue">DES</span><span>describe — the entity profile page.</span><span class="sk-label">person · forum · signal · doc</span></li>
+      <li><span class="sk-chip blue">PRE</span><span>blind pre-interview document, written before the debate.</span><span class="sk-label">person</span></li>
+      <li><span class="sk-chip blue">POST</span><span>post-debate interview document.</span><span class="sk-label">person</span></li>
+      <li><span class="sk-chip blue">DEB</span><span>moderated debate transcript, one turn at a time.</span><span class="sk-label">forum</span></li>
+      <li><span class="sk-chip blue">ADJ</span><span>typed adjudication — converged actions and residual fork.</span><span class="sk-label">forum</span></li>
+      <li><span class="sk-chip blue">NET</span><span>network graph — global, or centred on the named entity.</span><span class="sk-label">person · forum · global</span></li>
+      <li><span class="sk-chip blue">OPEN</span><span>leave the terminal, open the run in the viewer.</span><span class="sk-label">run</span></li>
+      <li><span class="sk-chip blue">HELP</span><span>the built-in grammar reference, rendered inline.</span><span class="sk-label">global</span></li>
+    </ul>
+    <p class="axis-notes">A type's default is the first function it lists: person → <code class="mono">DES</code>,
+      forum → <code class="mono">DES</code>, run → <code class="mono">OPEN</code>. <code class="mono">NET</code> as a
+      function centres the graph on the entity — <code class="mono">kleppmann net</code> opens the room around that
+      seat; bare <code class="mono">net</code> opens the whole room.</p>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">keys</span><span class="rule"></span></div>
+    <ul class="adj-list howto-fn-list">
+      <li><span class="sk-chip">⌘K / Ctrl-K</span><span>open or close the palette from anywhere on the page.</span></li>
+      <li><span class="sk-chip">/</span><span>open the palette (when the cursor isn't already in a text field).</span></li>
+      <li><span class="sk-chip">↑ ↓</span><span>move the selection through the ranked rows.</span></li>
+      <li><span class="sk-chip">enter</span><span>open the selected row.</span></li>
+      <li><span class="sk-chip">esc</span><span>close the palette.</span></li>
+      <li><span class="sk-chip">1 – 7</span><span>jump to a view — 1 overview · 2 screen · 3 triage · 4 forum · 5 axes · 6 memo · 7 network.</span></li>
+    </ul>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">six lines, six pages</span><span class="rule"></span>
+      <span class="sk-chip">each resolves against today's corpus</span></div>
+    <p class="sk-note">Forum seats are AI-simulated personas of public figures, clearly labelled as such in the corpus.</p>
+    <ul class="adj-list howto-eg">
+      <li><code class="mono">spolsky pre</code><span>Joel Spolsky's blind pre-interview — his opening read on the crux,
+        written from his seat's mandate alone, before anyone argued.</span></li>
+      <li><code class="mono">gbrain adj</code><span>the g-brain forum's typed adjudication — converged actions, the
+        residual fork routed to the human, and who moved versus who held.</span></li>
+      <li><code class="mono">gsig-008</code><span>an evidence signal (default <code class="mono">DES</code>) — the
+        dual-engine-parity finding, and its <strong>cited-by</strong> list: Spolsky, Gabriel, Kleppmann.</span></li>
+      <li><code class="mono">ferrite-full open</code><span>leaves the terminal and reloads the run viewer on the
+        ferrite-full tape.</span></li>
+      <li><code class="mono">net</code><span>the whole room as a force graph — forums, seated and suggested attendants,
+        and the signals their mandates cite.</span></li>
+      <li><code class="mono">help</code><span>the grammar reference rendered inline — the same mnemonics, one keystroke
+        away when you forget one.</span></li>
+    </ul>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the citation spine</span><span class="rule"></span></div>
+    <p>Nothing in the terminal is a dead end. Every <code class="mono">gsig-*</code> chip and every person's name is a
+      link — on interview pages, in the debate transcript, throughout the adjudication. Click a signal chip and you land
+      on its page; each signal carries a <strong>cited-by</strong> list naming the seats whose mandate leans on it, and
+      each of those names links back to the person. The <code class="mono">net</code> graph draws the same relations in
+      space: forums hold their attendants, attendants reach the evidence they cite. The corpus is one graph — the
+      terminal is three ways of walking it.</p>
+  </section>
+
+  <section class="run-card">
+    <div class="card-head"><span class="sk-label">the second register</span><span class="rule"></span></div>
+    <p>Everything above is the <em>first</em> register: a human types the grammar and reads the page. The planned
+      second register is an agent that drives the same grammar <em>visibly</em> — it opens <code class="mono">spolsky pre</code>,
+      follows a <code class="mono">gsig-*</code> citation to its cited-by seats, pivots to <code class="mono">net</code>,
+      and every move it makes is a line you could have typed yourself. Parity is the whole point: no hidden verbs, no
+      private API — the agent's transcript reads back as terminal history.</p>
+    <div class="axis-chips">
+      <span class="sk-chip howto-shipped">shipped · the typed terminal</span>
+      <span class="sk-chip howto-designed">designed · the agent register</span>
+    </div>
+    <p class="axis-notes" style="margin-top:12px">legend —
+      <span class="sk-chip howto-shipped">shipped</span> on disk today ·
+      <span class="sk-chip blue">in flight</span> being wired ·
+      <span class="sk-chip howto-designed">designed</span> specified, not yet built.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer sk-label">
+  vc brain · sourcing → screening → diligence → decision · hack-nation × mit
+  <br>forum voices are AI-simulated personas of public figures — not their real views or participation
+</footer>
+
+<script type="module">
+  // Scroll progress drives the skins' dichroic ring (same var the app writes).
+  let ticking = false;
+  const write = () => {
+    ticking = false;
+    const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    document.documentElement.style.setProperty('--scroll',
+      String(Math.min(1, Math.max(0, scrollY / max))));
+  };
+  addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(write); }
+  }, { passive: true });
+
+  // Glass skin: mount the WebGL chrome driver; no WebGL2 → skeleton stands.
+  if (document.documentElement.classList.contains('skin-glass'))
+    import('./skins/glass-driver.js').then(m => {
+      if (!m.mount()) document.documentElement.classList.remove('skin-glass');
+    });
+</script>
+</body>
+</html>

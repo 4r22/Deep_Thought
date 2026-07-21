@@ -1,0 +1,180 @@
+{
+  "body_md": "## Problem\n\nLLM-agent CI regenerates build steps across a fleet of runs. Teams pay repeatedly for agent-generated steps that recur across jobs; that duplicated compute is the cost surface Ferrite says it targets. [C1]\n\nNo independent customer spend study or workload taxonomy is on file. Independent sources do confirm the category label: content-addressed caching for agent CI. [C2]\n\n## Product / process\n\nFerrite is a content-addressed build cache that deduplicates agent-generated build steps across a fleet so matching steps are served from cache instead of re-executed. [C3]\n\nStated mechanism, as far as the record goes:\n\n1. Agent-driven CI emits build steps that recur across runs and organizations.\n2. Steps are addressed by content.\n3. Cache hits avoid re-execution → claimed cost reduction on agent-driven CI workloads. [C4]\n\nNo architecture diagram, hash scheme, API surface, or CI-provider integration sequence is on file. Process depth stops at the one-liner and category framing.\n\n## What is independently real about the product\n\nA public repository ships on a weekly release cadence (20 weeks), with 1,400 commits over 11 months and CI showing real test coverage. [C5]\n\nMay 2026: infrastructure-track win at Hack-Nation (field of ~400 teams) under the same product framing. [C2]\n\nJune 2026 launch: three commenters identified themselves as production users in-thread. [C6]\n\nA public package registry distributes the product at 2,900 lifetime downloads and ~340/week — measurable presence, not deck-order install scale. [C7]\n\n## Uncleared product-magnitude claims\n\nThe 10x cost-reduction claim is subject-only (application one-liner and deck internal benchmark). No protocol, workload mix, or customer before/after CI spend artifact is on file. [C4]\n\nDesign partners (Series-B devtools company; AI lab) are named in the ask materials with names withheld — partnership scope and status unverified. [C8]\n\nForum adjudication (agent-derived, not company fact): deck-scale commercial magnitudes are uncleared non-evidence; the content-addressed agent-CI product idea was not rejected — measurement debt on the ask, not a pivot thesis. Confidence on product fit stays medium; confidence on product magnitude stays low until the same-week instrument (reachable users + billing/telemetry/channel map + 10x protocol) collapses or confirms. [C9]\n",
+  "claims": [
+    {
+      "text": "Ferrite's stated problem surface is duplicated compute from agent-generated build steps recurring across a fleet of LLM-agent CI runs.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite was independently framed as content-addressed caching for agent CI and won the Hack-Nation Global AI Hackathon infrastructure track in May 2026 (field of ~400 teams).",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite's product is a content-addressed build cache that deduplicates agent-generated build steps across a fleet.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite claims 10x cost reduction / 10x cheaper runs on agent-driven / LLM-agent CI workloads via an internal benchmark; no independent protocol or spend artifact is on file.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        },
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "A public Ferrite repository shows sustained product shipping: weekly release cadence for the last 20 weeks, 1,400 commits over 11 months, and CI config with real test coverage.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "At the June 2026 launch, three commenters identified themselves as production users of Ferrite.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public package-registry distribution for ferrite-cache shows 2,900 lifetime downloads and ~340 downloads/week — below the deck's claimed 3,100 active installations.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "contradicted",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        },
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "Ferrite claims two design partners — one Series-B devtools company and one AI lab — with names withheld; partnership scope and status are unverified.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Forum adjudication treated deck install/MRR magnitudes as uncleared non-evidence while holding that the content-addressed agent-CI product idea survives without a pivot; product-magnitude confidence remains tempered by the unresolved write-vs-wait fork pending the same-week diligence instrument.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "Product architecture / integration sequence",
+      "note": "No hash scheme, API surface, CI-provider plugins, or self-host vs SaaS deployment sequence on file — process stops at the one-liner."
+    },
+    {
+      "field": "10x benchmark protocol",
+      "note": "No workload mix, benchmark protocol, or customer before/after CI spend artifact; 10x remains subject-claimed internal benchmark only."
+    },
+    {
+      "field": "Design-partner confirmation",
+      "note": "Names withheld; no written confirmation of partnership scope or status."
+    },
+    {
+      "field": "Active-install definition and distribution-channel map",
+      "note": "Deck 3,100 installs / 240 orgs unreconciled with public-registry 2,900 lifetime downloads; other surfaces (private mirrors, binaries, containers, self-host) not mapped."
+    },
+    {
+      "field": "Customer references with workload/spend context",
+      "note": "Launch-thread self-identified production users archived; unscripted cost/latency win interviews not yet on file."
+    },
+    {
+      "field": "Forum adjudication primary record",
+      "note": "Converged/residual/instrument text is agent-derived input to this memo, not an archived independent signal; cited as authority agent-derived only."
+    }
+  ]
+}

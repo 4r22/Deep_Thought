@@ -1,0 +1,49 @@
+{
+  "model": "claude-opus-4-8",
+  "stages": [
+    {
+      "stage": "screen",
+      "seconds": 26.7
+    },
+    {
+      "stage": "triage",
+      "seconds": 25.3
+    },
+    {
+      "stage": "forum:seed",
+      "seconds": 110.0
+    },
+    {
+      "stage": "forum:pre-interviews",
+      "seconds": 44.5
+    },
+    {
+      "stage": "forum:debate",
+      "seconds": 63.0
+    },
+    {
+      "stage": "forum:post-interviews",
+      "seconds": 33.0
+    },
+    {
+      "stage": "forum:adjudicate",
+      "seconds": 57.3
+    },
+    {
+      "stage": "axes",
+      "seconds": 87.5
+    },
+    {
+      "stage": "memo:documents",
+      "seconds": 258.5
+    },
+    {
+      "stage": "memo:decision",
+      "seconds": 41.0
+    }
+  ],
+  "started_at": "2026-07-20T23:45:57+00:00",
+  "total_seconds": 746.9,
+  "finished_at": "2026-07-20T23:58:24+00:00",
+  "decision": "contested"
+}

@@ -1,0 +1,162 @@
+/* ════════════════════════════════════════════════════════════════════════
+   VC BRAIN — SKELETON LAYER
+   The reveal-0 reference, per the author's private gallery shell contract: page wash +
+   thin 1px outline per element + glyph ink. NO material lives here — no
+   gradients, no bevels, no engraved shadows. Reactivity is BLUE ONLY
+   (hover = blue glow, press/activation = blue glyph). Skins are separate
+   layers (skins/*.css + optional driver) scoped under html.skin-* classes;
+   with no skin class this file IS the shipped look, byte-identical.
+   Source idiom: the author's private gallery system (skeleton layer).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --page-bg: #e6e1d8;
+  --page-wash: radial-gradient(125% 95% at 50% 0%, #ece9e3 0%, #d3cec5 58%, #bfbab0 100%);
+  --ink: #1f1f1f;
+  --ink-muted: rgba(31, 31, 31, 0.62);
+  --ink-faint: rgba(31, 31, 31, 0.4);
+  --line: rgba(0, 0, 0, 0.22);
+  --line-soft: rgba(0, 0, 0, 0.11);
+  --blue: #2f6df0;
+  --blue-glow: rgba(58, 123, 213, 0.38);
+  --ok: #3e7d52;
+  --warn: #a8742a;
+  --bad: #b04a3c;
+  --card-bg: rgba(255, 255, 255, 0.28);
+
+  --font-serif: 'Source Serif 4', serif;
+  --font-mono: 'Space Mono', monospace;
+  --line-height: 1.65;
+  --header-spacing: -0.5px;
+
+  /* subscript-button geometry, verbatim gallery tokens */
+  --sub-font-size: 11px;
+  --sub-letter-spacing: 1.4px;
+  --sub-radius: 6px;
+  --sub-pad-v: 9px;
+  --sub-pad-h: 14px;
+
+  --trans-fast: 0.3s ease;
+  --sk-hover-glow: 0 0 8px var(--blue-glow);
+  --sk-press-glow: 0 0 10px rgba(58, 123, 213, 0.5);
+  --scroll: 0; /* page scroll progress 0..1, driven by app.js for skin motion */
+  --col-width: 1180px; /* ONE central column token, all views (plan 23 §B2) */
+}
+
+html.theme-dark {
+  --page-bg: #0d0e11;
+  --page-wash: radial-gradient(125% 95% at 50% 100%, #1b1e25 0%, #14161b 56%, #0a0b0e 100%);
+  --ink: #d8dadf;
+  --ink-muted: rgba(216, 218, 223, 0.62);
+  --ink-faint: rgba(216, 218, 223, 0.4);
+  --line: rgba(255, 255, 255, 0.28);
+  --line-soft: rgba(255, 255, 255, 0.1);
+  --blue: #5b8df5;
+  --ok: #5da878;
+  --warn: #c99a4e;
+  --bad: #cf7264;
+  --card-bg: rgba(255, 255, 255, 0.03);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip; /* viewport-bounded; wide content must wrap, never scroll */
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: var(--line-height);
+  transition: background-color var(--trans-fast), color var(--trans-fast);
+}
+
+/* Fixed page wash as a pseudo-element — background-attachment:fixed triggers
+   compositor repaint bugs in embedded Chrome panes, this doesn't. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--page-wash);
+  transition: opacity var(--trans-fast);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: var(--header-spacing);
+  margin: 0;
+}
+
+/* ── skeleton primitives: shape + outline + blue reactivity, nothing else ── */
+
+.sk-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--sub-radius);
+}
+
+.sk-btn {
+  font-family: var(--font-mono);
+  font-size: var(--sub-font-size);
+  letter-spacing: var(--sub-letter-spacing);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--sub-radius);
+  padding: var(--sub-pad-v) var(--sub-pad-h);
+  cursor: pointer;
+  transition: box-shadow var(--trans-fast), color var(--trans-fast);
+}
+.sk-btn:hover,
+.sk-btn:focus-visible {
+  box-shadow: var(--sk-hover-glow);
+  outline: none;
+}
+.sk-btn:active {
+  box-shadow: var(--sk-press-glow);
+  color: var(--blue);
+}
+.sk-btn[aria-pressed="true"],
+.sk-btn[aria-selected="true"],
+.sk-btn.active {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.sk-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: var(--sub-radius);
+  padding: 2px 8px;
+  color: var(--ink-muted);
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+}
+.sk-chip.ok    { color: var(--ok);   border-color: var(--ok); }
+.sk-chip.warn  { color: var(--warn); border-color: var(--warn); }
+.sk-chip.bad   { color: var(--bad);  border-color: var(--bad); }
+.sk-chip.blue  { color: var(--blue); border-color: var(--blue); }
+
+.sk-label {
+  font-family: var(--font-mono);
+  font-size: var(--sub-font-size);
+  letter-spacing: var(--sub-letter-spacing);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.mono { font-family: var(--font-mono); overflow-wrap: anywhere; }
+.muted { color: var(--ink-muted); }

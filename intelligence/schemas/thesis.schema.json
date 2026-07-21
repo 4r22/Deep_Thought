@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "vc-brain/thesis",
+  "title": "Fund thesis",
+  "description": "The investor lens injected into EVERY scoring prompt — screen, axes, memo, AND the 2-pole forum + N-seat panel. Loaded and validated at pipeline start, before any model call. The web form is the platform track (issue .9); this repo owns the schema, validation, and injection contract.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["fund", "sectors", "stage", "geography", "check_usd", "ownership_target_pct", "risk_appetite", "disqualifiers"],
+  "properties": {
+    "fund": { "type": "string" },
+    "sectors": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "stage": { "type": "array", "items": { "type": "string", "enum": ["pre-seed", "seed", "series-a", "series-b", "growth"] }, "minItems": 1 },
+    "geography": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "check_usd": { "type": "integer", "minimum": 0 },
+    "ownership_target_pct": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "[min, max] target ownership percentage." },
+    "risk_appetite": { "type": "string" },
+    "disqualifiers": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" }
+  }
+}

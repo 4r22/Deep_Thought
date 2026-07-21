@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["company", "sections", "claims", "gaps", "diligence_log", "decision", "provenance"],
+  "properties": {
+    "company": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "one_liner"],
+      "properties": {
+        "name": { "type": "string" },
+        "one_liner": { "type": "string" }
+      }
+    },
+    "sections": {
+      "type": "object",
+      "description": "Markdown bodies. Inline claim references like [C3] tie prose to the claims ledger. Required sections per the brief: snapshot, hypotheses, swot, problem_product, traction. Optional sections may be empty strings — their absence is then flagged in gaps, never silently omitted.",
+      "additionalProperties": false,
+      "required": ["snapshot", "hypotheses", "swot", "problem_product", "traction", "team_history", "technology_defensibility", "market_sizing", "competition"],
+      "properties": {
+        "snapshot": { "type": "string" },
+        "hypotheses": { "type": "string", "description": "The explicit why-we-would-invest bullets. Each carries a [prov:] line." },
+        "swot": { "type": "string" },
+        "problem_product": { "type": "string" },
+        "traction": { "type": "string" },
+        "team_history": { "type": "string" },
+        "technology_defensibility": { "type": "string" },
+        "market_sizing": { "type": "string" },
+        "competition": { "type": "string" }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "description": "The per-claim trust ledger. Every load-bearing assertion in the sections appears here with its evidence and Trust Score. The Trust Score is per claim, never one number for the company.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "section", "text", "trust", "evidence", "contradictions"],
+        "properties": {
+          "id": { "type": "string", "description": "C1, C2, ... referenced inline from sections." },
+          "section": { "type": "string", "enum": ["snapshot", "hypotheses", "swot", "problem_product", "traction", "team_history", "technology_defensibility", "market_sizing", "competition"] },
+          "text": { "type": "string" },
+          "trust": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tier", "authority", "verification", "confidence"],
+            "properties": {
+              "tier": { "type": "string", "enum": ["verified-artifact", "verified-online", "reconstructed", "claimed"] },
+              "authority": { "type": "string", "enum": ["subject", "independent", "operator-primary", "agent-derived"], "description": "subject-authority evidence never substantiates its own case: a deck claim supported only by the deck stays tier=claimed no matter how detailed the deck is. Citing subject or agent-derived material as if independent is authority laundering — a named defect." },
+              "verification": { "type": "string", "enum": ["grounded", "unverified", "contradicted"], "description": "grounded: verbatim support found at an archived source. unverified: search attempted and failed — say where you looked. contradicted: conflicting signals exist; both cited." },
+              "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] }
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["signal_id", "quote"],
+              "properties": {
+                "signal_id": { "type": "string" },
+                "quote": { "type": "string", "description": "Verbatim from the signal — never a paraphrase presented as a quote." }
+              }
+            }
+          },
+          "contradictions": { "type": "array", "items": { "type": "string" }, "description": "Signal ids or claim ids in tension with this claim. Surfaced before they reach the investor, never smoothed over." }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Explicitly flagged missing data — 'Cap table: not disclosed', 'Customer references: unavailable at this stage'. A memo that marks its own gaps is more trustworthy than one that fills them invisibly. Never fabricate.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "note"],
+        "properties": {
+          "field": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "diligence_log": {
+      "type": "array",
+      "description": "What was checked and what remains open. Every open item names its cheapest decisive check — the concrete instrument, not 'do more research'.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item", "status", "instrument"],
+        "properties": {
+          "item": { "type": "string" },
+          "status": { "type": "string", "enum": ["done", "open"] },
+          "instrument": { "type": "string", "description": "For done: what was run and what it showed. For open: the named cheapest decisive check that would close it." }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recommendation", "check_usd", "conditions", "rationale"],
+      "properties": {
+        "recommendation": { "type": "string", "enum": ["fund", "pass", "contested"] },
+        "check_usd": { "type": "integer" },
+        "conditions": { "type": "array", "items": { "type": "string" }, "description": "Milestone gates or tranche conditions, if any — often the Instrument from a forum residual." },
+        "rationale": { "type": "string", "description": "The recommendation a human investor acts on within 24 hours. The human is the gate; this is agent-derived input, and says so." }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "One line per major conclusion, machine-countable: [prov: C3 / traction / sig-014]. Every recommendation traces to the exact data point that drove it."
+    }
+  }
+}

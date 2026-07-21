@@ -1,0 +1,19 @@
+{
+  "company_name": "Ferrite",
+  "one_liner": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet.",
+  "founder": {
+    "name": "Mara Voss",
+    "role": "solo founder, technical",
+    "location": "Berlin, DE",
+    "github": "https://github.com/example-maravoss",
+    "background_claimed": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%. First-time founder. No prior fundraise."
+  },
+  "deck_claims": [
+    "3,100 active installations across 240 organizations",
+    "$18k MRR, growing 40% month-over-month for 3 months",
+    "10x cost reduction on agent-driven CI workloads (internal benchmark)",
+    "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+  ],
+  "ask": "Raising a $500k pre-seed; applying for the $100K fast check.",
+  "applied_at": "2026-07-17T14:02:00Z"
+}

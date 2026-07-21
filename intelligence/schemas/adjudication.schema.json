@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["outcome", "converged", "residual", "instrument", "evolution", "suggested_attendants", "authority_note"],
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": ["converged", "action-converged-plus-residual", "stable-fork-plus-instrument", "degenerate"],
+      "description": "Every debate ends typed — exactly one of the four. degenerate = no movement and no new residual; a degenerate debate licenses no follow-on."
+    },
+    "converged": {
+      "type": "array",
+      "description": "Actions all attendants endorse on the record, each with the turn that produced it.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action", "turn"],
+        "properties": {
+          "action": { "type": "string" },
+          "turn": { "type": "integer" }
+        }
+      }
+    },
+    "residual": {
+      "type": "array",
+      "description": "The surviving fork(s), one line each, with each attendant's last position. A named residual is a result, not a failure.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fork", "positions"],
+        "properties": {
+          "fork": { "type": "string" },
+          "positions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["attendant", "position"],
+              "properties": {
+                "attendant": { "type": "string", "description": "Attendant id — bull/bear in the 2-pole forum, seat-N in a seeded room." },
+                "position": { "type": "string", "description": "That attendant's LAST position on this fork, from its post-interview or final debate turn." }
+              }
+            }
+          }
+        }
+      }
+    },
+    "instrument": {
+      "type": "array",
+      "description": "THE CONVERGENCE PRODUCT: for each residual, the concrete move that would collapse it — a named diligence check, a milestone gate, a tranche condition. Never 'further discussion'. The memo's decision conditions consume these directly.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["for_fork", "move"],
+        "properties": {
+          "for_fork": { "type": "string" },
+          "move": { "type": "string" }
+        }
+      }
+    },
+    "evolution": {
+      "type": "array",
+      "description": "Per attendant, factual, grounded in the post-interviews: held / refined / conceded, with turn citations only. A real concession is the most valuable line in the record.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["attendant", "movement", "turns"],
+        "properties": {
+          "attendant": { "type": "string" },
+          "movement": { "type": "string", "enum": ["held", "refined", "conceded"] },
+          "turns": { "type": "array", "items": { "type": "integer" } }
+        }
+      }
+    },
+    "suggested_attendants": {
+      "type": "array",
+      "description": "Voices the debate showed were missing, each with the named gap it would fill. Suggestions are recorded, never auto-spawned — inviting one is a new decision, not an automatic round. Empty array when the room sufficed.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["handle", "named_gap"],
+        "properties": {
+          "handle": { "type": "string" },
+          "named_gap": { "type": "string" }
+        }
+      }
+    },
+    "authority_note": {
+      "type": "string",
+      "description": "Always states: this adjudication is agent-derived — material for the investor to argue with, never an authority. Forum verdicts never settle their own case."
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "model": "claude-opus-4-8",
+  "stages": [
+    {
+      "stage": "screen",
+      "seconds": 14.3
+    },
+    {
+      "stage": "axes",
+      "seconds": 27.2
+    },
+    {
+      "stage": "forum:interview-bull",
+      "seconds": 11.1
+    },
+    {
+      "stage": "forum:interview-bear",
+      "seconds": 10.2
+    },
+    {
+      "stage": "forum:debate",
+      "seconds": 12.7
+    },
+    {
+      "stage": "forum:adjudicate",
+      "seconds": 31.1
+    },
+    {
+      "stage": "memo",
+      "seconds": 21.5
+    }
+  ],
+  "started_at": "2026-07-18T21:47:23+00:00",
+  "total_seconds": 128.1,
+  "finished_at": "2026-07-18T21:49:32+00:00",
+  "decision": "contested"
+}

@@ -1,0 +1,114 @@
+/* ════════════════════════════════════════════════════════════════════════
+   SKIN: ALUMINIUM (flat-CSS path) — scoped under html.skin-alu, inert
+   otherwise. The gallery machining law: ONE base colour per material +
+   per-theme params derive every gradient stop via hsl(from …).
+   Buttons idle ±1.5 L, hover +5.5/+2.5, active −3.5/−6.5; plates are
+   3-stop domes ±relief; border = base − border-darken; inset highlight
+   above / depth below. Values verbatim from the author's private gallery shell.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html.skin-alu {
+  --mat-relief: 12;
+  --mat-highlight: 0.85;
+  --mat-depth: 0.28;
+  --mat-border-darken: 24;
+  --plate-base: #c8c8c8;
+  --btn-metal-base: #d0d0ce;
+  --engrave-ink: #1f1f1f;
+  --engrave-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+html.skin-alu.theme-dark {
+  --mat-relief: 7;
+  --mat-highlight: 0.1;
+  --mat-depth: 0.45;
+  --mat-border-darken: 10;
+  --plate-base: #2c2f35;
+  --btn-metal-base: #2f323a;
+  --engrave-ink: #d3d6db;
+  --engrave-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+html.skin-alu {
+  --plate-top: hsl(from var(--plate-base) h s calc(l + var(--mat-relief)));
+  --plate-mid: var(--plate-base);
+  --plate-bot: hsl(from var(--plate-base) h s calc(l - var(--mat-relief)));
+  --plate-border: hsl(from var(--plate-base) h s calc(l - var(--mat-border-darken)));
+  --plate-inset:
+    inset 0 1px 0 rgba(255, 255, 255, var(--mat-highlight)),
+    inset 0 -1px 0 rgba(0, 0, 0, var(--mat-depth));
+  --btn-top: hsl(from var(--btn-metal-base) h s calc(l + 1.5));
+  --btn-bot: hsl(from var(--btn-metal-base) h s calc(l - 1.5));
+  --btn-top-hover: hsl(from var(--btn-metal-base) h s calc(l + 5.5));
+  --btn-bot-hover: hsl(from var(--btn-metal-base) h s calc(l + 2.5));
+  --btn-top-active: hsl(from var(--btn-metal-base) h s calc(l - 3.5));
+  --btn-bot-active: hsl(from var(--btn-metal-base) h s calc(l - 6.5));
+  --groove-top: hsl(from var(--plate-base) h s calc(l - 10));
+  --groove-bot: hsl(from var(--plate-base) h s calc(l + 5));
+}
+
+/* Plates: topbar, card headers, settings drawer head */
+html.skin-alu .topbar,
+html.skin-alu .card-head,
+html.skin-alu .drawer-head {
+  background: linear-gradient(180deg, var(--plate-top) 0%, var(--plate-mid) 52%, var(--plate-bot) 100%);
+  border-color: var(--plate-border);
+  box-shadow: var(--plate-inset), 0 1px 3px rgba(0, 0, 0, calc(var(--mat-depth) * 0.5));
+}
+html.skin-alu .brand,
+html.skin-alu .card-head .sk-label,
+html.skin-alu .drawer-head .sk-label {
+  color: var(--engrave-ink);
+  text-shadow: var(--engrave-shadow);
+}
+html.skin-alu .brand-dot { text-shadow: none; }
+html.skin-alu .card-head .rule { border-color: var(--plate-border); opacity: 0.5; }
+
+/* Machined caps: buttons, neutral chips, menu bezel chips */
+html.skin-alu .sk-btn {
+  color: var(--engrave-ink);
+  text-shadow: var(--engrave-shadow);
+  background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
+  border-color: var(--plate-border);
+  box-shadow: var(--plate-inset);
+}
+html.skin-alu .sk-btn:hover,
+html.skin-alu .sk-btn:focus-visible {
+  background: linear-gradient(180deg, var(--btn-top-hover), var(--btn-bot-hover));
+  box-shadow: var(--plate-inset), var(--sk-hover-glow);
+}
+html.skin-alu .sk-btn:active {
+  background: linear-gradient(180deg, var(--btn-top-active), var(--btn-bot-active));
+  box-shadow: var(--plate-inset), var(--sk-press-glow);
+  color: var(--blue);
+  text-shadow: none;
+}
+/* Kleos law: the ACTIVE chip plate vanishes — bar metal shows through,
+   glyph goes press-blue with an aqua bloom. */
+html.skin-alu .sk-btn[aria-pressed="true"],
+html.skin-alu .sk-btn[aria-selected="true"],
+html.skin-alu .sk-btn.active {
+  background: transparent;
+  color: var(--blue);
+  text-shadow: 0 0 6px rgba(58, 123, 213, 0.45);
+  box-shadow: 0 0 8px rgba(58, 123, 213, 0.32);
+}
+html.skin-alu .sk-chip:not(.ok):not(.warn):not(.bad):not(.blue):not(.speaker-bull):not(.speaker-bear):not(.speaker-moderator) {
+  color: var(--engrave-ink);
+  text-shadow: var(--engrave-shadow);
+  background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
+  border-color: var(--plate-border);
+  box-shadow: var(--plate-inset);
+}
+
+/* Menu bezel (kleos bar): aluminium trough holding the view chips */
+html.skin-alu .view-menu {
+  background: linear-gradient(180deg, var(--plate-top) 0%, var(--plate-mid) 52%, var(--plate-bot) 100%);
+  border-color: var(--plate-border);
+  box-shadow: var(--plate-inset);
+}
+
+/* Band track: machined groove */
+html.skin-alu .band-track {
+  border-color: var(--plate-border);
+  background: linear-gradient(180deg, var(--groove-top), var(--groove-bot));
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, var(--mat-depth));
+}

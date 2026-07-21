@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "vc-brain/application",
+  "title": "Application / opportunity",
+  "description": "The INPUT record for one opportunity — inbound application or outbound-sourced repo alike (one funnel, per screen.md). Validated at load time by load_application(), before any model call: this schema is shape; the load-bearing content-sufficiency checks (placeholders, thinness) live code-side in gate_application(), mirroring the wire_schema discipline. Never sent on the wire.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["company_name", "one_liner"],
+  "properties": {
+    "company_name": { "type": "string", "minLength": 2 },
+    "one_liner": { "type": "string", "minLength": 20, "description": "What the company does, one sentence. The screen cannot judge an opportunity that cannot state itself." },
+    "founder": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "role": { "type": "string" },
+        "location": { "type": "string" },
+        "github": { "type": "string" },
+        "background_claimed": { "type": "string", "description": "Founder's own account of their background — claimed, not verified. Verification is Memory/signals territory." }
+      }
+    },
+    "deck_claims": { "type": "array", "items": { "type": "string" }, "description": "The deck's factual claims, one string each. Absence blocks advancement at the screen (missing_minimums), not at the gate." },
+    "ask": { "type": "string", "description": "What the founder is asking for. Optional: outbound-sourced opportunities have no ask." },
+    "applied_at": { "type": "string" },
+    "source": { "type": "string", "description": "Provenance for sourced records, e.g. 'sourced-github:<archive>'. Inbound applications omit it." },
+    "repo": { "type": "string", "description": "Repository URL for sourced records." }
+  }
+}

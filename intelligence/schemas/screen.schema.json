@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "thesis_fit", "missing_minimums", "red_flags", "rationale", "confidence"],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": ["advance", "reject", "contested"],
+      "description": "advance: clearly worth full analysis. reject: clearly non-viable or out of thesis. contested: real evidence pulls both ways. The forum convenes for advance and contested alike; the mechanical gate skips the room only on a reject verdict or a blank triage crux."
+    },
+    "thesis_fit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["in_scope", "mismatches"],
+      "properties": {
+        "in_scope": { "type": "boolean" },
+        "mismatches": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Each thesis dimension the opportunity misses, one line each. Empty when in_scope."
+        }
+      }
+    },
+    "missing_minimums": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs below the minimum bar (deck + company name). Missing minimums block advancement but are requests, not rejections."
+    },
+    "red_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["flag", "evidence_ref", "severity"],
+        "properties": {
+          "flag": { "type": "string" },
+          "evidence_ref": { "type": "string", "description": "Signal id or claim location that grounds this flag. A flag without evidence is not a flag." },
+          "severity": { "type": "string", "enum": ["kill", "serious", "note"] }
+        }
+      }
+    },
+    "rationale": { "type": "string", "description": "Two to four sentences. For reject: the kill reason, plainly. For contested: the two poles, named." },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] }
+  }
+}

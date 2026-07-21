@@ -1,0 +1,283 @@
+{
+  "body_md": "# Technology & defensibility — Ferrite\n\n## Product wedge (what must stay proprietary)\n\nFerrite’s stated product is a **content-addressed build cache** that targets **LLM-agent CI**: deduplicating agent-generated build steps across a fleet so those runs cost less [C1]. The architectural primitive—content-addressed caching—is not itself rare in CI/infra; the investable claim is a **narrow adaptation**: agent workloads regenerate similar steps with high churn, so digest-keyed reuse across fleets becomes newly valuable versus yesterday’s remote cache [C2]. That why-now framing was not rejected in deliberation; contested commercial magnitudes were treated as measurement debt on the ask, not a pivot [C3].\n\n**Proprietary vs commoditizable (record-bounded):**\n\n| Layer | Status on record | Defensibility read |\n| --- | --- | --- |\n| Content-addressed cache / remote-cache pattern | Category pattern; founder claims prior fintech remote-cache work [C4] | **Commoditizable** if Ferrite is only “another remote cache” |\n| Agent-CI–aware step identity, fleet dedupe, cost path for agent runs | Product thesis + shipping artifact; no hashing/protocol whitepaper on file | **Candidate proprietary surface**—unverified depth |\n| OSS client / public package | Public repo + registry package exist [C5][C6] | Client/distribution **commoditizes**; value must sit in hosted coordination, hit-rate, or closed server |\n| Multi-tenant digest corpus / hit-rate learning | Thesis only | **Potential data moat**—no telemetry proving compound hit rates |\n\nWithout an architecture artifact, treat “agent-aware identity + fleet coordination” as the **only** non-commodity hypothesis; do not upgrade it to proven IP.\n\n## Architecture & shipping evidence\n\nIndependent archive shows a real, actively maintained codebase: 412 stars, 61 forks, 9 external contributors, ~1,400 commits over 11 months (86% founder), weekly releases for 20 weeks, CI with real test coverage [C5]. That is execution footprint on the product, not proof of a locked-in protocol.\n\nCompetitive/social validation of the *idea framing* (not of proprietary depth): Hack-Nation infrastructure-track win (~400 teams) for “content-addressed caching for agent CI” [C7]; launch-thread technical Q&A with three self-identified production users [C8]. Production-user presence supports “works for someone,” not “moat compounds.”\n\n**10x agent-CI cost cut** remains subject-only and protocol-less on file [C9]. Forum write-side seats would still underwrite craft + reachable users at this check size; wait-side seats refuse to let presence stand in for a reproducible protocol [C10]. Confidence on technical *advantage* stays capped until a benchmark packet exists.\n\n## Data moat\n\nThe compounding story, if real, is **networked cache residue**: more agent fleets → more content-addressed digests → higher cross-run/org hit rates → lower marginal CI cost → stickier default in agent pipelines [C11]. That is **reconstructed thesis**, not observed telemetry.\n\nScale evidence that would *size* the corpus is contested: deck claims 3,100 active installs / 240 orgs [C12]; public registry shows 2,900 lifetime downloads and ~340/week [C6]. Lifetime downloads below claimed active installs is an open contradiction [C12][C6]. Until distribution surfaces (registry, mirrors, binaries, containers, self-host) are mapped, **moat magnitude is unknown**—and public-registry-order capture, if that is the only surface, implies an early corpus, not a deep one [C13].\n\nOpen distribution also bites defensibility: a public package and starred repo lower switching costs on the client path [C5][C6]. Any durable advantage must be argued in **server-side coordination, corpus exclusivity, or integration depth**—none of which are artifact-verified here.\n\n## Why advantage would compound (conditional)\n\nCompounding holds **only if** three conditions clear diligence this document cannot settle:\n\n1. **Agent-step identity is sticky and hard to clone well** (protocol/hashing depth)—gap.\n2. **Hit rates improve with shared corpus size** (telemetry)—gap.\n3. **Users stay for cost/latency residue**, not for a one-line CLI—same-week user contacts are the forum’s instrument to test production residue [C10][C8].\n\nIf those fail, Ferrite collapses toward a competent remote-cache in a hot category: shipping remains real [C5]; defensibility does not.\n\n## Tech diligence that binds this section\n\nOpen items owned here (routed, not cleared): distribution-channel map reconciling installs vs registry; reproducible 10x protocol + workload mix; design-partner technical scope; prior-employer remote-cache reference; optional spot-check of release notes/CI only if commercial checks fail. Design-partner names and integration depth are withheld/undisclosed on the record.\n\n**Bottom line for the assembler:** Wedge = agent-CI content-addressed dedupe; pattern = partly commoditizable; moat = **unproven compounding corpus**; load-bearing independent tech evidence = shipping cadence + category validation + thin production-user residue—not deck scale or 10x. Stable fork on whether that residue underwrites $100k does **not** resolve inside this document [C10].",
+  "claims": [
+    {
+      "text": "Ferrite’s product thesis is a content-addressed build cache that makes LLM-agent CI runs cheaper by deduplicating agent-generated build steps across a fleet.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deliberation treated agent-driven CI as a structural why-now for content-addressed dedupe versus prior remote-cache products, without disputing that inflection—only whether capture metrics must clear before a check.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Forum adjudication: core idea (content-addressed cache for agent-driven CI) was never rejected; contested install/MRR/10x claims are measurement debt on the ask, not a pivot thesis; idea-vs-market verdict survives-as-is with deck commercial claims zero-weighted.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        },
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001",
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Founder claims prior mid-size fintech infra experience writing an internal remote-cache that cut CI spend ~60%; first-time founder, no prior fundraise.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%. First-time founder. No prior fundraise."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public GitHub archive shows sustained product shipping: 412 stars, 61 forks, 9 external contributors, 1,400 commits over 11 months (86% by the founder), weekly release cadence for 20 weeks, CI with real test coverage.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public package registry reports 340 downloads/week and 2,900 lifetime downloads for ferrite-cache—lifetime totals below the deck’s claimed active-install count.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "contradicted",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 (~400 teams) for content-addressed caching for agent CI.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Launch post (2 Jun) reached a major aggregator front page (~6 hours, 214 points, 89 comments); founder answered 41 comments with technical depth; three commenters self-identified as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck/application claims a 10x cost reduction on agent-driven CI workloads from an internal benchmark; no benchmark protocol or customer before/after artifact is on file.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        },
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Forum residual remains a stable fork: under registry-order compression with deck commercial claims at zero weight, write $100k on execution residual (shipping + inflection + reachable production users) vs wait for reconciled billing/telemetry; instrument is same-week user contacts plus billing/telemetry/channel map and a one-page 10x protocol.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        },
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        },
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001",
+        "sig-004"
+      ]
+    },
+    {
+      "text": "If a shared content-addressed corpus of agent-generated build steps grows with fleet adoption, cache hit rates—and therefore cost advantage—can compound; this compounding mechanism is thesis-only on the present record (no hit-rate or corpus telemetry archived).",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "speculative"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck asserts 3,100 active installations across 240 organizations; that scale claim is uncleared subject material and contradicts public registry lifetime downloads.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "If public-registry download totals are the only distribution surface, implied install base is early/registry-order—not deck-order—so any data-moat corpus would presently be thin.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "contradicted",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        },
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "field": "architecture / hashing protocol",
+      "note": "No whitepaper, design doc, or verified-artifact code review describing agent-step identity, digest scheme, cache coherency, or multi-tenant isolation—proprietary depth cannot be assessed beyond the one-liner."
+    },
+    {
+      "field": "10x benchmark protocol",
+      "note": "Internal-benchmark claim only; workload mix, methodology, and customer before/after CI spend artifacts absent."
+    },
+    {
+      "field": "cache hit-rate / corpus telemetry",
+      "note": "No product metrics showing hit rate vs corpus size or cross-org reuse—data-moat compounding unproven."
+    },
+    {
+      "field": "OSS vs proprietary boundary",
+      "note": "License, what ships open vs closed server, and any exclusivity on the coordination plane not disclosed; public repo + registry imply a commoditizable client path."
+    },
+    {
+      "field": "distribution channel map",
+      "note": "Cannot reconcile deck active installs vs registry downloads without surfaces (mirrors, binaries, containers, self-host, private registries) for the same window."
+    },
+    {
+      "field": "design-partner technical depth",
+      "note": "Two design partners named only by category (Series-B devtools; AI lab); integration scope, cache semantics adopted, and status unconfirmed."
+    },
+    {
+      "field": "prior-employer remote-cache claim",
+      "note": "Fintech infra + ~60% CI cut is subject-claimed; no employment/reference artifact on file."
+    },
+    {
+      "field": "IP / patents / unique model weights",
+      "note": "No patents, trade-secret inventory, or ML-model assets disclosed; product appears systems/infra, not a model moat—absence is a gap, not a negative proof."
+    },
+    {
+      "field": "active-install definition",
+      "note": "No telemetry/admin export defining 'active installation' or organization count concurrent with the deck window."
+    }
+  ]
+}

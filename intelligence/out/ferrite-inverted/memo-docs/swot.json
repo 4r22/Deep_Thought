@@ -1,0 +1,314 @@
+{
+  "body_md": "## Strengths\n- Solo technical founder with independently verified shipping velocity: ~1,400 commits over 11 months (86% founder), weekly releases for 20 weeks, real CI test coverage [C1].\n- Competitive validation: Hack-Nation Global AI Hackathon (May 2026) infrastructure-track winner in a ~400-team field [C2].\n- Post-launch presence: aggregator front page (~6h), 214 points / 89 comments; founder answered 41 in-thread; three commenters self-identified as production users [C3].\n- Open-source footprint: 412 stars, 61 forks, 9 external contributors [C4].\n- Thesis fit (agent-derived axes, not underwriting): cold-start solo technical founder; contested deck installs/MRR zero-weighted for founder read; execution residue held under pressure [C5].\n\n## Weaknesses\n- **Live contradiction:** deck claims 3,100 active installations / 240 orgs [C6] vs public registry 2,900 lifetime downloads / ~340/week [C7] — lifetime downloads below claimed active installs.\n- Deck $18k MRR and +40% MoM for 3 months are subject-only; no billing artifact on file [C8].\n- 10x agent-CI cost-reduction claim is an internal/deck benchmark only [C9].\n- Design partners (Series-B devtools; AI lab) named only as withheld deck claims — no confirmation on file [C10].\n- Solo-founder concentration: commit share is founder-dominated [C1]; no prior institutional round (cold start) [C11].\n\n## Opportunities\n- Structural why-now (agent-derived market axis): LLM-agent CI regenerating build steps across fleets makes content-addressed dedupe newly valuable vs classic remote cache; room did not dispute the inflection, only timing of capture proof [C12].\n- Category signal from hackathon win + launch-thread production users suggests early demand for agent-CI cost tooling [C2][C3].\n- If distribution beyond the public registry (private mirrors, binaries, containers, self-host) reconciles install counts, contested scale could clear without a product pivot [C7] — channel map not yet on file (see gaps).\n\n## Risks\n- If commercial checks compress paid/active scale toward registry order, the strongest deck traction narrative fails and the ask rests on execution residue alone [C6][C7].\n- Forum residual (agent-derived, unresolved): under that compression, write $100k on shipping + inflection + reachable users vs wait for reconciled billing/telemetry — stable fork; confidence tempered, not averaged [C13].\n- Collapse risk on the instrument path: if same-week user contacts show no production residue, write-side joins wait; if reconciliation fails and residue disappears, all seats wait [C13].\n- Prior-employer remote-cache / ~60% CI-cut claim unverified — employment/reference check not on file [C14].\n- Market sizing and competitor clusters are thin in the record; public registry-order capture (if sole surface) implies early, not proven, category share [C7][C12].",
+  "claims": [
+    {
+      "text": "Ferrite’s public GitHub repo shows 1,400 commits over 11 months (86% by the founder), weekly release cadence for the last 20 weeks, and CI config with real test coverage.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 in a judged field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Launch post (2 Jun 2026) reached a major aggregator front page for ~6 hours (214 points, 89 comments); founder answered 41 comments; three commenters self-identified as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public GitHub presence: 412 stars, 61 forks, 9 external contributors.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Agent-derived founder axis: cold-start solo technical founder; load-bearing evidence is shipping cadence, hackathon win, and launch-thread production users; contested deck installs/MRR zero-weighted for this axis (score ~73, band wide, confidence medium).",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-006",
+          "quote": "FICTIONAL FIXTURE — illustrative Founder Score for the invented Ferrite deal: 71 [58, 80], confidence medium, cold_start true (no prior fundraise, no prior company), rationale: shipping cadence (sig-002) and hackathon win (sig-003)."
+        },
+        {
+          "signal_id": "sig-002",
+          "quote": "Weekly release cadence for the last 20 weeks."
+        },
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026"
+        },
+        {
+          "signal_id": "sig-005",
+          "quote": "three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck asserts 3,100 active installations across 240 organizations.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Public package registry shows 340 downloads/week and 2,900 downloads total lifetime — lifetime downloads below the deck’s claimed active-install count.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "contradicted",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "Deck asserts $18k MRR, growing 40% month-over-month for 3 months; no external corroboration attached.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck/application claims 10x cost reduction on agent-driven CI workloads (internal benchmark).",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck claims two design partners (one Series-B devtools company, one AI lab); names withheld.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Founder is a first-time founder with no prior fundraise (cold start).",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "First-time founder. No prior fundraise."
+        },
+        {
+          "signal_id": "sig-006",
+          "quote": "cold_start true (no prior fundraise, no prior company)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Agent-derived market axis: bullish/improving on agent-driven CI why-now; competitive/social validation via hackathon and launch; sizing/competitor clusters thin; registry-order downloads (if only surface) imply early capture not a dead market.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'."
+        },
+        {
+          "signal_id": "sig-005",
+          "quote": "three commenters identified themselves as production users."
+        },
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Forum adjudication residual (agent-derived): stable fork under registry-order compression with deck commercial claims at zero weight — write $100k on execution residual vs wait for reconciled billing/telemetry; same-week instrument (user contacts + billing/telemetry/channel map + 10x protocol) collapses the fork.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        },
+        {
+          "signal_id": "sig-004",
+          "quote": "lifetime downloads are below the claimed active-install count."
+        },
+        {
+          "signal_id": "sig-002",
+          "quote": "Weekly release cadence for the last 20 weeks."
+        },
+        {
+          "signal_id": "sig-005",
+          "quote": "three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": [
+        "sig-001",
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Founder claims ex-infra at a mid-size fintech (4 years) and an internal remote-cache that cut CI spend 60%; unverified on file.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%."
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "billing_export_mrr_mom",
+      "note": "Trailing-4-month payment-processor/billing export (plan mix, refunds, customer count) not on file; deck $18k MRR / +40% MoM uncleared."
+    },
+    {
+      "field": "active_install_telemetry",
+      "note": "Product telemetry/admin export defining 'active install' and org count for the deck window not on file."
+    },
+    {
+      "field": "distribution_channel_map",
+      "note": "Map of public registry vs private mirrors, binaries, containers, self-host not on file; required to reconcile sig-001 vs sig-004."
+    },
+    {
+      "field": "10x_benchmark_protocol",
+      "note": "Benchmark protocol, workload mix, and customer before/after CI spend artifacts not on file."
+    },
+    {
+      "field": "design_partner_confirmation",
+      "note": "Founder intros or written confirmation of Series-B devtools and AI-lab design-partner scope/status not on file; names withheld."
+    },
+    {
+      "field": "prior_employer_reference",
+      "note": "Employment/reference check for fintech infra tenure and internal remote-cache ~60% CI cut not on file."
+    },
+    {
+      "field": "customer_references",
+      "note": "Launch-thread self-identified production users not yet contacted; no 2–3 customer references with workload/spend context on file."
+    },
+    {
+      "field": "cap_table",
+      "note": "Cap table: not disclosed."
+    },
+    {
+      "field": "market_sizing_competitors",
+      "note": "TAM/SAM and competitor-cluster evidence thin/absent in the record beyond hackathon and launch signals."
+    },
+    {
+      "field": "financials_beyond_deck_mrr",
+      "note": "Burn, runway, gross margin, and cohort retention: not disclosed."
+    }
+  ]
+}

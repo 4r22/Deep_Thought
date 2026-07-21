@@ -1,0 +1,171 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "founder_id",
+    "founder_name",
+    "potential",
+    "band",
+    "confidence",
+    "cold_start",
+    "trajectory",
+    "comparables",
+    "strengths",
+    "unknowns",
+    "watch_signals",
+    "escalate",
+    "authority_note"
+  ],
+  "properties": {
+    "founder_id": {
+      "type": "string",
+      "description": "Stable founder id from Memory (e.g. fndr-gh-maravoss)."
+    },
+    "founder_name": {
+      "type": "string",
+      "description": "Display name as on the founder record."
+    },
+    "potential": {
+      "type": "integer",
+      "description": "0-100 deep founder-potential read for THIS person — not a deal score, not a copy of Memory's Founder Score. Point estimate inside the band; the band carries honesty."
+    },
+    "band": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "[low, high]. Thin / cold-start evidence = wide band, never a silently precise point. Depth is not fake precision."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "speculative"]
+    },
+    "cold_start": {
+      "type": "boolean",
+      "description": "True when the read rests on public footprint only — no funding history, no shipped-product company history. Cold start widens the band; it is never punished as negative evidence."
+    },
+    "trajectory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "trend", "evidence_refs"],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "What the person's signal timeline implies, judged from observed_at / ingested_at timestamps — cadence, acceleration, plateaus, one-off spikes. Not a restatement of the latest snapshot."
+        },
+        "trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "declining", "too-thin"],
+          "description": "too-thin when timestamps cannot support a trajectory claim — say so rather than inventing one."
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Signal ids grounding the trajectory read."
+        }
+      }
+    },
+    "comparables": {
+      "type": "array",
+      "description": "Named people from world knowledge whose early trajectories rhyme with this signal set. Invented composites banned. Empty only when truly no honest comparison exists.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "why"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Real person's name (historical or contemporary)."
+          },
+          "why": {
+            "type": "string",
+            "description": "Why THIS comparison — scoped to the specific early-career move or signal shape, not a vague vibe match. State what the comparison protects against reading wrong, and where it breaks."
+          }
+        }
+      }
+    },
+    "strengths": {
+      "type": "array",
+      "description": "Evidence-anchored strengths. No evidence_refs, no strength.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidence_refs"],
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "A concrete strength claim. Anchor inline with [sig-id] where natural; unanchored speculation must be labeled [unanchored] and belongs in unknowns, not here."
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1,
+            "description": "Signal ids that ground the claim."
+          }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "description": "Evidence-anchored unknowns / gaps — what the record does not yet show. Prefer named gaps over vague doubt.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidence_refs"],
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "What is unknown and why it matters for founder potential. If the gap is inferred rather than pointed at by a signal, cite the nearest signals that make the absence visible, or use [] only when the whole file is empty."
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Signal ids that surface the gap (e.g. a single-channel footprint that leaves other channels blank). May be empty only when there are literally no signals on file."
+          }
+        }
+      }
+    },
+    "watch_signals": {
+      "type": "array",
+      "description": "Named NEXT signals that would move the band — concrete observables, not 'more diligence'. Each says where to look.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "where_to_look", "band_effect"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The named next signal (e.g. 'second independent channel corroborating shipping cadence')."
+          },
+          "where_to_look": {
+            "type": "string",
+            "description": "Concrete place to observe it (URL pattern, registry, interview question, artifact class)."
+          },
+          "band_effect": {
+            "type": "string",
+            "description": "How confirming or falsifying this signal would move the [low, high] band — direction and which edge."
+          }
+        }
+      }
+    },
+    "escalate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["to_forum", "crux"],
+      "properties": {
+        "to_forum": {
+          "type": "boolean",
+          "description": "True ONLY when a genuine non-empirical fork about THIS PERSON remains after every empirical watch_signal is named — a posture / conviction / taste fork no check can settle. Default false. Contested deal diligence is not automatic escalation."
+        },
+        "crux": {
+          "type": "string",
+          "description": "The person-level non-empirical crux, one sentence. Empty string when to_forum is false. Non-blank when to_forum is true."
+        }
+      }
+    },
+    "authority_note": {
+      "type": "string",
+      "description": "Always states: this potential read is agent-derived — material for the operator to argue with, never an authority. It does not authorize a check, settle its own case, or replace Memory's Founder Score."
+    }
+  }
+}

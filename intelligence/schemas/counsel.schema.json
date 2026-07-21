@@ -1,0 +1,49 @@
+{
+  "_comment": "The assembled counsel artifact (counsel.json) — CODE-assembled in run.py from three blind office calls, never a single model output. Member blocks were already strict-validated at the call seam against counsel-founder / counsel-market / counsel-idea-vs-market schemas; this schema is the mechanical gate over the assembled shape (verify_artifacts.py). The cross-axis mean deliberately does NOT exist here: it is presentational, computed in the Experience layer only (operator decision 2026-07-21).",
+  "type": "object",
+  "required": ["room", "members", "aggregation"],
+  "properties": {
+    "room": {
+      "type": "object",
+      "required": ["convened", "note"],
+      "properties": {
+        "convened": { "type": "boolean" },
+        "note": { "type": "string" }
+      }
+    },
+    "members": {
+      "type": "object",
+      "required": ["founder", "market", "idea_vs_market"],
+      "properties": {
+        "founder": {
+          "type": "object",
+          "required": ["score", "band", "trend", "confidence", "cold_start", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"]
+        },
+        "market": {
+          "type": "object",
+          "required": ["score", "band", "rating", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"]
+        },
+        "idea_vs_market": {
+          "type": "object",
+          "required": ["score", "band", "verdict", "trend", "confidence", "evidence_refs", "position_refs", "room_effect", "mandate_refs", "deviation", "coverage_challenges", "open_questions", "notes"]
+        }
+      }
+    },
+    "aggregation": {
+      "type": "object",
+      "required": ["per_axis_scores", "cross_axis_note"],
+      "properties": {
+        "per_axis_scores": {
+          "type": "object",
+          "required": ["founder", "market", "idea_vs_market"],
+          "properties": {
+            "founder": { "type": "integer" },
+            "market": { "type": "integer" },
+            "idea_vs_market": { "type": "integer" }
+          }
+        },
+        "cross_axis_note": { "type": "string" }
+      }
+    }
+  }
+}

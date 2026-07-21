@@ -1,0 +1,231 @@
+/* ════════════════════════════════════════════════════════════════════════
+   SKIN: MELT DICHRO GLASS — scoped under html.skin-glass, inert otherwise.
+   Ported from farm variant fc145-melt-dichro-blue.frag; every constant
+   below is derived from the shader: cyanGround #0d4d70/#051733, inkWhite
+   #e8f2fa/#7abdf5, page #0a4266/#030f26, dichro ramp #0a3861→#1f7a9e→
+   #dbedf7 (dark #03122e→#146bc7→#9ed1ff), hatch pitch 6.5px @120°,
+   contour period 182px, melt 9px/s, band σ=26px, accent #2f6df0/#6fa4ff.
+
+   Two tiers, per the mounting precedent:
+   · this file = flat-CSS glass (always-on dressing + WebGL fallback)
+   · glass-driver.js paints chrome plates on a fixed canvas and stamps
+     html.glass-live on WebGL2 success — rules scoped under .glass-live
+     make those plates transparent so the shader shows through.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html.skin-glass {
+  /* the fc145 world is blue in both themes — light = cyanotype day */
+  --page-bg: #0a4266;
+  --page-wash: linear-gradient(160deg, #11557d 0%, #0a4266 34%, #3a7396 62%, #0a4266 86%, #083a5a 100%);
+  --ink: #e8f2fa;
+  --ink-muted: rgba(232, 242, 250, 0.66);
+  --ink-faint: rgba(232, 242, 250, 0.42);
+  --line: rgba(232, 242, 250, 0.35);
+  --line-soft: rgba(232, 242, 250, 0.16);
+  --blue: #9ec4ff;
+  --accent: #2f6df0;
+  --ok: #8fd8ab;
+  --warn: #ffd27f;
+  --bad: #ff9d8a;
+  --card-bg: rgba(13, 77, 112, 0.58);
+
+  --glass-ink: rgba(232, 242, 250, 1);
+  --glass-hatch: rgba(232, 242, 250, 0.35);
+  --glass-contour: rgba(232, 242, 250, 0.30);
+  --glass-bevel-hi: rgba(219, 237, 247, 0.85);
+  --glass-bevel-lo: rgba(10, 56, 97, 0.70);
+  --glass-hairline: rgba(31, 122, 158, 0.55);
+  --dichro-lo: #0a3861;
+  --dichro-mid: #1f7a9e;
+  --dichro-hi: #dbedf7;
+  --flash: rgba(240, 247, 255, 0.55);
+
+  /* TUNABLE (house rule): first-pass values derived from the shader
+     constants; the operator fine-tunes visually, don't bikeshed. */
+  --glass-hatch-pitch: 6.5px;   /* stripe period, |k|=0.483 rad/px */
+  --glass-hatch-angle: 120deg;  /* wave-vector axis */
+  --glass-contour-period: 182px;
+  --glass-melt-duration: 40.4s; /* 9px/s over the 364px = lcm(182, 6.5) loop */
+}
+html.skin-glass.theme-dark {
+  --page-bg: #030f26;
+  --page-wash: linear-gradient(160deg, #0a1c3a 0%, #030f26 40%, #0d2547 66%, #030f26 100%);
+  --ink: #cfe6fb;
+  --ink-muted: rgba(207, 230, 251, 0.62);
+  --ink-faint: rgba(207, 230, 251, 0.4);
+  --line: rgba(122, 189, 245, 0.35);
+  --line-soft: rgba(122, 189, 245, 0.15);
+  --blue: #9ec4ff;
+  --accent: #6fa4ff;
+  --card-bg: rgba(5, 23, 51, 0.62);
+  --glass-hatch: rgba(122, 189, 245, 0.30);
+  --glass-contour: rgba(122, 189, 245, 0.25);
+  --glass-bevel-hi: rgba(158, 209, 255, 0.5);
+  --glass-bevel-lo: rgba(3, 18, 46, 0.85);
+  --glass-hairline: rgba(20, 107, 199, 0.6);
+  --dichro-lo: #03122e;
+  --dichro-mid: #146bc7;
+  --dichro-hi: #9ed1ff;
+  --flash: rgba(179, 224, 255, 0.55);
+}
+
+/* ── etched glass panel recipe (fc145 constants) ─────────────────────────
+   Full etch on chrome; content cards mute the hatch (CONTRACT legibility
+   law: text-bearing faces keep low-frequency treatment). */
+html.skin-glass .topbar,
+html.skin-glass .settings-drawer,
+html.skin-glass .run-card,
+html.skin-glass .over-card {
+  /* positioning is structural (app.css): sticky topbar, fixed drawer,
+     relative cards — the skin must not override it */
+  background-color: var(--card-bg);
+  background-image:
+    repeating-linear-gradient(180deg,
+      transparent 0 calc(var(--glass-contour-period) * 0.39),
+      var(--glass-contour) calc(var(--glass-contour-period) * 0.5),
+      transparent calc(var(--glass-contour-period) * 0.61),
+      transparent var(--glass-contour-period)),
+    repeating-linear-gradient(var(--glass-hatch-angle),
+      transparent 0 calc(var(--glass-hatch-pitch) * 0.32),
+      var(--glass-hatch) calc(var(--glass-hatch-pitch) * 0.43) calc(var(--glass-hatch-pitch) * 0.57),
+      transparent calc(var(--glass-hatch-pitch) * 0.68) var(--glass-hatch-pitch));
+  backdrop-filter: blur(6px) saturate(130%);
+  -webkit-backdrop-filter: blur(6px) saturate(130%);
+  border: 0;
+  box-shadow:
+    inset 0 1px 0 var(--glass-bevel-hi),
+    inset 1px 0 0 color-mix(in srgb, var(--glass-bevel-hi) 40%, transparent),
+    inset 0 -1px 0 var(--glass-bevel-lo),
+    inset -1px 0 0 color-mix(in srgb, var(--glass-bevel-lo) 55%, transparent),
+    0 0 0 1px var(--glass-hairline);
+  animation: glass-melt var(--glass-melt-duration) linear infinite;
+}
+html.skin-glass .run-card,
+html.skin-glass .over-card {
+  --glass-hatch: rgba(232, 242, 250, 0.12);   /* calm face for prose */
+  --glass-contour: rgba(232, 242, 250, 0.10);
+}
+html.skin-glass.theme-dark .run-card,
+html.skin-glass.theme-dark .over-card {
+  --glass-hatch: rgba(122, 189, 245, 0.10);
+  --glass-contour: rgba(122, 189, 245, 0.09);
+}
+@keyframes glass-melt {
+  to { background-position: 0 364px, 0 364px; }
+}
+
+/* Dichroic rim — conic ring rotating ~648° across a full page scroll
+   (uScroll * 1.8 film cycles), masked to a 1.5px border band. */
+html.skin-glass .run-card::before,
+html.skin-glass .topbar::before,
+html.skin-glass .over-card::before,
+html.skin-glass .settings-drawer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from calc(210deg + var(--scroll, 0) * 648deg),
+    var(--dichro-lo), var(--dichro-mid) 22%, var(--dichro-hi) 47%,
+    var(--dichro-mid) 62%, var(--dichro-lo) 78%, var(--dichro-hi) 90%, var(--dichro-lo));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Specular sweep */
+html.skin-glass .run-card::after,
+html.skin-glass .topbar::after,
+html.skin-glass .over-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% -30%, rgba(240, 247, 255, 0.30),
+    rgba(240, 247, 255, 0.06) 45%, transparent 70%);
+  mix-blend-mode: screen;
+}
+
+/* Page-level band flash: σ=26px gaussian → ~104px visible band riding
+   scroll. ARCHIVAL response only — the shell-era law parks the band
+   (scroll must never translate light); see skins/glass-driver.js. */
+html.skin-glass[data-vcb-response="archival"] .band-flash {
+  display: block;
+  position: fixed;
+  left: 0; right: 0; top: 0;
+  height: 104px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(180deg, transparent, var(--flash), transparent);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  transform: translateY(calc(-120px + var(--scroll, 0) * (100vh + 240px)));
+}
+.band-flash { display: none; }
+
+/* Buttons & chips: small glass caps; ACTIVE = 68% accent mix (s.state law) */
+html.skin-glass .sk-btn {
+  color: var(--ink);
+  background-color: color-mix(in srgb, var(--card-bg) 80%, transparent);
+  background-image: repeating-linear-gradient(var(--glass-hatch-angle),
+    transparent 0 calc(var(--glass-hatch-pitch) * 0.32),
+    var(--glass-hatch) calc(var(--glass-hatch-pitch) * 0.43) calc(var(--glass-hatch-pitch) * 0.57),
+    transparent calc(var(--glass-hatch-pitch) * 0.68) var(--glass-hatch-pitch));
+  border: 0;
+  box-shadow:
+    inset 0 1px 0 var(--glass-bevel-hi),
+    inset 0 -1px 0 var(--glass-bevel-lo),
+    0 0 0 1px var(--glass-hairline);
+}
+html.skin-glass .sk-btn:hover,
+html.skin-glass .sk-btn:focus-visible {
+  box-shadow:
+    inset 0 1px 0 var(--glass-bevel-hi),
+    inset 0 -1px 0 var(--glass-bevel-lo),
+    0 0 0 1px var(--glass-hairline),
+    var(--sk-hover-glow);
+}
+html.skin-glass .sk-btn:active,
+html.skin-glass .sk-btn[aria-pressed="true"],
+html.skin-glass .sk-btn[aria-selected="true"],
+html.skin-glass .sk-btn.active {
+  color: #fff;
+  background-color: color-mix(in srgb, var(--accent) 68%, var(--card-bg));
+  background-image: none;
+}
+/* Menu bezel: a glass rail holding the view chips */
+html.skin-glass .view-menu {
+  background-color: color-mix(in srgb, var(--card-bg) 70%, transparent);
+  border: 0;
+  box-shadow: inset 0 1px 2px var(--glass-bevel-lo), 0 0 0 1px var(--glass-hairline);
+}
+
+/* Structural strips inherit glass tone, not plates of their own */
+html.skin-glass .card-head { background: transparent; border-color: var(--line-soft); }
+html.skin-glass .band-track {
+  border-color: var(--glass-hairline);
+  background: rgba(3, 24, 42, 0.5);
+  box-shadow: inset 0 1px 2px var(--glass-bevel-lo);
+}
+html.skin-glass .band-marker { background: var(--accent); }
+html.skin-glass .band-range { background: color-mix(in srgb, var(--accent) 45%, transparent); }
+
+/* ── glass-live: the WebGL driver paints chrome plates on the canvas —
+   their CSS dressing steps aside so the shader shows through. Text stays
+   DOM, above the canvas. (Precedent: body.footer-metal transparency.) ── */
+html.skin-glass.glass-live body::before { opacity: 0; }
+html.skin-glass.glass-live .topbar {
+  background: transparent;
+  animation: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+html.skin-glass.glass-live .topbar::before,
+html.skin-glass.glass-live .topbar::after { display: none; }
+/* The settings drawer floats ABOVE content — the background canvas cannot
+   dress it, so it keeps its CSS frosted glass (real backdrop blur). */

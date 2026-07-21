@@ -1,0 +1,279 @@
+{
+  "body_md": "## In a nutshell\n\n**Market size is not in the record** (no TAM/SAM/SOM or spend-base cited). The structural problem Ferrite targets is LLM-agent CI regenerating overlapping build work across a fleet, so spend scales with redundant agent steps rather than unique artifacts [C1]. That load is urgent as agent-driven pipelines proliferate: yesterday’s remote cache was built for human-authored, relatively stable graphs; agent runs re-emit steps that a content-addressed cache can collapse [C2]. Ferrite’s product is a content-addressed build cache that deduplicates those agent-generated steps to cut CI cost [C1].\n\n## Company\n\n**Ferrite** — solo technical founder Mara Voss (Berlin, DE); first-time founder, no prior fundraise claimed [C3]. Raising a $500k pre-seed; applying for Example Fund I’s $100k fast check [C4]. Sector fit (ai-infrastructure / devtools) is implied by the product, not independently sized here.\n\n## Traction snapshot (contested vs verified)\n\nDeck claims **3,100 active installations across 240 organizations** and **$18k MRR, +40% MoM for 3 months** [C5][C6]. Public registry shows **2,900 lifetime downloads** and **~340/week** — lifetime downloads sit *below* the claimed active-install count [C7]. That is an open contradiction, not a reconciled distribution story. Design partners (Series-B devtools; AI lab) and the **10x** agent-CI cost-reduction claim remain subject-only [C8][C9].\n\nIndependently archived product presence (not a substitute for cleared scale): GitHub — 412 stars, weekly releases for 20 weeks, founder-dominated commits [C10]; Hack-Nation infrastructure-track win (~400 teams) [C11]; June 2026 launch thread with three self-identified production users [C12]. Forum adjudication (agent-derived) treated deck install/MRR figures as uncleared non-evidence until reconciled, while keeping diligence open on shipping/launch presence rather than killing on registry totals alone [C13].",
+  "claims": [
+    {
+      "text": "Ferrite is a content-addressed build cache that makes LLM-agent CI runs cheaper by deduplicating agent-generated build steps across a fleet.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The product’s why-now is framed as agent-driven CI regenerating build steps across fleets, where content-addressed dedupe is newly valuable versus prior remote-cache assumptions.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        },
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Mara Voss is a solo technical founder based in Berlin; first-time founder with no prior fundraise claimed.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%. First-time founder. No prior fundraise."
+        },
+        {
+          "signal_id": "application",
+          "quote": "solo founder, technical"
+        },
+        {
+          "signal_id": "application",
+          "quote": "Berlin, DE"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite is raising a $500k pre-seed and applying for the $100k fast check.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Raising a $500k pre-seed; applying for the $100K fast check."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck asserts 3,100 active installations across 240 organizations.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Deck asserts $18k MRR growing 40% month-over-month for 3 months.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Public package registry shows ~340 downloads/week and 2,900 lifetime downloads — below the deck’s claimed active-install count.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "Two design partners claimed: one Series-B devtools company and one AI lab (names withheld).",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck/application claim 10x cost reduction on agent-driven CI workloads (internal benchmark).",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        },
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "GitHub repo shows sustained shipping: 412 stars, 61 forks, 9 external contributors, ~1,400 commits over 11 months (86% founder), weekly releases for 20 weeks.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 in a field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "June 2026 launch post reached a major aggregator front page (~6 hours, 214 points, 89 comments); three commenters identified as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Forum adjudication treated deck 3,100 installs / 240 orgs and $18k MRR / +40% MoM as uncleared non-evidence, while keeping Ferrite in diligence on verified shipping and launch presence rather than killing solely on public registry totals.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        },
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "market_size",
+      "note": "No TAM/SAM/SOM, category spend, or agent-CI cost base in application, deck signals, or independent archives — nutshell cannot state sizing beyond ‘not disclosed’."
+    },
+    {
+      "field": "competitor_landscape",
+      "note": "No competitor cluster, substitute remote-cache vendors, or share estimates on file."
+    },
+    {
+      "field": "mrr_billing_export",
+      "note": "$18k MRR and +40% MoM are deck-only; no payment-processor or billing export on file."
+    },
+    {
+      "field": "active_install_telemetry",
+      "note": "No product telemetry/admin export defining ‘active install’ or org count for the deck window; distribution-channel map (registry vs private mirrors/binaries/containers/self-host) absent."
+    },
+    {
+      "field": "design_partner_confirmation",
+      "note": "Partner names withheld; no written confirmation or intro on file."
+    },
+    {
+      "field": "10x_benchmark_protocol",
+      "note": "Internal benchmark claimed; protocol, workload mix, and customer before/after CI spend artifacts not on file."
+    },
+    {
+      "field": "founder_employment_reference",
+      "note": "Ex-fintech infra / ~60% CI cut from internal remote-cache is subject-claimed only; no manager/peer reference on file."
+    },
+    {
+      "field": "customer_references",
+      "note": "Launch-thread self-identified users not contacted; no structured customer references with workload/spend context."
+    },
+    {
+      "field": "cap_table",
+      "note": "Not disclosed."
+    },
+    {
+      "field": "incorporation_legal",
+      "note": "Entity, jurisdiction, and IP assignment not disclosed in the record used for this snapshot."
+    }
+  ]
+}

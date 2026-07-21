@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["body_md", "claims", "gaps"],
+  "properties": {
+    "body_md": {
+      "type": "string",
+      "description": "The document body, markdown. Inline claim references [C1]..[Ck] index THIS document's claims array 1-based; the assembler renumbers them globally. Empty string only when the record supports nothing — then gaps says so."
+    },
+    "claims": {
+      "type": "array",
+      "description": "Every load-bearing assertion in body_md, in the order first referenced. No id field — the assembler assigns global ids.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "trust", "evidence", "contradictions"],
+        "properties": {
+          "text": { "type": "string" },
+          "trust": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tier", "authority", "verification", "confidence"],
+            "properties": {
+              "tier": { "type": "string", "enum": ["verified-artifact", "verified-online", "reconstructed", "claimed"] },
+              "authority": { "type": "string", "enum": ["subject", "independent", "operator-primary", "agent-derived"], "description": "subject-authority evidence never substantiates its own case. Citing subject or agent-derived material as if independent is authority laundering — a named defect." },
+              "verification": { "type": "string", "enum": ["grounded", "unverified", "contradicted"], "description": "grounded: verbatim support at an archived independent source. unverified: search attempted and failed — say where you looked. contradicted: conflicting signals exist; both cited." },
+              "confidence": { "type": "string", "enum": ["high", "medium", "low", "speculative"] }
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["signal_id", "quote"],
+              "properties": {
+                "signal_id": { "type": "string", "description": "A real signal id, or 'application' when the only source is the founder's own submission." },
+                "quote": { "type": "string", "description": "Verbatim from that source, and it must contain the content the claim asserts — an unrelated quote is a defect even when copied correctly." }
+              }
+            }
+          },
+          "contradictions": { "type": "array", "items": { "type": "string" }, "description": "Signal ids in tension with this claim. Surfaced, never smoothed over." }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Data this document expects that the record cannot support — 'Cap table: not disclosed'. Flagged, never invented.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "note"],
+        "properties": {
+          "field": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

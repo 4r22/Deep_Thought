@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>vc.brain — run viewer</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="skeleton.css">
+  <link rel="stylesheet" href="app.css?v=2026-07-21-2">
+  <link rel="stylesheet" href="skins/alu.css">
+  <link rel="stylesheet" href="skins/glass.css">
+  <script>
+    // Skin/theme are LOCKED to dark aluminium (operator decision, bead
+    // vc-brain-toe.5, 2026-07-21): no switching UI, no localStorage branching.
+    // The classes are stamped unconditionally before first paint. Skins CSS
+    // stays on disk (decisions ledger references it); glass-driver never mounts.
+    document.documentElement.classList.add('skin-alu', 'theme-dark');
+  </script>
+</head>
+<body>
+
+<div class="band-flash" aria-hidden="true"></div>
+
+<header class="topbar" data-skin="bar">
+  <a class="brand" href="../" title="vc.brain — what this is">vc<span class="brand-dot">.</span>brain</a>
+
+  <nav class="view-menu" role="tablist" aria-label="Views">
+    <button class="sk-btn view-tab" role="tab" data-view="overview" data-skin="chip">overview</button>
+    <button class="sk-btn view-tab" role="tab" data-view="screen"   data-skin="chip">screen</button>
+    <button class="sk-btn view-tab" role="tab" data-view="triage"   data-skin="chip">triage</button>
+    <button class="sk-btn view-tab" role="tab" data-view="forum"    data-skin="chip">forum</button>
+    <button class="sk-btn view-tab" role="tab" data-view="axes"     data-skin="chip">axes</button>
+    <button class="sk-btn view-tab" role="tab" data-view="memo"     data-skin="chip">memo</button>
+    <button class="sk-btn view-tab" role="tab" data-view="network"  data-skin="chip">network</button>
+  </nav>
+
+  <div class="topbar-tools">
+    <span id="latency-chip" class="sk-chip mono" hidden></span>
+    <button id="terminal-btn" class="sk-btn" data-skin="btn"
+            aria-label="Open terminal" title="⌘K">⌘K</button>
+    <button id="settings-btn" class="sk-btn" data-skin="btn"
+            aria-expanded="false" aria-controls="settings">settings</button>
+  </div>
+</header>
+
+<aside id="settings" class="settings-drawer" hidden>
+  <div class="drawer-head card-head">
+    <span class="sk-label">settings</span><span class="rule"></span>
+    <button id="settings-close" class="sk-btn" aria-label="Close settings">×</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-row">
+      <span class="sk-label">run</span>
+      <div class="chip-row">
+        <span id="run-chip" class="sk-chip mono"></span>
+        <button id="replay-btn" class="sk-btn" hidden>replay run</button>
+      </div>
+    </div>
+    <p id="settings-meta" class="sk-label"></p>
+  </div>
+</aside>
+
+<main id="main">
+  <section id="view-overview" class="view">
+    <div id="hero"></div>
+    <div id="overview-grid"></div>
+    <div id="recommendation" class="run-card" hidden></div>
+  </section>
+  <section id="view-screen" class="view">
+    <div id="screen" class="run-card" hidden></div>
+  </section>
+  <section id="view-triage" class="view">
+    <div id="triage" class="run-card" hidden></div>
+  </section>
+  <section id="view-forum" class="view">
+    <div id="forum" class="run-card" hidden></div>
+  </section>
+  <section id="view-axes" class="view">
+    <div id="axes" class="run-card" hidden></div>
+  </section>
+  <section id="view-memo" class="view">
+    <div id="memo" class="run-card" hidden></div>
+  </section>
+  <section id="view-network" class="view"></section>
+  <section id="view-entity" class="view"></section>
+  <p id="load-error" class="muted" hidden></p>
+</main>
+
+<footer class="site-footer sk-label">
+  vc brain · sourcing → screening → diligence → decision · hack-nation × mit
+  <br>forum voices are AI-simulated personas of public figures — not their real views or participation
+</footer>
+
+<script type="module" src="app.js?v=2026-07-21-2"></script>
+</body>
+</html>

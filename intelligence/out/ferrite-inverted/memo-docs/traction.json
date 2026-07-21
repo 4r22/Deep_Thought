@@ -1,0 +1,203 @@
+{
+  "body_md": "# Traction & KPIs — Ferrite\n\n**Read for the 24h check:** Deck commercial magnitudes are uncleared and in tension with the only independent distribution counter. Independently verified presence is thin (shipping, launch self-ID users, hackathon)—not cleared MRR, installs, or unit economics. Confidence on scale: **low** until billing/telemetry reconcile; confidence that *some* production residue exists: **medium** on launch-thread users alone.\n\n## Customer / install scale\n\nDeck asserts **3,100 active installations across 240 organizations** [C1]. Public package registry shows **2,900 lifetime downloads** and **~340/week** [C2]—lifetime downloads sit *below* the claimed active-install count. Forum adjudication (agent-derived) converged that the deck install/org figures are uncleared non-evidence until reconciled; they do not carry underwriting [C3].\n\n**Tension (do not smooth):** either distribution is multi-channel (private mirrors, binaries, containers, self-host) and the registry undercounts, or the deck’s “active install” definition is inflated/undefined. No channel map or telemetry definition is on file.\n\nIndependent presence (not customer count): GitHub **412 stars, 61 forks, 9 external contributors** [C4]; launch thread had **three commenters who identified themselves as production users** [C5]. Design partners (“Series-B devtools”; “AI lab”) are deck-only, names withheld—unverified partnership substance [C6].\n\n## Revenue / ARR / growth\n\nDeck: **$18k MRR, +40% MoM for 3 months** [C7]. No payment-processor export, billing artifact, plan mix, refunds, or customer-count export on file. ARR is not independently supported; treating $18k×12 as ARR would be invention. Forum (agent-derived): treat MRR/MoM as uncleared non-evidence [C3].\n\n## Unit economics\n\n**CAC, sales cycle, churn, LTV, payback:** not disclosed. No pricing, conversion, or retention series on file.\n\n## Usage metrics\n\n**DAU/WAU/MAU, cache hit rates, CI minutes saved, seats per org:** not disclosed. Closest independent usage proxy is registry download velocity [C2] and self-identified production users on launch [C5]—neither is a DAU series.\n\n## Performance claim (cost)\n\nDeck/application: **10x cost reduction on agent-driven CI** (internal benchmark) [C8]. No protocol, workload mix, or customer before/after spend artifact on file.\n\n## What the independent record does support\n\nSustained shipping (weekly releases ~20 weeks; founder-dominated commit history) [C9] and Hack-Nation infrastructure-track win [C10] are **execution/validation signals**, not cleared commercial traction. They keep diligence open under registry-order compression; they do not substitute for reconciled paid/active scale.\n\n## Diligence that settles this page\n\nSame-week packet implied by forum instrument (agent-derived): (1) contact launch-thread production users or founder intros for unscripted agent-CI win; (2) trailing-4-month billing export + active-install/org telemetry with distribution-channel map + 10x protocol. Until then, primary magnitudes stay contested or blank.\n",
+  "claims": [
+    {
+      "text": "Deck claims 3,100 active installations across 240 organizations.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "Public package registry shows ~340 downloads/week and 2,900 lifetime downloads—lifetime total below the deck’s claimed active-install count.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "Forum adjudication treats deck 3,100 active installs / 240 orgs and $18k MRR / +40% MoM as uncleared non-evidence that cannot carry underwriting until reconciled.",
+      "trust": {
+        "tier": "reconstructed",
+        "authority": "agent-derived",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Treat deck 3,100 active installs / 240 orgs and $18k MRR / +40% MoM as uncleared non-evidence that cannot carry underwriting until reconciled"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "GitHub repository shows 412 stars, 61 forks, and 9 external contributors.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Launch-thread commenters included three who identified themselves as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck claims two design partners: one Series-B devtools company and one AI lab (names withheld).",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck claims $18k MRR growing 40% month-over-month for 3 months.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 9: '$18k MRR, +40% MoM for 3 months'."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Deck/application claims 10x cost reduction on agent-driven CI workloads via an internal benchmark.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Repository shows weekly release cadence for the last 20 weeks and 1,400 commits over 11 months (86% by the founder).",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 in a judged field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "ARR / verified revenue",
+      "note": "Only deck $18k MRR / +40% MoM (sig-001); no payment-processor or billing export, plan mix, refunds, or customer-count series on file. ARR not independently supported."
+    },
+    {
+      "field": "Active install / organization definition",
+      "note": "No product telemetry or admin export defining 'active install' or org count for the deck window; distribution-channel map (registry vs private mirrors/binaries/containers/self-host) absent—required to reconcile sig-001 vs sig-004."
+    },
+    {
+      "field": "Paying customer count",
+      "note": "Not disclosed separately from deck org/install claims; launch-thread yields three self-identified production users only (sig-005), not a paid roster."
+    },
+    {
+      "field": "Unit economics (CAC, sales cycle, churn, LTV, payback)",
+      "note": "Not disclosed; no pricing, conversion, or retention data on file."
+    },
+    {
+      "field": "Usage metrics (DAU/WAU/MAU, cache hits, CI minutes saved)",
+      "note": "Not disclosed; registry downloads and GitHub stars are not product usage series."
+    },
+    {
+      "field": "10x cost-reduction benchmark",
+      "note": "Internal-benchmark claim only; no protocol, workload mix, or customer before/after CI spend artifact on file."
+    },
+    {
+      "field": "Design-partner confirmation",
+      "note": "Names withheld in deck; no written confirmation of partnership scope/status or founder intros on file."
+    },
+    {
+      "field": "Customer references with spend context",
+      "note": "No structured references; only launch-thread self-ID production users (sig-005) pending contact."
+    }
+  ]
+}

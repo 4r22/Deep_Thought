@@ -1,0 +1,17 @@
+{
+  "verdict": "contested",
+  "thesis_fit": {
+    "in_scope": true,
+    "mismatches": []
+  },
+  "missing_minimums": [],
+  "red_flags": [
+    {
+      "flag": "Deck claims 3,100 active installations across 240 orgs, but public registry shows only 2,900 lifetime downloads (340/week)—lifetime downloads below claimed active installs",
+      "evidence_ref": "sig-001; sig-004",
+      "severity": "serious"
+    }
+  ],
+  "rationale": "In-thesis EU pre-seed AI infra/devtools with a technical first-time founder and independent proof of shipping: weekly releases and real GitHub activity (sig-002), a major hackathon win (sig-003), and a strong launch with self-identified production users (sig-005). Opposed pole: verified registry download totals contradict the deck’s active-install scale (sig-001 vs sig-004), so traction credibility is unresolved and needs forum scrutiny before treating metrics as real.",
+  "confidence": "medium"
+}

@@ -1,0 +1,191 @@
+{
+  "body_md": "# Market sizing — Ferrite\n\n## Scope of what the record can support\n\nThis document needs top-down and/or bottom-up TAM / SAM / SOM with explicit assumptions. **Dollar TAM / SAM / SOM cannot be grounded from evidence on file** — no industry spend series, buyer counts, verified ARPU, attach rates, or competitor-revenue clusters appear in signals or the application. What follows is (1) a qualitative category/why-now, (2) bottom-up **capture proxies** under stated assumptions, and (3) open tensions that bound how far those proxies can be read as obtainable market. Agent-derived forum market read (bullish / improving / medium confidence; sizing thin) is deliberation material, not an independent size estimate; the residual write-vs-wait fork under registry-order compression keeps capture confidence capped.\n\n## Category definition\n\nFerrite’s wedge is a content-addressed build cache that makes LLM-agent CI runs cheaper by deduplicating agent-generated build steps across a fleet [C1]. Fund sector fit (ai-infrastructure / devtools / applied-AI B2B) is thesis-side context, not a measured market.\n\n## Why-now (qualitative; not sized)\n\nThe demand hypothesis is that LLM-agent CI regenerates build steps across fleets such that content-addressed dedupe is newly valuable versus classic remote cache [C1]. Independent corroboration in the file is **presence and competitive attention**, not spend:\n\n- Hack-Nation Global AI Hackathon (May 2026), infrastructure track winner — “Ferrite: content-addressed caching for agent CI”; judged field of ~400 teams [C2].\n- Launch post (2 Jun): front page of a major aggregator ~6 hours; 214 points; 89 comments; three commenters self-identified as production users [C3].\n- Public repo: 412 stars, weekly release cadence for the last 20 weeks [C4].\n\nThese support a live problem/category and some production residue. They do **not** establish TAM, SAM, or paid share.\n\n## Top-down TAM / SAM / SOM\n\n| Layer | Constructed? | Note |\n| --- | --- | --- |\n| TAM | No | No CI / remote-cache / agent-CI spend figures on file |\n| SAM | No | No verified count of orgs running agent CI, willingness-to-pay, or price band |\n| SOM | Proxy only | Contested deck commercial claims vs registry-order distribution; see bottom-up |\n\nAny numeric top-down stack would be fabrication and is omitted.\n\n## Bottom-up capture proxies (assumptions stated)\n\n**Assumption set A — if deck commercial claims clear (currently uncleared).** Deck asserts “3,100 active installations across 240 organizations” and “$18k MRR, +40% MoM for 3 months” [C5][C6]. Arithmetic under A: $18k × 12 ≈ **$216k ARR** as current paid footprint; 240 orgs as current org SAM penetration. **Status:** subject-only; no billing export on file; forum diligence treats these as non-carrying until reconciled. Do not use Path A as underwritable SOM.\n\n**Assumption set B — if the public registry is the primary install surface.** Registry: “340 downloads/week, 2,900 downloads total lifetime,” with lifetime downloads below the claimed active-install count [C7]. Under B, near-term install footprint is **registry-order** (early capture), not deck-order. **Status:** verified-online for the public package only; other channels (private mirrors, binaries, containers, self-host) are unmapped — B is a lower-bound hypothesis if those channels exist, not a hard ceiling.\n\n**Tension (open):** deck active-install / org scale [C5] vs registry lifetime downloads [C7]. Independent shipping/launch presence [C2][C3][C4] vs registry-implied distribution scale [C7]. Capture for SOM stays **forked** until a distribution-channel map and same-window telemetry/billing reconcile the definitions.\n\n**Willingness-to-pay bridge (not closed).** Deck/application claim “10x cost reduction on agent-driven CI workloads (internal benchmark)” [C8] and two design partners (Series-B devtools; AI lab; names withheld) [C9] could, if verified with spend artifacts, convert save-rate × CI bill into a SAM price anchor. Protocol, workload mix, and partner confirmation are not on file — no dollars attached.\n\n## Explicit non-results\n\n- No reconstructed industry TAM (would require external spend data absent here).\n- No competitor cluster sizing.\n- No EU vs US revenue split despite fund geography and Berlin founder location.\n- Contested primary magnitudes mean **SOM confidence is low** even where presence signals are high-confidence [C2][C3][C4][C5][C7].\n",
+  "claims": [
+    {
+      "text": "Ferrite’s product wedge is a content-addressed build cache that makes LLM-agent CI runs cheaper by deduplicating agent-generated build steps across a fleet.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "medium"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite won the infrastructure track at Hack-Nation Global AI Hackathon May 2026 for content-addressed caching for agent CI, in a judged field of ~400 teams.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-003",
+          "quote": "Winner, infrastructure track, Hack-Nation Global AI Hackathon May 2026 — 'Ferrite: content-addressed caching for agent CI'. Judged field of ~400 teams."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "Ferrite’s 2 June launch post was on the front page of a major aggregator for ~6 hours (214 points, 89 comments), and three commenters identified themselves as production users.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-005",
+          "quote": "Launch post, 2nd June: front page of a major aggregator for ~6 hours, 214 points, 89 comments. Founder answered 41 comments in-thread with technical depth; three commenters identified themselves as production users."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The public Ferrite repository shows 412 stars and a weekly release cadence for the last 20 weeks.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-002",
+          "quote": "Repository: 412 stars, 61 forks, 9 external contributors. 1,400 commits over 11 months, 86% by the founder. Weekly release cadence for the last 20 weeks. CI config shows real test coverage."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The deck claims 3,100 active installations across 240 organizations as current traction scale.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "contradicted",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": [
+        "sig-004"
+      ]
+    },
+    {
+      "text": "The deck claims $18k MRR growing 40% month-over-month for 3 months, with no external corroboration attached.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-001",
+          "quote": "Deck page 7: '3,100 active installations across 240 organizations'. Deck page 9: '$18k MRR, +40% MoM for 3 months'. No external corroboration attached."
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The public package registry shows 340 downloads/week and 2,900 lifetime downloads — lifetime downloads below the deck’s claimed active-install count.",
+      "trust": {
+        "tier": "verified-online",
+        "authority": "independent",
+        "verification": "grounded",
+        "confidence": "high"
+      },
+      "evidence": [
+        {
+          "signal_id": "sig-004",
+          "quote": "Public package registry: 340 downloads/week, 2,900 downloads total lifetime. Tension with deck's '3,100 active installations' — lifetime downloads are below the claimed active-install count."
+        }
+      ],
+      "contradictions": [
+        "sig-001"
+      ]
+    },
+    {
+      "text": "The deck/application claims a 10x cost reduction on agent-driven CI workloads via an internal benchmark.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "10x cost reduction on agent-driven CI workloads (internal benchmark)"
+        }
+      ],
+      "contradictions": []
+    },
+    {
+      "text": "The deck claims two design partners: one Series-B devtools company and one AI lab, with names withheld.",
+      "trust": {
+        "tier": "claimed",
+        "authority": "subject",
+        "verification": "unverified",
+        "confidence": "low"
+      },
+      "evidence": [
+        {
+          "signal_id": "application",
+          "quote": "Two design partners: one Series-B devtools company, one AI lab (names withheld in deck)"
+        }
+      ],
+      "contradictions": []
+    }
+  ],
+  "gaps": [
+    {
+      "field": "TAM (dollar)",
+      "note": "No CI, remote-cache, build-infra, or agent-CI market spend figures, analyst estimates, or comparable industry series in signals or application. Top-down TAM not constructible without fabrication."
+    },
+    {
+      "field": "SAM (dollar / buyer count)",
+      "note": "No verified count of organizations running LLM-agent CI, no attach-rate or willingness-to-pay study, no cleared price band. SAM not constructible."
+    },
+    {
+      "field": "SOM (dollar, verified)",
+      "note": "No payment-processor/billing export, no cleared paid customer count or ARPU. Deck $18k MRR / +40% MoM and 3,100 installs / 240 orgs are subject-only and installs are contradicted by registry lifetime downloads; cannot close SOM."
+    },
+    {
+      "field": "Distribution-channel map",
+      "note": "Needed to reconcile registry downloads vs active installs (public registry vs private mirrors, binaries, containers, self-host). Not on file — blocks choosing Path A vs Path B capture bound."
+    },
+    {
+      "field": "Competitor cluster / share",
+      "note": "No competitor list, pricing, or revenue cluster in the record. Agent-derived market notes explicitly flag sizing and competitor clusters as thin."
+    },
+    {
+      "field": "Geographic revenue split (EU / US)",
+      "note": "Founder located Berlin, DE; fund geography EU/US. No disclosed revenue or customer geography for market allocation."
+    },
+    {
+      "field": "Design-partner spend / status",
+      "note": "Partners named only by category in deck; no confirmation, scope, or CI-spend context to convert into SAM price anchors."
+    },
+    {
+      "field": "10x benchmark protocol and customer before/after CI spend",
+      "note": "Internal benchmark claimed only; no protocol, workload mix, or spend artifact to bridge save-rate into market economics."
+    },
+    {
+      "field": "Active-install / org telemetry definition",
+      "note": "Deck magnitudes lack a same-window product telemetry or admin export defining 'active install' and organization count."
+    }
+  ]
+}

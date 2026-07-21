@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "vc-brain/signal",
+  "title": "Signal",
+  "description": "One observed fact about a founder or company. Nothing discarded: timestamped, source-tagged, deduplicated, trust-tiered at ingestion. Contract between the Memory track and the Intelligence track — change only by agreement.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "source", "observed_at", "ingested_at", "summary", "trust_tier", "authority"],
+  "properties": {
+    "id": { "type": "string", "description": "e.g. sig-0001" },
+    "founder_ids": { "type": "array", "items": { "type": "string" } },
+    "company_ids": { "type": "array", "items": { "type": "string" } },
+    "source": {
+      "type": "string",
+      "enum": ["application", "deck", "github", "hackathon", "paper", "launch", "social", "press", "registry", "interview", "manual"],
+      "description": "Where the signal came from. 'application' and 'deck' are subject-supplied; treat accordingly."
+    },
+    "url": { "type": ["string", "null"] },
+    "observed_at": { "type": "string", "description": "ISO 8601 — when the underlying event happened (commit date, post date, filing date)." },
+    "ingested_at": { "type": "string", "description": "ISO 8601 — when the system captured it. observed_at vs ingested_at gives trend-over-time, not just latest snapshot." },
+    "summary": { "type": "string", "description": "What the signal says, one to three sentences. Verbatim quotes preferred over paraphrase." },
+    "raw_ref": { "type": ["string", "null"], "description": "Path or key to the archived raw artifact (fetched page, deck page, API response). Archiving the raw source is what promotes a signal up the trust ladder." },
+    "trust_tier": {
+      "type": "string",
+      "enum": ["verified-artifact", "verified-online", "reconstructed", "claimed"],
+      "description": "T1 verified-artifact: primary artifact on file and independently checked (repo code read, payment-processor export, signed contract). T2 verified-online: public source fetched and archived. T3 reconstructed: reference-class inference, labeled. T4 claimed: subject-supplied and unverified — the weakest tier. Verifying a claim (fetch + archive) promotes it."
+    },
+    "authority": {
+      "type": "string",
+      "enum": ["subject", "independent", "operator-primary", "agent-derived"],
+      "description": "Orthogonal to trust_tier. subject: the founder/company's own material — never substantiates its own case. independent: third party. operator-primary: the investor's own notes/calls. agent-derived: output of this pipeline — material to argue with, never an authority."
+    },
+    "dedupe_key": { "type": ["string", "null"], "description": "Stable key for dedup (url, content hash). Duplicate signals merge; their timestamps both survive in history." },
+    "contradicts": { "type": "array", "items": { "type": "string" }, "description": "Signal ids this one contradicts. Contradictions are first-class — they become debate seeds and memo flags, not errors to suppress." }
+  }
+}
