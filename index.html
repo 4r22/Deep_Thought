@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VC Brain — an AI operating system for early-stage venture</title>
+<meta name="description" content="Discover exceptional founders, run honest diligence, and produce a decision-ready memo — fast enough to deploy a $100K check inside 24 hours.">
+<style>
+  :root {
+    --bg: #0d0f12; --panel: #14171c; --line: #262b33;
+    --ink: #e8eaed; --dim: #9aa3ad; --accent: #d8b26a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
+  .eyebrow {
+    font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 1.25rem;
+  }
+  h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.1; margin: 0 0 1.25rem; font-weight: 600; }
+  .lede { font-size: clamp(1.05rem, 2.4vw, 1.3rem); color: var(--dim); max-width: 46rem; margin: 0 0 3.5rem; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  h2 {
+    font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--dim); margin: 3.5rem 0 1.25rem; font-weight: 600;
+  }
+  .layers { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: .6rem; padding: 1.35rem; }
+  .card h3 { margin: 0 0 .5rem; font-size: 1rem; font-weight: 600; }
+  .card p { margin: 0; color: var(--dim); font-size: .92rem; }
+  .stats { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  .stat { border-left: 2px solid var(--accent); padding: .15rem 0 .15rem 1rem; }
+  .stat b { display: block; font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--dim); font-size: .85rem; }
+  .note {
+    margin-top: 3.5rem; padding: 1.15rem 1.35rem; border: 1px dashed var(--line);
+    border-radius: .6rem; color: var(--dim); font-size: .92rem;
+  }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--dim); font-size: .82rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Hack-Nation × MIT · Challenge 02</p>
+  <h1>VC Brain</h1>
+  <p class="lede">
+    A data- and AI-first operating system for early-stage venture: <strong>discover
+    exceptional founders, run honest diligence, and produce a decision-ready memo</strong>
+    — fast enough to deploy a $100K check inside 24 hours.
+  </p>
+
+  <h2>Three layers</h2>
+  <div class="layers">
+    <div class="card">
+      <h3>Memory</h3>
+      <p>A structured, deduplicated knowledge base of founders, companies, and signals —
+      housing a persistent Founder Score that follows the person across startups and
+      never resets, with an explicit method for pricing thin evidence rather than
+      penalising it.</p>
+    </div>
+    <div class="card">
+      <h3>Intelligence</h3>
+      <p>The reasoning layer. A per-deal forum builds the reference space first; a
+      standing counsel of three offices — Founder, Market, Idea-vs-Market — then
+      cross-examines that record and scores independently. The axes are never
+      averaged into one number: disagreement is signal.</p>
+    </div>
+    <div class="card">
+      <h3>Experience</h3>
+      <p>Investor-grade interface: Notion-approachable, Bloomberg-deep. A run viewer
+      over committed pipeline tapes and a keyboard-driven terminal over the research
+      corpus, both hand-rolled with zero runtime dependencies.</p>
+    </div>
+  </div>
+
+  <h2>Measured, not demoed</h2>
+  <div class="stats">
+    <div class="stat"><b>25</b><span>applications run end-to-end overnight, zero failures</span></div>
+    <div class="stat"><b>580</b><span>real repositories passed through the sourcing gate</span></div>
+    <div class="stat"><b>171s</b><span>fastest run: public signals to decision-ready memo</span></div>
+    <div class="stat"><b>152</b><span>tests passing across the pipeline</span></div>
+  </div>
+
+  <p class="note">
+    <strong>Deployment placeholder.</strong> The full source, architecture
+    documentation, and the labelled demo tapes are being published to this repository
+    and will appear at this address shortly.
+  </p>
+
+  <footer>
+    Every claim traces to evidence at a stated confidence tier; gaps are flagged, never
+    silently filled. One human stays in the loop for the final decision.
+  </footer>
+</div>
+</body>
+</html>
