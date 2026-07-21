@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="experience/skeleton.css">
-  <link rel="stylesheet" href="experience/app.css?v=2026-07-21-2">
-  <link rel="stylesheet" href="experience/landing.css?v=2026-07-19-1">
+  <link rel="stylesheet" href="experience/app.css?v=2026-07-21-10">
+  <link rel="stylesheet" href="experience/landing.css?v=2026-07-21-1">
   <link rel="stylesheet" href="experience/skins/alu.css">
   <link rel="stylesheet" href="experience/skins/glass.css">
   <script>
@@ -25,29 +25,66 @@
 
 <header class="topbar" data-skin="bar">
   <a class="brand" href="./">vc<span class="brand-dot">.</span>brain</a>
+  <!-- The retired OPEN THE RUN VIEWER button is dropped — the hub below is
+       the sole run switcher; no parallel chrome door races it (taste-096,
+       landing ac-2, verdict A). -->
   <div class="topbar-tools">
     <a class="sk-btn" data-skin="btn" href="experience/howto.html">terminal — how to</a>
-    <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-inverted&view=overview">open the run viewer</a>
   </div>
 </header>
 
 <main class="land">
 
-  <section class="land-hero">
-    <h1>vc<span class="brand-dot">.</span>brain</h1>
-    <p class="land-tag">A data- and AI-first operating system for early-stage venture —
-      discover exceptional founders, run honest diligence, and land a decision-ready memo
-      <strong>fast enough to deploy a $100K check inside 24 hours</strong>.</p>
-    <div class="axis-chips">
-      <span class="sk-chip">sourcing → screening → diligence → decision</span>
-      <span class="sk-chip">hack-nation × mit</span>
-      <span class="sk-chip">challenge 02 — maschmeyer group</span>
+  <!-- ═══ COVER (landing verdict A, vc-brain-ib1): masthead + caption +
+       legend chips ride one editorial band, then the LIVING hub is the
+       figure — the corpus graph itself (graph.js gallery grammar, resting
+       mode), not a static illustration. No prose gate; no dual CTAs; the
+       hub is the sole run switcher (taste-096, ac-1/ac-2). -->
+  <div class="cover-head">
+    <div class="cover-mark">vc<span class="brand-dot">.</span>brain</div>
+    <p class="cover-caption">A data- and AI-first operating system for early-stage venture.
+      Every analysis run is a node on this graph — <strong>press one to hold it, press again
+      to open it</strong> and read the room that argued the deal.</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-chip">
+      <span class="legend-term">run</span>
+      <span class="legend-def">One founder taken through the whole pipeline — a saved analysis you can open and read.</span>
     </div>
-    <div class="land-cta">
-      <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-inverted&view=overview">see a live run →</a>
-      <a class="sk-btn" data-skin="btn" href="experience/?run=ferrite-inverted&view=forum">watch a forum argue →</a>
+    <div class="legend-chip">
+      <span class="legend-term">room</span>
+      <span class="legend-def">The panel of AI-simulated named voices (personas of public figures) seated to argue one deal. The room comes before the number.</span>
     </div>
-  </section>
+    <div class="legend-chip">
+      <span class="legend-term">forum</span>
+      <span class="legend-def">Where that room does its work: blind interviews, one moderated debate, a typed verdict.</span>
+    </div>
+  </div>
+
+  <!-- ═══ THE LIVING HUB as cover figure (list · graph · detail) ═══ -->
+  <div class="hub">
+    <div class="hub-list" id="hub-list">
+      <span class="panel-label">runs · corpus</span>
+    </div>
+    <div class="hub-graph">
+      <div id="hub-graph-mount"></div>
+      <aside class="howto">
+        <h4>how to read</h4>
+        <p>Each filled disc is a <strong>run</strong> — one founder taken end to end.
+          <strong>Press a node once to hold it, twice</strong> to open that run and read
+          the room that argued it. Bigger nodes carry more scoring and effort.</p>
+        <div class="keys">
+          <span><span class="dot run"></span>run</span>
+          <span><span class="dot voice"></span>voice</span>
+          <span><span class="dot sig"></span>signal</span>
+        </div>
+      </aside>
+    </div>
+    <div class="hub-detail" id="hub-detail">
+      <span class="panel-label">selected</span>
+    </div>
+  </div>
 
   <section class="run-card">
     <div class="card-head"><span class="sk-label">how a decision happens</span><span class="rule"></span>
@@ -125,14 +162,15 @@
       <span class="layer-sub">who has been seen</span>
       <p>Structured, timestamped, deduplicated knowledge of founders, companies and signals.
         The persistent <strong>Founder Score</strong> follows the person across startups —
-        it never resets.</p>
+        it never resets. Today: 20 real GitHub-sourced candidates with archived raw
+        responses; the bitemporal store is being regenerated from the G-Brain spec extraction.</p>
       <div class="card-go">person network →</div>
     </a>
     <a class="over-card" href="experience/?run=ferrite-inverted&view=axes">
       <span class="layer-name">intelligence</span>
       <span class="layer-sub">how it reasons</span>
       <p>The deliberation engine: per-claim <strong>Trust Score</strong> on an explicit
-        evidence ladder, a forum of real named voices seated on the crux, and a standing
+        evidence ladder, a forum of AI-simulated named voices seated on the crux, and a standing
         counsel whose three axes are never collapsed into one number — disagreement is
         signal, not noise.</p>
       <div class="card-go">three axes on a contested run →</div>
@@ -149,14 +187,6 @@
 
   <div class="land-grid">
     <a class="over-card" href="experience/?run=ferrite-inverted&view=overview">
-      <span class="layer-name">ferrite-inverted</span>
-      <span class="layer-sub">demo tape · fictional deal</span>
-      <p>The full pipeline end-to-end on a fictional deal: screen, triage, forum, counsel,
-        memo — every stage on tape, every claim one click from its evidence; gates before
-        any wire.</p>
-      <div class="card-go">open the run →</div>
-    </a>
-    <a class="over-card" href="experience/?run=ferrite-inverted&view=overview">
       <span class="layer-name">ferrite</span>
       <span class="layer-sub">demo tape · fictional deal, labelled as such</span>
       <p>The contested showcase on the inverted pipeline: named voices seated on one crux —
@@ -164,19 +194,15 @@
         the room. First tape to come back green from every artifact verifier.</p>
       <div class="card-go">open the run →</div>
     </a>
-    <a class="over-card" href="research/gbrain/specs/store-organ.md">
+    <a class="over-card" href="experience/?view=entity&e=forum:gbrain&fn=ADJ">
       <span class="layer-name">g-brain</span>
-      <span class="layer-sub">store spec · clean-room extraction</span>
+      <span class="layer-sub">research forum · provenance</span>
       <p>Memory's designs weren't invented here — they were extracted from Garry Tan's
-        G-Brain via a clean-room process, then re-pointed from a private
-        network onto public founder footprints.</p>
-      <div class="card-go">read the store spec →</div>
+        G-Brain through an adjudicated forum of its own, then re-pointed from a private
+        network onto public founder footprints. The full transcript is in the corpus.</p>
+      <div class="card-go">read the adjudication →</div>
     </a>
   </div>
-
-  <p class="ledger-note sk-label">note: forum voices are AI-simulated counterfactual personas
-    of public figures, reasoned from their published work — not their real views or
-    participation.</p>
 
   <section class="run-card">
     <div class="card-head"><span class="sk-label">the structure</span><span class="rule"></span>
@@ -245,6 +271,7 @@
       <li><span class="sk-chip">human</span><span>One human holds the gate. The system drafts the
         decision; it does not wire the money.</span></li>
     </ul>
+    <p class="ledger-note sk-label">honesty ledger: <a href="docs/ROADMAP.md">docs/ROADMAP.md</a> — built vs designed-not-built, called by name</p>
   </section>
 
   <section class="run-card">
@@ -267,12 +294,12 @@
         apart.</span></li>
       <li><span class="sk-chip">built</span><span><strong>A batch farm runner</strong> — the full
         pipeline over any folder of sourced applications, on three interchangeable workers
-        (API, cursor-agent, headless Claude); 25 sourced applications ran end-to-end overnight (runs excluded from this public copy).
+        (API, cursor-agent, headless Claude); a 25-run person-seeded overnight trial is on disk.
         “Analysis all the time” is a scheduler entry away, not an invention away.</span></li>
-      <li><span class="sk-chip">built</span><span><strong>Speed as evidence</strong> — a real outbound
-        candidate went from public GitHub signals to a decision-ready memo in
-        171 seconds, with a mechanical (code, not prompt) forum fire gate (run excluded
-        from this public copy).</span></li>
+      <li><span class="sk-chip">built</span><span><strong>Speed as evidence</strong> — a real
+        outbound candidate went from public GitHub signals to a decision-ready memo in
+        794 seconds, with a mechanical (code, not prompt) forum fire gate; the fastest run on
+        record closed in 171 seconds (real-candidate tapes stay private pending consent).</span></li>
       <li><span class="sk-chip warn">not yet</span><span><strong>A live store</strong> — memory
         is JSON files in git; the persistent store that everything reads and writes is in
         progress. Until it lands, “dynamic update” means “rebuild and recommit”.</span></li>
@@ -303,8 +330,10 @@
 
 <footer class="site-footer sk-label">
   vc brain · sourcing → screening → diligence → decision · hack-nation × mit
+  <br>forum voices are AI-simulated personas of public figures — not their real views or participation
 </footer>
 
+<script type="module" src="experience/landing-hub.js?v=2026-07-21-12"></script>
 <script type="module">
   // Scroll progress drives the skins' dichroic ring (same var the app writes).
   let ticking = false;

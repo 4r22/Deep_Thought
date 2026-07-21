@@ -1,5 +1,8 @@
-import { md, inline, esc, parseDebate } from './md.js?v=2026-07-21-2';
-import { bootTerminal } from './terminal.js?v=2026-07-21-2';
+import { md, inline, esc, parseDebate } from './md.js?v=2026-07-21-5';
+import { bootTerminal } from './terminal.js?v=2026-07-21-12';
+import { mountForumShell } from './forum-shell.js?v=2026-07-21-5';
+import { mountField } from './field.js?v=2026-07-21-14';
+import { renderMemoDoc } from './memo-doc.js?v=2026-07-21-14';
 
 // Run context is session-sticky (bead vc-brain-toe.1): a runless entry —
 // e.g. the landing's gBrain corpus link (?view=entity&e=forum:gbrain) — must
@@ -23,6 +26,14 @@ const TREND = { improving: '↗', declining: '↘', flat: '→', stable: '→' }
 
 const state = {};
 
+// The forum shell mounts once at boot and returns { select }. The counsel view
+// lives in the axes slot, so its "debate#turn-N" / "adjudication" position-refs
+// jump across views by flipping to the forum and selecting a rail section.
+let forumNav = null;
+// The field mounts once with the overview and returns { select } — the memo's
+// marginal Source marks steer it (bead vc-brain-4sg, acceptance ac-4).
+let fieldNav = null;
+
 async function fetchText(path) {
   try { const r = await fetch(path); return r.ok ? await r.text() : null; }
   catch { return null; }
@@ -31,6 +42,7 @@ async function fetchText(path) {
 async function fetchRun() {
   const files = {
     screen: 'screen.json', triage: 'triage.json', axes: 'axes.json', memo: 'memo.json',
+    counsel: 'counsel.json',
     attendants: 'forum-attendants.json',
     adjudication: 'forum-adjudication.json', latency: 'latency.json',
     bull: 'forum-bull.md', bear: 'forum-bear.md', debate: 'forum-debate.md',
@@ -96,7 +108,34 @@ function renderOverview() {
       <div class="ov-big">${seeded ? `${state.attendants.attendants.length} seats` : `${(adj?.converged || []).length} converged`}</div>
       <p>${adj ? `${(adj.residual || []).length} residual fork(s) · ` : ''}the room that argued the crux</p>
     </button>`);
-  if (a) {
+  const c = state.counsel;
+  if (c?.members) {
+    // Operator verdict A (design/rooms/counsel-surface-mockups/operator-verdict.json):
+    // the counsel overview card is the whisker card — presentational mean, then the
+    // same band-first vocabulary the counsel view behind the click speaks.
+    const CARD_NAME = { founder: 'founder', market: 'market', idea_vs_market: 'idea' };
+    const convened = c.room?.convened !== false;
+    const roomBadge = convened
+      ? '<span class="sk-chip blue">room convened</span>'
+      : '<span class="sk-chip warn">no room</span>';
+    const mean = counselMean(c);
+    const rows = OFFICE_ORDER.filter(k => c.members[k]).map(k => {
+      const o = c.members[k];
+      const [lo, hi] = o.band || [o.score, o.score];
+      return `<div class="cc-row"><span class="cc-name">${CARD_NAME[k]}</span>
+        <div class="whisker"><div class="whisker-track">
+          <div class="whisker-band" style="left:${lo}%;width:${Math.max(0, hi - lo)}%"></div>
+          <div class="whisker-dot" style="left:${o.score}%"></div></div></div>
+        <span class="cc-score">${o.score}</span></div>`;
+    }).join('');
+    cards.push(`
+    <button class="over-card" id="ov-axes" data-view="axes">
+      <div class="ov-head"><span class="sk-label">the counsel</span>${roomBadge}</div>
+      ${mean != null ? `<div class="cc-mean"><span class="cc-num">${mean}</span><span class="cc-of">/100</span>
+        <span class="cc-cap">mean · presentational</span></div>` : ''}
+      <div class="cc-rows">${rows}</div>
+    </button>`);
+  } else if (a) {
     const roomBadge = a.room
       ? (a.room.convened ? '<span class="sk-chip blue">room convened</span>' : '<span class="sk-chip">room skipped</span>')
       : (a.forum_trigger?.fire ? (state.screen?.verdict === 'contested'
@@ -112,6 +151,100 @@ function renderOverview() {
   $('#overview-grid').innerHTML = cards.join('');
   document.querySelectorAll('.over-card').forEach(c =>
     c.addEventListener('click', () => setView(c.dataset.view)));
+}
+
+/* ── the generative field — the run's first face (bead vc-brain-ixz, nature
+      verdict B). The overview wells demote to edge meters; the executing
+      person-claim-room graph is the center; the detail well carries the
+      selected node's cited record (field.js). Legacy 2-pole tapes have no
+      seeded room, so they keep the card overview (renderOverview). ──────── */
+function renderFieldOverview() {
+  const s = state.screen, t = state.triage, adj = state.adjudication;
+  const seeded = state.attendants?.attendants?.length;
+  if (!seeded) { renderOverview(); return; }
+
+  const serious = (s?.red_flags || []).filter(f => f.severity === 'serious');
+  const c = state.counsel;
+  const meters = [];
+  if (s) meters.push(`
+    <button class="meter" id="ov-screen" data-view="screen">
+      <div class="m-name">screen</div>
+      <div class="m-val" style="color:var(--${VERDICT_CLS[s.verdict] === 'warn' ? 'warn' : VERDICT_CLS[s.verdict] === 'ok' ? 'ok' : 'ink'})">${esc(s.verdict)}</div>
+      <div class="m-sub">${(s.red_flags || []).length} flags · ${serious.length} serious</div>
+    </button>`);
+  if (t) meters.push(`
+    <button class="meter" id="ov-triage" data-view="triage">
+      <div class="m-name">triage</div>
+      <div class="m-val">${(t.routed_checks || []).length} checks</div>
+      <div class="m-sub">${(t.tensions || []).length} tensions · one crux</div>
+    </button>`);
+  meters.push(`
+    <button class="meter" id="ov-forum" data-view="forum">
+      <div class="m-name">forum</div>
+      <div class="m-val">${seeded} seats</div>
+      <div class="m-sub">${adj ? esc(adj.outcome || '') : 'the room'}</div>
+    </button>`);
+  if (c?.members) {
+    const f = c.members.founder;
+    const [lo, hi] = f?.band || [f?.score, f?.score];
+    meters.push(`
+    <button class="meter" id="ov-axes" data-view="axes">
+      <div class="m-name">counsel</div>
+      <div class="m-val">founder ${f?.score ?? '—'}</div>
+      ${f ? `<span class="band-track"><span class="band-range" style="left:${lo}%;right:${100 - hi}%"></span><span class="band-marker" style="left:${f.score}%"></span></span>
+      <div class="m-axis"><span>0</span><span>100</span></div>` : ''}
+      <div class="m-sub" style="margin-top:5px">market ${c.members.market?.score ?? '—'} · idea ${c.members.idea_vs_market?.score ?? '—'}</div>
+    </button>`);
+  } else if (state.axes) {
+    meters.push(`
+    <button class="meter" id="ov-axes" data-view="axes">
+      <div class="m-name">axes</div>
+      <div class="m-val">founder ${state.axes.founder.score}</div>
+      <div class="m-sub">${esc(state.axes.market.rating)} · ${esc(state.axes.idea_vs_market.verdict)}</div>
+    </button>`);
+  }
+  const dec = state.memo?.decision;
+  if (dec) meters.push(`
+    <button class="meter" id="ov-memo" data-view="memo">
+      <div class="m-name">memo</div>
+      <div class="m-val" style="color:var(--${VERDICT_CLS[dec.recommendation] === 'warn' ? 'warn' : 'ink'})">${esc(dec.recommendation)}</div>
+      <div class="m-sub">${(dec.conditions || []).length} conditions before wire</div>
+    </button>`);
+
+  $('#overview-grid').innerHTML = `
+    <div class="runtime">
+      <aside class="meters" aria-label="Overview meters">
+        <div class="meters-cap">overview · meters</div>
+        ${meters.join('')}
+      </aside>
+      <div id="field-mount"></div>
+      <aside class="detail" id="field-detail" aria-label="Selected node record"></aside>
+    </div>`;
+  document.querySelectorAll('#overview-grid .meter').forEach(m =>
+    m.addEventListener('click', () => setView(m.dataset.view)));
+
+  fieldNav = mountField($('#field-mount'), $('#field-detail'), state, RUN,
+    { onEnterForum: () => setView('forum') });
+  if (!fieldNav) renderOverview();
+}
+
+/* ── legacy-tape notice (bead vc-brain-toe.4): the inverted pipeline writes
+      triage.json; a pre-inversion tape does not, so
+      it is gated out of the run-switcher and the corpus graph by build-corpus.py.
+      The only way onto its overview is a direct ?run= link — so say plainly that
+      this is a legacy tape rather than let it masquerade as a current run. ──── */
+function renderLegacyNotice() {
+  const host = $('#view-overview');
+  host.querySelector('#legacy-notice')?.remove();
+  if (state.triage) return; // inverted tape — nothing to flag
+  const el = document.createElement('div');
+  el.id = 'legacy-notice';
+  el.className = 'legacy-notice';
+  el.innerHTML = `<span class="sk-chip warn">legacy tape</span>
+    <p><code class="mono">${esc(RUN)}</code> predates the inverted pipeline — it wrote no
+      <code class="mono">triage.json</code>, so it is kept out of the run-switcher and the
+      corpus graph. You reached it by direct link; its surfaces render from the tape as recorded.</p>`;
+  host.insertBefore(el, host.firstChild);
 }
 
 /* ── recommendation: the decision, summarised — below the metrics, above
@@ -356,53 +489,258 @@ function renderAxes() {
   show($('#axes'));
 }
 
+/* ── counsel: the disconfabulation ladder as UI ──────────────────────────
+   Replaces the axes card whenever a counsel.json is on the tape (COUNSEL.md
+   §7.4); the axes view stays the fallback for tapes without one. Rung 1 is the
+   presentational grand mean, computed HERE in view code (never persisted, never
+   fed back — COUNSEL.md §3). Rung 2 is three band-first office readouts. Rung 3
+   is each office's own record, one click down. Offices are read blind, so a
+   disagreement line is manufactured only when they genuinely split. */
+const OFFICE_ORDER = ['founder', 'market', 'idea_vs_market'];
+const OFFICE_LABEL = { founder: 'Founder', market: 'Market', idea_vs_market: 'Idea vs Market' };
+
+const counselScores = c => OFFICE_ORDER
+  .map(k => c.members?.[k]?.score).filter(n => typeof n === 'number');
+// The UI grand mean: per-office scores are already one-per-axis, so this is the
+// mean over the three offices (COUNSEL.md §3 "average over the axes"). Rounded
+// for display only.
+const counselMean = c => {
+  const s = counselScores(c);
+  return s.length ? Math.round(s.reduce((a, b) => a + b, 0) / s.length) : null;
+};
+const counselSpread = c => {
+  const s = counselScores(c);
+  return s.length ? Math.max(...s) - Math.min(...s) : 0;
+};
+
+// Open-question dedupe (counsel-audit finding). Each office's open_questions is
+// marked "already a condition" (dims) when it near-duplicates a memo
+// decision.condition, else "new ask" (full weight). HEURISTIC, stated plainly:
+// lowercase, strip punctuation, drop short/stopword tokens, then take the max
+// over conditions of  |question ∩ condition| / |question|  — the share of the
+// question's content words already present in some condition. ≥ 0.30 ⇒ restated.
+// On the real ferrite tape this separates cleanly (new asks ≤ 0.11, restatements
+// ≥ 0.35), but it is a token-overlap PROXY, not semantic matching: a heavily
+// reworded condition can still read as new, and a new ask that happens to share
+// vocabulary can read as restated. Low-drama and auditable by design.
+const OQ_STOP = new Set(('a an the of to for and or with on in into is are be as that this these those it '
+  + 'its their whether two three per any not no if under over from at by one').split(' '));
+const oqTokens = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').split(' ')
+  .filter(w => w.length > 2 && !OQ_STOP.has(w));
+const OQ_DUP_THRESHOLD = 0.30;
+function oqProvenance(question, conditions) {
+  const q = new Set(oqTokens(question));
+  if (!q.size) return { dup: false, score: 0 };
+  let best = 0;
+  for (const c of conditions || []) {
+    const ct = new Set(oqTokens(c));
+    let hit = 0;
+    for (const w of q) if (ct.has(w)) hit++;
+    best = Math.max(best, hit / q.size);
+  }
+  return { dup: best >= OQ_DUP_THRESHOLD, score: best };
+}
+
+// position_refs cite the room. Resolution table:
+//   seat-N/pre   → that seat's blind pre-interview page (entity view, PRE)
+//   seat-N/post  → that seat's post-debate interview page (entity view, POST)
+//   debate#turn-N → the forum's debate section, scrolled to that turn
+//   debate       → the forum's debate section
+//   adjudication → the forum's adjudication section
+//   anything else → a plain, unlinked provenance chip
+function counselPositionRef(ref) {
+  const r = String(ref);
+  const seat = r.match(/^(seat-\d+)\/(pre|post)$/);
+  if (seat) {
+    const s = (state.attendants?.attendants || []).find(x => x.id === seat[1] || x.slug === seat[1]);
+    if (s) return `<button class="ref sig-ref entity-link" data-entity="person:${esc(s.slug)}" data-fn="${seat[2].toUpperCase()}">${esc(r)}</button>`;
+    return `<span class="ref plain">${esc(r)}</span>`;
+  }
+  const deb = r.match(/^debate(?:#turn-(\d+))?$/);
+  if (deb) return `<button class="ref counsel-goto" data-sec="debate"${deb[1] ? ` data-turn="${esc(deb[1])}"` : ''}>${esc(r)}</button>`;
+  if (r === 'adjudication') return `<button class="ref counsel-goto" data-sec="adjudication">${esc(r)}</button>`;
+  return `<span class="ref plain">${esc(r)}</span>`;
+}
+
+function officeChips(o) {
+  return `<div class="axis-chips">
+    ${o.trend ? `<span class="sk-chip">${TREND[o.trend] || ''} ${esc(o.trend)}</span>` : ''}
+    ${o.confidence ? `<span class="sk-chip">conf ${esc(o.confidence)}</span>` : ''}
+    ${o.cold_start ? '<span class="sk-chip blue">cold start</span>' : ''}
+  </div>`;
+}
+
+// The band whisker — the PRIMARY readout (band first); the score is a
+// subordinate diamond and a small secondary number.
+function officeWhisker(o) {
+  const [lo, hi] = o.band || [o.score, o.score];
+  return `<div class="whisker">
+    <div class="whisker-track">
+      <div class="whisker-band" style="left:${lo}%;width:${Math.max(0, hi - lo)}%"></div>
+      <div class="whisker-dot" style="left:${o.score}%"></div>
+    </div>
+    <div class="whisker-scale"><span class="w-band">band ${lo}–${hi}</span><span class="w-score">score ${o.score}</span></div>
+  </div>`;
+}
+
+// The office record (rung 3), shared by the counsel view's expanded office and
+// the forum rail's counsel leaves.
+function officeRecord(o, conditions) {
+  const prov = o.position_refs || [];
+  const oqs = (o.open_questions || []).map(q => {
+    const { dup } = oqProvenance(q, conditions);
+    return `<li class="oq ${dup ? 'oq-dup' : ''}">
+      <span class="oq-mark ${dup ? 'is-dup' : 'is-new'}">${dup ? 'already a condition' : 'new ask'}</span>
+      <span class="oq-body">${inline(q)}</span></li>`;
+  }).join('');
+  const dev = o.deviation || {};
+  return `
+    ${o.room_effect ? `<div class="rec-block"><span class="sk-label">room effect — what the seats did to this rating</span>
+      <p>${inline(o.room_effect)}</p></div>` : ''}
+    ${(o.evidence_refs || []).length ? `<div class="rec-block"><span class="sk-label">evidence on the record</span>
+      <div class="axis-chips">${o.evidence_refs.map(r => `<span class="ref sig-ref" data-sig="${esc(r)}">${esc(r)}</span>`).join(' ')}</div></div>` : ''}
+    ${prov.length ? `<div class="rec-block"><span class="sk-label">where in the room — seats, debate turns, the verdict</span>
+      <div class="prov-links">${prov.map(counselPositionRef).join(' ')}</div></div>` : ''}
+    ${(o.mandate_refs || []).length ? `<div class="rec-block"><span class="sk-label">mandate fields that shaped it</span>
+      <div class="axis-chips">${o.mandate_refs.map(m => `<span class="sk-chip">${esc(m)}</span>`).join(' ')}</div></div>` : ''}
+    <div class="rec-block"><span class="sk-label">mandate deviation</span>
+      ${dev.declared
+        ? `<div class="axis-chips"><span class="sk-chip warn">declared deviation</span></div><p>${inline(dev.note || '')}</p>`
+        : '<p class="axis-notes">rated in line with the mandate — no declared deviation.</p>'}</div>
+    ${(o.coverage_challenges || []).length ? `<div class="rec-block"><span class="sk-label">what the room did not test</span>
+      <ul class="chall-list">${o.coverage_challenges.map(c => `<li>${inline(c)}</li>`).join('')}</ul></div>` : ''}
+    ${oqs ? `<div class="rec-block"><span class="sk-label">open questions — the cheapest decisive checks</span>
+      <ul class="oq-list">${oqs}</ul></div>` : ''}
+    ${o.notes ? `<div class="rec-block"><span class="sk-label">how the office read it</span><p class="axis-notes">${inline(o.notes)}</p></div>` : ''}`;
+}
+
+// Forum rail descriptor: the counsel as a dropdown group, one leaf per office.
+function counselRailSection() {
+  const c = state.counsel;
+  const conditions = state.memo?.decision?.conditions || [];
+  const children = OFFICE_ORDER.filter(k => c.members?.[k]).map(k => {
+    const o = c.members[k];
+    const [lo, hi] = o.band || [o.score, o.score];
+    return {
+      id: `counsel/${k}`, label: OFFICE_LABEL[k],
+      mount: h => {
+        h.innerHTML = fieldCard(
+          `counsel · ${esc(OFFICE_LABEL[k])} office — score ${o.score}/100, band ${lo}–${hi}`,
+          o.confidence ? `<span class="sk-chip">conf ${esc(o.confidence)}</span>` : '',
+          `<div class="office-record" style="border-top:0;margin-top:0;padding-top:0">${officeRecord(o, conditions)}</div>`);
+      },
+    };
+  });
+  return { id: 'counsel', kind: 'group', label: 'Counsel — three offices', children };
+}
+
+function renderCounsel() {
+  const c = state.counsel;
+  if (!c?.members) return;
+  const conditions = state.memo?.decision?.conditions || [];
+  const room = c.room || {};
+  const convened = room.convened !== false;
+  const mean = counselMean(c);
+  const spread = counselSpread(c);
+  const offices = OFFICE_ORDER.filter(k => c.members[k]).map(k => {
+    const o = c.members[k];
+    return `<details class="office" data-office="${k}">
+      <summary>
+        <div class="office-head"><span class="office-name">${esc(OFFICE_LABEL[k])}</span>
+          <span class="office-score"><b>${o.score}</b>/100</span></div>
+        ${officeWhisker(o)}
+        ${officeChips(o)}
+        <span class="office-open-cue"></span>
+      </summary>
+      <div class="office-record">${officeRecord(o, conditions)}</div>
+    </details>`;
+  }).join('');
+  const roomBadge = convened
+    ? '<span class="sk-chip blue">room convened</span>'
+    : '<span class="sk-chip warn">room not convened — degraded reading</span>';
+  // Disagreement line renders ONLY when the offices genuinely split (score
+  // spread > 20). Ferrite's spread is 17, so it stays silent — the mean is
+  // honest here and we do not manufacture a disagreement to look rigorous.
+  const scores = counselScores(c);
+  const disagree = convened && spread > 20 ? `
+    <div class="disagreement"><span class="sk-label">the offices disagree — the mean hides it</span>
+      <p>The three offices span ${Math.min(...scores)}–${Math.max(...scores)} — a ${spread}-point spread. Read the bands, not the average.</p></div>` : '';
+  $('#axes').innerHTML = `
+    <div class="card-head"><span class="sk-label">the counsel — three offices, read blind</span>
+      <span class="rule"></span>${roomBadge}</div>
+    ${!convened ? `<div class="counsel-degraded"><span class="sk-chip warn">no room</span>
+      <p>${room.note ? inline(room.note) : 'No room convened — the offices projected the record alone. Read the bands wide; confidence is capped.'}</p></div>` : ''}
+    ${convened && room.note ? `<p class="axis-notes" style="margin-bottom:16px">${inline(room.note)}</p>` : ''}
+    ${mean != null ? `<div class="counsel-mean">
+      <span class="mean-num">${mean}<span class="of">/100</span></span>
+      <div><div class="sk-label">counsel mean — presentational</div>
+        <p class="mean-cap">The average of the three office scores, shown for the eye only — it is never saved and never fed back into the pipeline. Open any office below for its band, its record, and the seats it rests on.</p></div>
+    </div>` : ''}
+    <div class="office-grid">${offices}</div>
+    ${disagree}`;
+  show($('#axes'));
+}
+
 /* ── forum ────────────────────────────────────────────────────────────── */
 const MOVE_CLS = { conceded: 'ok', refined: 'warn', held: '' };
+const LEAN_CLS = { for: 'ok', against: 'bad', 'genuinely-split': 'warn' };
 
-// A collapsed section (native details/summary) inside the forum skeleton.
-// `open` starts it expanded — used only when there is no adjudication to lead
-// with, so the primary content is never hidden behind a closed toggle.
-const forumCollapse = (open, summary, inner) =>
-  `<details class="forum-collapse"${open ? ' open' : ''}>
-     <summary class="sk-label">${summary}</summary>
-     <div class="forum-collapse-body">${inner}</div></details>`;
+// A work-field cell: a titled slab wrapping one section's content. Prose sits
+// in a milled inlay (skins/alu quiet-cavity law, taste-043), never a plate.
+const fieldCard = (label, chip, inner) => `
+  <div class="run-card">
+    <div class="card-head"><span class="sk-label">${label}</span><span class="rule"></span>
+      ${chip || ''}</div>
+    ${inner}</div>`;
 
-// Forum hierarchy (bead vc-brain-toe.7): the typed adjudication — the room's
-// verdict — renders FIRST and expanded. The pre-interviews, debate transcript
-// and post-interviews drop into collapsed sections the reader opens. Nothing
-// is deleted; everything stays reachable.
+// Forum view (taste-097 structure rail). The room's sections become a
+// DATA-DRIVEN rail (forum-shell.js); selecting one mounts it into the work
+// field host. Adjudication is the resting section (taste-085); the debate
+// transcript and each seat's blind pre / post-debate interviews are rail nodes,
+// collapsed until chosen. Adding a section (a coming `counsel` stage) is a data
+// change here — push a descriptor — never a re-layout (memo wt-001).
 function renderForum() {
+  const host = $('#view-forum');
   // Seeded room (new contract): persons seated first, per-seat pre/post.
-  if (state.attendants?.attendants?.length) return renderSeededForum();
+  if (state.attendants?.attendants?.length) return renderSeededForum(host);
   // Legacy 2-pole tape: bull/bear case + debate + post files + adjudication.
   const has = {
     bull: !!state.bull, bear: !!state.bear, debate: !!state.debate,
     postBull: !!state.postBull, postBear: !!state.postBear, adj: !!state.adjudication,
   };
   if (!has.adj && !has.bull && !has.bear && !has.debate && !has.postBull && !has.postBear)
-    return renderNoForum();
-  const secDefs = [
-    has.bull && ['bull case — blind pre-interview', md(state.bull)],
-    has.bear && ['bear case — blind pre-interview', md(state.bear)],
-    has.debate && ['debate transcript', `<div class="memo-body">${forumPanel('debate')}</div>`],
-    has.postBull && ['bull — post-debate interview', md(state.postBull)],
-    has.postBear && ['bear — post-debate interview', md(state.postBear)],
-  ].filter(Boolean);
-  // With no adjudication to lead, open the first section so the view is never
-  // just a header over closed toggles.
-  const sections = secDefs.map(([s, inner], i) => forumCollapse(!has.adj && i === 0, s, inner)).join('');
-  $('#forum').innerHTML = `
-    <div class="card-head"><span class="sk-label">forum — adjudication first; interviews &amp; debate below</span>
-      <span class="rule"></span>${has.adj ? `<span class="sk-chip blue">${esc(state.adjudication.outcome)}</span>` : ''}</div>
-    ${has.adj ? `<div class="forum-adj memo-body">${forumPanel('adjudication')}</div>` : ''}
-    ${sections}`;
-  show($('#forum'));
+    return renderNoForum(host);
+  const sections = [];
+  if (has.adj) sections.push({ id: 'adjudication', label: 'Adjudication',
+    mount: h => { h.innerHTML = fieldCard('adjudication — the room’s typed verdict',
+      `<span class="sk-chip blue">${esc(state.adjudication.outcome)}</span>`,
+      `<div class="forum-adj memo-body">${forumPanel('adjudication')}</div>`); } });
+  if (has.bull) sections.push({ id: 'bull', label: 'Bull case',
+    mount: h => { h.innerHTML = fieldCard('bull case — blind pre-interview', '',
+      `<div class="memo-body">${md(state.bull)}</div>`); } });
+  if (has.bear) sections.push({ id: 'bear', label: 'Bear case',
+    mount: h => { h.innerHTML = fieldCard('bear case — blind pre-interview', '',
+      `<div class="memo-body">${md(state.bear)}</div>`); } });
+  if (has.debate) sections.push({ id: 'debate', label: 'Debate transcript',
+    badge: parseDebate(state.debate).turns.length,
+    mount: h => { h.innerHTML = fieldCard('debate transcript — the moderated record', '',
+      `<div class="memo-body">${forumPanel('debate')}</div>`); } });
+  if (has.postBull) sections.push({ id: 'post-bull', label: 'Bull — post-debate',
+    mount: h => { h.innerHTML = fieldCard('bull — post-debate interview', '',
+      `<div class="memo-body">${md(state.postBull)}</div>`); } });
+  if (has.postBear) sections.push({ id: 'post-bear', label: 'Bear — post-debate',
+    mount: h => { h.innerHTML = fieldCard('bear — post-debate interview', '',
+      `<div class="memo-body">${md(state.postBear)}</div>`); } });
+  forumNav = mountForumShell(host, {
+    title: `${RUN} — forum`, outcome: state.adjudication?.outcome, sections,
+    initialId: has.adj ? 'adjudication' : undefined,
+  });
 }
 
 // The room now convenes for every advancing screen with a live crux — it is the
 // reference space the axes later project. Only a reject screen or a blank triage
 // crux skips it (mechanical gate); there is no "reserved for contested" story.
-function renderNoForum() {
+function renderNoForum(host) {
   const s = state.screen, t = state.triage;
   const hasCrux = t ? !!(t.crux || '').trim() : undefined;
   const reason = s?.verdict === 'reject'
@@ -410,45 +748,52 @@ function renderNoForum() {
     : hasCrux === false
       ? 'triage returned a <strong>blank crux</strong> — with no judgment fork to press, the room is skipped.'
       : 'no forum artifacts were written for this run.';
-  $('#forum').innerHTML = `
-    <div class="card-head"><span class="sk-label">forum</span><span class="rule"></span>
-      <span class="sk-chip">room not convened</span></div>
-    <div class="memo-body"><p>The forum seats named voices on the crux, then adjudicates. It convenes
-      for every advancing screen with a live crux; here, ${reason}</p></div>`;
-  show($('#forum'));
+  host.innerHTML = `
+    <div class="run-card">
+      <div class="card-head"><span class="sk-label">forum</span><span class="rule"></span>
+        <span class="sk-chip">room not convened</span></div>
+      <div class="memo-body"><p>The forum seats named voices on the crux, then adjudicates. It convenes
+        for every advancing screen with a live crux; here, ${reason}</p></div></div>`;
 }
 
-function renderSeededForum() {
+function renderSeededForum(host) {
   const seed = state.attendants, adj = state.adjudication;
   const evByHandle = new Map((adj?.evolution || []).map(e => [e.attendant, e]));
-  const roster = (seed.attendants || []).map(a => {
+  const sections = [];
+  if (adj) sections.push({ id: 'adjudication', label: 'Adjudication',
+    mount: h => { h.innerHTML = fieldCard('adjudication — the room’s typed verdict',
+      `<span class="sk-chip blue">${esc(adj.outcome)}</span>`,
+      `${seed.crux_restatement ? `<div class="sk-label">crux the room pressed</div>
+        <p class="field-lede">${inline(seed.crux_restatement)}</p>` : ''}
+       <div class="forum-adj memo-body">${forumPanel('adjudication')}</div>`); } });
+  // Counsel rides the rail between the verdict and the transcript — judgment
+  // downstream of the room, weeds (the seats) last (memo wt-001: a data push,
+  // not a re-layout). Three offices as a dropdown group, one leaf each.
+  if (state.counsel?.members) sections.push(counselRailSection());
+  if (state.debate) sections.push({ id: 'debate', label: 'Debate transcript',
+    badge: parseDebate(state.debate).turns.length,
+    mount: h => { h.innerHTML = fieldCard('debate transcript — the moderated record', '',
+      `<div class="memo-body">${forumPanel('debate')}</div>`); } });
+  // Each seat is a dropdown group; its blind pre / post-debate interviews are
+  // the selectable leaves that mount into the field.
+  for (const a of seed.attendants) {
     const ev = evByHandle.get(a.handle);
-    const leanCls = { for: 'ok', against: 'bad', 'genuinely-split': 'warn' }[a.opening_lean] || '';
-    return `<button class="over-card entity-link" data-entity="person:${esc(a.slug)}">
-      <div class="ov-head"><span class="sk-label">${esc(a.id)}</span>
-        ${ev?.movement ? `<span class="sk-chip ${MOVE_CLS[ev.movement] ?? ''}">${esc(ev.movement)}</span>`
-          : a.opening_lean ? `<span class="sk-chip ${leanCls}">lean ${esc(a.opening_lean)}</span>` : ''}</div>
-      <div class="roster-name">${esc(a.handle)}</div>
-      <p>${esc(a.lens || '')}</p>
-    </button>`;
-  }).join('');
-  // The room's per-seat blind pre / post interviews live on each seat's entity
-  // page (reached by clicking a seat). Here the typed adjudication leads; the
-  // seat roster and the debate transcript collapse below it.
-  const roomBlock = `
-    <div class="sk-label">the room — click a seat for its invitation, mandate, and blind pre / post-debate interviews</div>
-    <div class="roster-grid">${roster}</div>
-    ${seed.room_note ? `<p class="axis-notes">${inline(seed.room_note)}</p>` : ''}`;
-  $('#forum').innerHTML = `
-    <div class="card-head"><span class="sk-label">forum — adjudication first; the room &amp; debate below</span>
-      <span class="rule"></span>${adj ? `<span class="sk-chip blue">${esc(adj.outcome)}</span>` : ''}</div>
-    <p class="axis-notes">seats are AI-simulated counterfactual personas of public figures — not their real views or participation</p>
-    ${seed.crux_restatement ? `<div class="sk-label">crux the room pressed</div>
-      <p>${inline(seed.crux_restatement)}</p>` : ''}
-    ${adj ? `<div class="forum-adj memo-body">${forumPanel('adjudication')}</div>` : ''}
-    ${forumCollapse(!adj, 'the room — seats &amp; interviews', roomBlock)}
-    ${state.debate ? forumCollapse(false, 'debate transcript', `<div class="memo-body">${forumPanel('debate')}</div>`) : ''}`;
-  show($('#forum'));
+    const children = [];
+    if (state.pre?.[a.id]) children.push({ id: `${a.id}/pre`, label: 'blind pre-interview',
+      mount: h => { h.innerHTML = fieldCard(`${esc(a.handle)} · ${esc(a.id)} — blind pre-interview`,
+        a.opening_lean ? `<span class="sk-chip ${LEAN_CLS[a.opening_lean] || ''}">lean ${esc(a.opening_lean)}</span>` : '',
+        `<div class="memo-body">${md(state.pre[a.id])}</div>`); } });
+    if (state.post?.[a.id]) children.push({ id: `${a.id}/post`, label: 'post-debate interview',
+      mount: h => { h.innerHTML = fieldCard(`${esc(a.handle)} · ${esc(a.id)} — post-debate interview`,
+        ev?.movement ? `<span class="sk-chip ${MOVE_CLS[ev.movement] ?? ''}">${esc(ev.movement)}</span>` : '',
+        `<div class="memo-body">${md(state.post[a.id])}</div>`); } });
+    if (children.length) sections.push({ id: a.id, kind: 'group', label: `${a.handle} · ${a.id}`, children });
+  }
+  forumNav = mountForumShell(host, {
+    title: `${RUN} — forum`, outcome: adj?.outcome, sections,
+    initialId: adj ? 'adjudication' : undefined,
+    note: 'seats are AI-simulated counterfactual personas of public figures — not their real views or participation',
+  });
 }
 
 function forumPanel(id) {
@@ -464,7 +809,7 @@ function forumPanel(id) {
         ? `<button class="sk-chip blue entity-link" data-entity="person:${esc(seat.slug)}">${esc(seat.handle)}</button>`
         : `<span class="sk-chip speaker-${esc(t.speaker)}">${esc(t.speaker)}</span>`;
       return `
-      <div class="turn">
+      <div class="turn" id="debate-turn-${t.n}">
         <div class="turn-side">
           ${speaker}
           <span class="turn-n">turn ${t.n}${seat ? ` · ${esc(t.speaker)}` : ''} · ${esc(t.type)}</span>
@@ -509,58 +854,22 @@ function forumPanel(id) {
 }
 
 /* ── memo ─────────────────────────────────────────────────────────────── */
-const SECTION_TITLES = {
-  snapshot: 'Snapshot', hypotheses: 'Hypotheses', swot: 'SWOT',
-  problem_product: 'Problem & Product', traction: 'Traction',
-  team_history: 'Team & History', technology_defensibility: 'Technology & Defensibility',
-  market_sizing: 'Market Sizing', competition: 'Competition',
-};
-
+// Memo verdict A (bead vc-brain-4sg, design/rooms/memo-surface/operator-
+// verdict.json): the body is the woven document — cited prose in a lawful
+// measure, every price in one fixed marginal channel, decision band opening,
+// deal-named header. The claim-ledger fork (B) is retired. memo-doc.js owns
+// the weave; a marginal Source mark steers the overview field to that
+// signal's record, which is where the evidence surface already lives.
 function renderMemo() {
-  const memo = state.memo;
-  if (!memo) return;
-  const sections = Object.entries(memo.sections || {}).map(([key, text]) => `
-    <div class="memo-section">
-      <h3><span class="sk-label">${esc(SECTION_TITLES[key] || key)}</span></h3>
-      ${md(text)}
-    </div>`).join('');
-  const claims = (memo.claims || []).map(c => `
-    <div class="claim-card" id="claim-${esc(c.id)}">
-      <div class="claim-head">
-        <span class="sk-chip blue">${esc(c.id)}</span>
-        <span class="sk-chip">${esc(c.section)}</span>
-        <span class="sk-chip">${esc(c.trust.tier)}</span>
-        <span class="sk-chip">${esc(c.trust.authority)}</span>
-        <span class="sk-chip ${{ high: 'ok', medium: 'warn', low: 'bad' }[c.trust.confidence] || ''}">conf ${esc(c.trust.confidence)}</span>
-        ${c.contradictions?.length ? `<span class="sk-chip bad">contradicted</span>` : ''}
-      </div>
-      <div>${inline(c.text)}</div>
-      ${(c.evidence || []).map(e => `<blockquote class="claim-quote" data-sig-src="${esc(e.signal_id)}">
-        ${esc(e.signal_id)} — “${esc(e.quote)}”</blockquote>`).join('')}
-    </div>`).join('');
-  const dec = memo.decision;
-  $('#memo').innerHTML = `
-    <div class="card-head"><span class="sk-label">memo — every claim priced, gaps flagged</span><span class="rule"></span></div>
-    <div class="memo-body">${sections}
-      <h3><span class="sk-label">Claim ledger — per-claim trust</span></h3>
-      <div class="claims-grid">${claims}</div>
-      <h3><span class="sk-label">Gaps — flagged, never silently filled</span></h3>
-      <ul class="gap-list">${(memo.gaps || []).map(g =>
-        `<li><span class="sk-chip warn">${esc(g.field)}</span><span>${inline(g.note)}</span></li>`).join('')}</ul>
-      <h3><span class="sk-label">Diligence log</span></h3>
-      <ul class="dil-list">${(memo.diligence_log || []).map(d =>
-        `<li><span class="sk-chip ${d.status === 'done' ? 'ok' : ''}">${esc(d.status)}</span>
-         <span>${inline(d.item)} <span class="ref plain">${esc(d.instrument)}</span></span></li>`).join('')}</ul>
-      ${dec ? `<div class="decision-box">
-        <div class="card-head"><span class="sk-label">decision</span><span class="rule"></span>
-          <span class="sk-chip blue">${esc(dec.recommendation)}</span></div>
-        <span class="amount">$${dec.check_usd.toLocaleString('en-US')}</span>
-        <p>${inline(dec.rationale)}</p>
-        ${dec.conditions?.length ? `<div class="sk-label">conditions</div>
-          <ol class="routed">${dec.conditions.map(c => `<li>${inline(c)}</li>`).join('')}</ol>` : ''}
-      </div>` : ''}
-    </div>`;
-  show($('#memo'));
+  const ok = renderMemoDoc($('#memo'), state, {
+    onEvidence: sid => {
+      if (fieldNav?.select(`sig:${sid}`)) { setView('overview'); return; }
+      // Evidence with no node on the field (the application itself) is read
+      // where it was screened — never a dead link, never a silent no-op.
+      setView('screen');
+    },
+  });
+  if (ok) show($('#memo'));
 }
 
 /* ── ref navigation ───────────────────────────────────────────────────── */
@@ -568,15 +877,38 @@ function wireRefs() {
   document.addEventListener('click', e => {
     const ref = e.target.closest('.ref');
     if (!ref) return;
-    let target = null;
-    if (ref.dataset.claim) target = document.getElementById(`claim-${ref.dataset.claim}`);
-    else if (ref.dataset.sig)
-      target = document.querySelector(`[data-sig-src="${ref.dataset.sig}"]`)?.closest('.claim-card');
+    // A signal ref goes to that signal's record on the field — the same
+    // target the memo's marginal Source marks use (bead vc-brain-4sg). The
+    // claim-card grid it used to scroll to is gone with memo verdict A.
+    if (ref.dataset.sig) {
+      if (fieldNav?.select(`sig:${ref.dataset.sig}`)) setView('overview');
+      return;
+    }
+    const target = ref.dataset.claim
+      ? document.getElementById(`claim-${ref.dataset.claim}`) : null;
     if (!target) return;
     setView('memo');
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     target.classList.add('flash');
     setTimeout(() => target.classList.remove('flash'), 1600);
+  });
+}
+
+/* ── counsel room-jumps: a debate/adjudication position-ref flips to the forum
+      view and selects that rail section (scrolling to the cited turn). Seat
+      refs are entity-links, routed by the terminal delegate instead. ─────── */
+function wireCounselNav() {
+  document.addEventListener('click', e => {
+    const go = e.target.closest('.counsel-goto');
+    if (!go) return;
+    setView('forum');
+    forumNav?.select(go.dataset.sec);
+    if (go.dataset.turn) {
+      // the shell mounts the debate synchronously; let the view swap settle,
+      // then bring the cited turn into view.
+      setTimeout(() => document.getElementById(`debate-turn-${go.dataset.turn}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+    }
   });
 }
 
@@ -685,7 +1017,7 @@ async function replay() {
   btn.disabled = true;
   const chip = $('#latency-chip');
   const scale = 9 / lat.total_seconds;
-  document.querySelectorAll('#view-overview .over-card, #view-overview .run-card')
+  document.querySelectorAll('#view-overview .over-card, #view-overview .run-card, #view-overview .meter')
     .forEach(c => c.classList.add('veiled'));
   for (const s of lat.stages) {
     chip.textContent = `▸ ${s.stage} — ${s.seconds.toFixed(1)}s`;
@@ -710,9 +1042,13 @@ if (!Object.keys(state).length) {
   show($('#load-error'));
 } else {
   renderHero(); renderRunMeta(); renderScreen(); renderTriage();
-  renderForum(); renderAxes(); renderMemo();
-  renderOverview(); renderRecommendation();
-  wireRefs();
+  // renderForum first so the shell's { select } is captured before the counsel
+  // view's room-jumps can use it. Counsel supersedes axes when on the tape.
+  renderForum();
+  if (state.counsel?.members) renderCounsel(); else renderAxes();
+  renderMemo();
+  renderFieldOverview(); renderLegacyNotice(); renderRecommendation();
+  wireRefs(); wireCounselNav();
 }
 bootTerminal({ setView, run: RUN });
 setView(new URLSearchParams(location.search).get('view') || 'overview', { push: false, animate: false });

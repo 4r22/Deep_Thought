@@ -12,5 +12,29 @@
       "run": "ferrite-inverted",
       "docs": []
     }
+  ],
+  "design_rooms": [],
+  "founders": [
+    {
+      "id": "fndr-app-mara-voss",
+      "name": "Mara Voss",
+      "aliases": [],
+      "links": {
+        "github": "https://github.com/example-maravoss",
+        "linkedin": null,
+        "twitter": null,
+        "site": null
+      },
+      "location": "Berlin, DE",
+      "score": null,
+      "sourced": "Inbound applicant \u2014 arrived through the application on run ferrite-inverted.",
+      "run": "ferrite-inverted",
+      "company": "Ferrite",
+      "one_liner": "Content-addressed build cache that makes LLM-agent CI runs 10x cheaper by deduplicating agent-generated build steps across a fleet.",
+      "verdict": "contested",
+      "role": "solo founder, technical",
+      "background": "Ex-infra at a mid-size fintech (4 years), wrote the internal remote-cache that cut CI spend 60%. First-time founder. No prior fundraise.",
+      "ask": "Raising a $500k pre-seed; applying for the $100K fast check."
+    }
   ]
 }

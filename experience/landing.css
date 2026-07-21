@@ -83,3 +83,73 @@ a.over-card { display: block; text-decoration: none; color: inherit; }
 .commit-list li > span:last-child, .dir-list li > span:last-child { min-width: 0; }
 .dir-list .sk-chip { flex: 0 0 auto; }
 .ledger-note { margin: 12px 0 0; }
+
+/* ── landing verdict A: cover masthead + legend + living hub (vc-brain-ib1).
+   Structure from the approved mockup option-a-hub-cover.html; the graph
+   panel hosts the LIVE corpus graph (graph.js chrome 'hub'). Quiet cavity
+   under all content — hairline framing only (taste-043/098). ────────────── */
+.cover-head { display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; padding: 8px 2px 0; }
+.cover-mark { font-size: clamp(38px, 5vw, 52px); font-weight: 700; line-height: 1;
+  letter-spacing: var(--header-spacing); }
+.cover-mark .brand-dot { color: var(--blue); }
+.cover-caption { max-width: 60ch; font-size: 15px; color: var(--ink-muted); margin: 0; }
+.cover-caption strong { color: var(--ink); }
+
+.legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 2px 12px; }
+.legend-chip { flex: 1 1 300px; min-width: 0; border: 1px solid var(--line-soft);
+  border-radius: var(--sub-radius); padding: 9px 13px; background: var(--card-bg); }
+.legend-term { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--ink); }
+.legend-def { display: block; margin-top: 3px; font-size: 12.5px; color: var(--ink-muted);
+  line-height: 1.45; }
+
+.hub { display: grid; grid-template-columns: 210px 1fr 244px; gap: 0;
+  border: 1px solid var(--line); border-radius: var(--sub-radius);
+  background: rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  overflow: hidden; }
+@media (max-width: 900px) { .hub { grid-template-columns: 1fr; } }
+.hub-list { border-right: 1px solid var(--line-soft); padding: 12px 12px 10px; }
+.hub-detail { border-left: 1px solid var(--line-soft); padding: 12px 13px; }
+.hub-graph { position: relative; min-width: 0; }
+.panel-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--ink-faint); display: block; margin-bottom: 8px; }
+
+.run-item { display: flex; flex-direction: column; gap: 1px; padding: 8px 9px; border-radius: 5px;
+  border: 1px solid transparent; margin-bottom: 5px; cursor: pointer; width: 100%;
+  background: none; text-align: left; font: inherit; color: inherit; }
+.run-item.on { border-color: var(--blue); box-shadow: var(--sk-hover-glow); }
+.run-item:hover { border-color: var(--line-soft); }
+.run-item .rn { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+.run-item.on .rn { color: var(--blue); }
+.run-item .rk { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--ink-faint); }
+
+/* the live graph fills the centre panel — hub chrome strips the card frame */
+.net-hub-strip { display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  padding: 10px 12px 6px; }
+.net-hub-strip .sk-label { margin-left: auto; }
+.hub-graph #net-svg { height: 500px; border: none; border-radius: 0; }
+
+.howto { position: absolute; left: 14px; bottom: 14px; width: 246px;
+  border: 1px solid var(--line-soft); border-radius: var(--sub-radius);
+  background: rgba(0, 0, 0, 0.42); padding: 10px 12px; pointer-events: none; }
+.howto h4 { margin: 0 0 5px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--ink); font-weight: 700; }
+.howto p { margin: 0; font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+.howto p strong { color: var(--ink); }
+.howto .keys { display: flex; gap: 14px; margin-top: 8px; }
+.howto .keys span { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono);
+  font-size: 10px; color: var(--ink-faint); }
+.dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+.dot.run { background: var(--blue-glow); border: 2px solid var(--blue); }
+.dot.voice { background: transparent; border: 1.5px solid var(--blue); }
+.dot.sig { background: transparent; border: 1.5px solid var(--ink-faint); }
+
+.detail-name { font-size: 20px; font-weight: 700; letter-spacing: var(--header-spacing); }
+.detail-kind { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--blue); display: block; margin: 2px 0 9px; }
+.detail-line { font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; margin: 0 0 10px; }
+.detail-line strong { color: var(--ink); }
+.detail-open { margin-top: 4px; }

@@ -3,15 +3,16 @@
 // reimplementation of the terminal interaction *pattern* (entity keys ×
 // function mnemonics); entities here are vc-brain's own corpus — persons,
 // forums, evidence signals, runs, docs — never market data.
-import { esc } from './md.js?v=2026-07-21-2';
-import { renderEntity } from './entity.js?v=2026-07-21-2';
-import { mountGraph } from './graph.js?v=2026-07-21-2';
+import { esc } from './md.js?v=2026-07-21-5';
+import { renderEntity } from './entity.js?v=2026-07-21-10';
+import { mountGraph } from './graph.js?v=2026-07-21-12';
 
 const $ = sel => document.querySelector(sel);
 
 /* ── function mnemonics per entity type; first = default ──────────────── */
 const FUNCS = {
   person: ['DES', 'PRE', 'POST', 'NET'],
+  founder: ['DES'],
   forum: ['DES', 'DEB', 'ADJ', 'NET'],
   signal: ['DES'],
   run: ['OPEN'],
@@ -53,6 +54,24 @@ function addEntity(e) {
   corpus.byId.set(e.id, e);
 }
 
+// Founder entities (bead vc-brain-toe.12): the analyzed founders — sourced
+// directory records plus each corpus run's applicant, emitted by
+// build-corpus.py. People-search must find the people the pipeline is FOR,
+// not just the room attendants arguing about them.
+function addFounder(f) {
+  addEntity({
+    id: `founder:${f.id}`, type: 'founder', name: f.name || f.id,
+    aliases: f.aliases || [], links: f.links || {}, location: f.location,
+    score: f.score, sourced: f.sourced, run: f.run, company: f.company,
+    one_liner: f.one_liner, verdict: f.verdict, role: f.role,
+    background: f.background, ask: f.ask,
+    sub: f.run
+      ? `founder of ${f.company} — screen: ${f.verdict || 'on record'}`
+      : (f.sourced || 'sourced founder').slice(0, 110),
+    hay: `${f.name} ${(f.aliases || []).join(' ')} ${f.company || ''} founder ${(f.one_liner || '').slice(0, 80)}`,
+  });
+}
+
 async function loadCorpus() {
   const manifest = await fetchJSON('./corpus.json')
     || { runs: [], forums: [] };
@@ -65,37 +84,61 @@ async function loadCorpus() {
     });
   }
 
-  await Promise.all((manifest.forums || []).map(addForum));
+  for (const f of manifest.founders || []) addFounder(f);
+
+  // Design rooms load tagged internal (corpus gate, bead vc-brain-toe.10):
+  // registered in byId so design-session entity URLs keep resolving, but
+  // excluded from the search pool, the palette, and the corpus graph.
+  await Promise.all([
+    ...(manifest.forums || []).map(f => addForum(f)),
+    ...(manifest.design_rooms || []).map(f => addForum(f, { internal: true })),
+  ]);
 }
 
 // Load one forum (research or run layout) into the corpus. Returns the forum
 // entity, or null when no seed manifest is on disk. Factored out of loadCorpus
 // so the network view can lazily register the CURRENT run's room on demand
 // (bead vc-brain-toe.2) using the exact same person model.
-async function addForum(f) {
+// `internal: true` (design rooms — corpus gate, bead vc-brain-toe.10) stamps
+// the forum AND every entity it seats: resolvable by id/URL, never surfaced
+// in search, the palette, or the corpus graph.
+async function addForum(f, { internal = false } = {}) {
     // Two forum layouts, one person model. Research forums live under
     // research/<name>/forum with seed.json / adjudication.json / pre|post/<slug>.md.
     // Real-deal run rooms (bead vc-brain-26w) live in a run's out dir with
     // forum-attendants.json / forum-adjudication.json / forum-<seat>.md — the
     // seed schema is identical, only the filenames differ.
-    const runLayout = f.layout === 'run';
+    // Design rooms (bead vc-brain-4h4) write the SAME forum-*.json artifacts as
+    // a run dir, so they share the run person model and file naming; only the
+    // rendered layout differs (a design-spec panel leads). "runFiles" gates the
+    // filename convention; "design" gates the layout.
+    const design = f.layout === 'design';
+    const runFiles = f.layout === 'run' || design;
     const [seed, adjudication, evidence] = await Promise.all([
-      fetchJSON(`${f.path}/${runLayout ? 'forum-attendants.json' : 'seed.json'}`),
-      fetchJSON(`${f.path}/${runLayout ? 'forum-adjudication.json' : 'adjudication.json'}`),
+      fetchJSON(`${f.path}/${runFiles ? 'forum-attendants.json' : 'seed.json'}`),
+      fetchJSON(`${f.path}/${runFiles ? 'forum-adjudication.json' : 'adjudication.json'}`),
       f.evidence ? fetchJSON(f.evidence) : null,
     ]);
     if (!seed) return null;
     const forum = {
       id: `forum:${f.id}`, type: 'forum', key: f.id, name: f.title || f.id,
+      internal,
       path: f.path, crux: seed.crux_restatement, room_note: seed.room_note,
       adjudication, roster: [], suggested: [], docs: f.docs || [],
-      layout: runLayout ? 'run' : 'research', run: f.run || null,
-      debate: `${f.path}/${runLayout ? 'forum-debate.md' : 'debate.md'}`,
+      layout: design ? 'design' : (f.layout === 'run' ? 'run' : 'research'),
+      run: f.run || null,
+      // design-adjudication extras — carried onto the forum so the design-spec
+      // panel can read them without re-fetching the adjudication file.
+      acceptance_criteria: adjudication?.acceptance_criteria || [],
+      references: adjudication?.references || [],
+      debate: `${f.path}/${runFiles ? 'forum-debate.md' : 'debate.md'}`,
       sub: (seed.crux_restatement || '').slice(0, 110),
       hay: `${f.id} ${f.title || ''} ${f.run || ''} forum crux debate room`,
     };
     corpus.forums.push(forum);
     addEntity(forum);
+    // every entity seated by an internal room is itself internal
+    const seatEntity = e => addEntity(internal ? { ...e, internal: true } : e);
 
     const evolutionByHandle = new Map((adjudication?.evolution || [])
       .map(ev => [ev.attendant, ev]));
@@ -104,15 +147,15 @@ async function addForum(f) {
 
     for (const a of seed.attendants || []) {
       const ev = evolutionByHandle.get(a.handle);
-      addEntity({
+      seatEntity({
         id: `person:${a.slug}`, type: 'person', slug: a.slug, name: a.handle,
         seat: a.id, forum: forum.id, lens: a.lens, mandate: a.mandate,
         invitation: a.invitation, evidence_refs: a.evidence_refs || [],
         decisive_question: a.decisive_question, opening_lean: a.opening_lean,
         movement: ev?.movement, movement_turns: ev?.turns,
         residual: residualByHandle.get(a.handle),
-        pre: runLayout ? `${f.path}/forum-${a.id}.md` : `${f.path}/pre/${a.slug}.md`,
-        post: runLayout ? `${f.path}/forum-post-${a.id}.md` : `${f.path}/post/${a.slug}.md`,
+        pre: runFiles ? `${f.path}/forum-${a.id}.md` : `${f.path}/pre/${a.slug}.md`,
+        post: runFiles ? `${f.path}/forum-post-${a.id}.md` : `${f.path}/post/${a.slug}.md`,
         sub: a.lens, hay: `${a.handle} ${a.slug} ${a.lens} person attendant`,
       });
       forum.roster.push(`person:${a.slug}`);
@@ -121,7 +164,7 @@ async function addForum(f) {
     for (const s of adjudication?.suggested_attendants || []) {
       const slug = slugify(s.handle);
       if (corpus.byId.has(`person:${slug}`)) continue;
-      addEntity({
+      seatEntity({
         id: `person:${slug}`, type: 'person', slug, name: s.handle,
         forum: forum.id, suggested: true, named_gap: s.named_gap,
         sub: `suggested attendant — ${s.named_gap.slice(0, 90)}`,
@@ -131,7 +174,7 @@ async function addForum(f) {
     }
 
     for (const sig of evidence?.signals || []) {
-      addEntity({
+      seatEntity({
         id: `signal:${sig.id}`, type: 'signal', sid: sig.id, name: sig.id,
         forum: forum.id, summary: sig.summary, trust_tier: sig.trust_tier,
         authority: sig.authority, pull: sig.pull, source: sig.source,
@@ -145,7 +188,7 @@ async function addForum(f) {
     }
 
     for (const d of f.docs || []) {
-      addEntity({
+      seatEntity({
         id: `doc:${d.id}`, type: 'doc', name: d.title, path: d.path,
         forum: forum.id, sub: d.path.replace('../', ''),
         hay: `${d.title} ${d.id} doc reference`,
@@ -213,7 +256,20 @@ async function mountNetworkView() {
     if (host.dataset.netScope === key) return;
     host.dataset.netScope = key;
     const focus = focusId ? corpus.byId.get(focusId) : null;
-    return mountGraph(host, corpus, { onOpen: id => route(id), focus: focus?.id });
+    // corpus gate (toe.10): the corpus graph draws the PRODUCT corpus only.
+    // Focusing an internal entity (a design room or one of its seats) scopes
+    // the graph to that room's own network instead — never a silent mix.
+    if (focus?.internal) {
+      const room = focus.type === 'forum' ? focus : corpus.byId.get(focus.forum);
+      if (room) return mountGraph(host, scopeCorpusToForum(room),
+        { onOpen: id => route(id), focus: focus.id });
+    }
+    const product = {
+      forums: corpus.forums.filter(f => !f.internal),
+      entities: corpus.entities.filter(e => !e.internal),
+      byId: corpus.byId,
+    };
+    return mountGraph(host, product, { onOpen: id => route(id), focus: focus?.id });
   }
 
   const run = currentRun();
@@ -251,6 +307,27 @@ function parse(input) {
   return { query: tokens.join(' '), fn: null };
 }
 
+/* Result shaping (operator sort spec, bead vc-brain-toe.10): a curated empty
+   state, type-grouped results, and a showcase boost for the demo tapes. The
+   `_h` annotation is a group header rendered above that row — rows themselves
+   stay a flat list so keyboard selection is untouched. */
+const GROUP_LABEL = {
+  run: 'pipeline runs', forum: 'forums', founder: 'founders',
+  person: 'room attendants', doc: 'documents', signal: 'signals',
+};
+const EMPTY_ORDER = ['run', 'forum', 'founder', 'person', 'doc'];
+const EMPTY_CAP = { run: 4, forum: 4, founder: 6, person: 5, doc: 3 };
+const SHOWCASE_BOOST = 5; // runs are the demo's front door — nudge, not trump
+
+function groupRows(ranked) {
+  const seen = new Set();
+  for (const e of ranked) {
+    if (!seen.has(e.type)) { e._h = GROUP_LABEL[e.type] || e.type; seen.add(e.type); }
+    else delete e._h;
+  }
+  return ranked;
+}
+
 function matches(input) {
   const { query, fn } = parse(input);
   const globals = [];
@@ -258,19 +335,40 @@ function matches(input) {
     if (!fn || fn === 'NET') globals.push({ global: 'NET', name: 'network', sub: 'the person network — attendants, forums, citations' });
     if (!fn || fn === 'HELP') globals.push({ global: 'HELP', name: 'help', sub: 'command grammar and function mnemonics' });
   }
-  let pool = corpus.entities;
+  // the product pool: internal entities (design rooms and their seats) are
+  // reachable by direct id, never through search (corpus gate, toe.10)
+  let pool = corpus.entities.filter(e => !e.internal);
   if (fn && fn !== 'NET' && fn !== 'HELP')
     pool = pool.filter(e => FUNCS[e.type]?.includes(fn));
   let ranked;
   if (!query) {
-    const ORDER = { forum: 0, person: 1, run: 2, doc: 3, signal: 4 };
-    ranked = [...pool].sort((a, b) =>
-      (ORDER[a.type] ?? 9) - (ORDER[b.type] ?? 9) || a.name.localeCompare(b.name));
+    // curated empty state: the showcase runs lead, then product forums,
+    // founders, attendants, documents — capped per group, signals on query only
+    ranked = EMPTY_ORDER.flatMap(t =>
+      pool.filter(e => e.type === t).slice(0, EMPTY_CAP[t]));
   } else {
-    ranked = pool.map(e => ({ e, s: fuzzy(query, e.hay) }))
-      .filter(x => x.s > 0).sort((a, b) => b.s - a.s).map(x => x.e);
+    // scored: fuzzy over the haystack, with a strong bonus when the query hits
+    // the entity's NAME or an alias — an alias query must rank its founder
+    // above evidence signals whose body text merely scatters the letters.
+    // Demo tapes get the showcase boost on top. (Keep real people's names and
+    // handles out of this file — experience/ ships to Pages wholesale.)
+    const NAME_BONUS = 10;
+    const scored = pool.map(e => {
+      const sHay = fuzzy(query, e.hay);
+      const sName = fuzzy(query, `${e.name} ${(e.aliases || []).join(' ')}`);
+      let s = sName > 0 ? Math.max(sHay, sName + NAME_BONUS) : sHay;
+      if (s > 0 && e.type === 'run') s += SHOWCASE_BOOST;
+      return { e, s };
+    }).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 24);
+    // group by type via explicit partition — first occurrence in the score
+    // order fixes each group's rank, and every group stays CONTIGUOUS even
+    // when two types tie on best hit (a comparator alone can interleave them,
+    // which would render a row under the wrong group header)
+    const typeOrder = [...new Set(scored.map(x => x.e.type))];
+    ranked = typeOrder.flatMap(t =>
+      scored.filter(x => x.e.type === t).map(x => x.e));
   }
-  return { rows: [...globals, ...ranked.slice(0, 24)], fn };
+  return { rows: [...globals, ...groupRows(ranked)], fn };
 }
 
 /* ── router ───────────────────────────────────────────────────────────── */
@@ -285,7 +383,11 @@ export function route(target, fn) {
     const url = new URL(location);
     url.searchParams.set('run', e.name);
     url.searchParams.set('view', 'overview');
+    // Clear entity + network-scope params so a graph run-switch lands on a
+    // clean overview URL — a lingering &net=corpus would otherwise make the
+    // next network-tab visit reopen the corpus graph instead of the new run.
     url.searchParams.delete('e'); url.searchParams.delete('fn');
+    url.searchParams.delete('net');
     location.href = url; // RUN is bound at module load — full reload is the contract
     return;
   }
@@ -310,13 +412,13 @@ function openHelp() {
       <p>Everything in the corpus is an <strong>entity</strong>; every page is an
         <strong>entity × function</strong>. Type an entity to fuzzy-match it, optionally
         followed by a function mnemonic: <code class="mono">eghbal pre</code>,
-        <code class="mono">ferrite-inverted adj</code>, <code class="mono">gurley</code>,
+        <code class="mono">ferrite adj</code>, <code class="mono">sig-004</code>,
         <code class="mono">net</code>.</p>
       <ul class="adj-list">${FUNC_HELP.map(([f, d]) =>
         `<li><span class="sk-chip blue">${f}</span><span>${esc(d)}</span></li>`).join('')}</ul>
       <p class="axis-notes">keys: <code class="mono">⌘K</code> or <code class="mono">/</code> palette ·
         <code class="mono">1–7</code> views · <code class="mono">esc</code> close ·
-        entity pages: every <code class="mono">gsig-*</code> chip and person name is a link.</p>
+        entity pages: every <code class="mono">sig-*</code> chip and person name is a link.</p>
     </div>`;
 }
 
@@ -403,7 +505,7 @@ function paletteHTML() {
     </div>`;
 }
 
-const TYPE_CLS = { person: 'blue', forum: 'ok', signal: '', run: 'warn', doc: '', ask: 'blue' };
+const TYPE_CLS = { person: 'blue', founder: 'blue', forum: 'ok', signal: '', run: 'warn', doc: '', ask: 'blue' };
 
 function renderResults() {
   const input = $('#palette-input').value;
@@ -413,16 +515,20 @@ function renderResults() {
   // Enter continues it.
   const q = input.trim();
   const talking = agentMod?.isActive();
+  // marker is askAgent, NOT ask — founder entities carry an `ask` field (the
+  // fundraise ask off the application) and must never render as agent rows
   if (q && (talking || rows.length === 0 || q.split(/\s+/).length >= 3)) {
-    const ask = { ask: true, name: q, sub: talking ? 'reply to the agent' : 'ask the agent — it runs the same commands' };
+    const ask = { askAgent: true, name: q, sub: talking ? 'reply to the agent' : 'ask the agent — it runs the same commands' };
     rows = talking ? [ask, ...rows] : [...rows, ask];
   }
   lastRows = rows;
   sel = Math.min(sel, Math.max(0, rows.length - 1));
   $('#palette-results').innerHTML = rows.map((r, i) => {
-    const type = r.global ? 'cmd' : r.ask ? 'ask' : r.type;
-    const mnem = r.ask ? 'ASK' : r.global || (fn && FUNCS[r.type]?.includes(fn) ? fn : FUNCS[r.type]?.[0] || '');
-    return `
+    const type = r.global ? 'cmd' : r.askAgent ? 'ask' : r.type;
+    const mnem = r.askAgent ? 'ASK' : r.global || (fn && FUNCS[r.type]?.includes(fn) ? fn : FUNCS[r.type]?.[0] || '');
+    // type-group header (operator sort spec, toe.10) — a label, not an option
+    const head = r._h ? `<div class="palette-group sk-label">${esc(r._h)}</div>` : '';
+    return `${head}
     <div class="palette-row ${i === sel ? 'sel' : ''}" role="option"
          aria-selected="${i === sel}" data-i="${i}">
       <span class="sk-chip ${TYPE_CLS[type] || ''}">${type}</span>
@@ -436,6 +542,7 @@ function renderResults() {
 function openPalette(prefill = '') {
   const pal = $('#palette');
   pal.hidden = false;
+  document.body.classList.add('palette-open'); // scroll lock (bead vc-brain-7da)
   const input = $('#palette-input');
   input.value = prefill;
   sel = 0;
@@ -445,18 +552,19 @@ function openPalette(prefill = '') {
 
 function closePalette() {
   $('#palette').hidden = true;
+  document.body.classList.remove('palette-open');
   agentMod?.reset(); // conversation persists until esc/close (gg8 answer-box design)
 }
 
 function acceptSelection() {
   const row = lastRows[sel];
   if (!row) return;
-  if (row.ask) {
+  if (row.askAgent) {
     const text = $('#palette-input').value.trim();
     $('#palette-input').value = '';
     sel = 0;
     renderResults();
-    import('./agent.js?v=2026-07-21-2').then(m => { agentMod = m; m.ask(text); });
+    import('./agent.js?v=2026-07-21-10').then(m => { agentMod = m; m.ask(text); });
     return; // palette stays open — the transcript renders in #agent-panel
   }
   const { fn } = parse($('#palette-input').value);
@@ -499,9 +607,12 @@ export function bootTerminal(h) {
       openPalette();
     }
   });
-  $('#terminal-btn')?.addEventListener('click', () => openPalette());
+  // The visible search bar (bead vc-brain-toe.10) is the second entry point
+  // onto the SAME surface: it opens the full palette — one index, one grammar.
+  // ⌘K and / stay live above as the power-user doors.
+  $('#search-bar')?.addEventListener('click', () => openPalette());
 
-  // Entity-page + network delegation: gsig chips, person/entity links
+  // Entity-page + network delegation: signal chips, person/entity links
   document.addEventListener('click', e => {
     const jump = e.target.closest('[data-entity]');
     if (jump) return route(jump.dataset.entity, jump.dataset.fn || null);

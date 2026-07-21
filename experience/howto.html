@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="./app.css">
   <link rel="stylesheet" href="./landing.css?v=2026-07-19-1">
   <link rel="stylesheet" href="./skins/alu.css">
-  <link rel="stylesheet" href="./skins/glass.css">
   <style>
     /* how-to page only — tokens-only polish over the shared classes */
     .howto-fn-list li span:nth-child(2) { flex: 1; min-width: 0; }
@@ -20,22 +19,8 @@
     .sk-chip.howto-designed { color: var(--ink-faint); border-color: var(--line-soft); border-style: dashed; }
   </style>
   <script>
-    // Pre-paint stamps — same keys as the run viewer, so the landing wears
-    // whatever theme + skin the visitor last chose in the app.
-    (function () {
-      var root = document.documentElement;
-      try {
-        if (localStorage.getItem('vcbrain-theme') === 'dark') root.classList.add('theme-dark');
-        var skin = localStorage.getItem('vcbrain-skin:v1');
-        if (skin !== null && skin !== 'glass' && skin !== 'alu' && skin !== 'skeleton') {
-          localStorage.removeItem('vcbrain-skin:v1');
-          skin = null;
-        }
-        if (skin === null) skin = 'glass'; // default showcase skin (operator decision)
-        if (skin === 'glass') root.classList.add('skin-glass');
-        else if (skin === 'alu') root.classList.add('skin-alu');
-      } catch (e) {}
-    })();
+    // Dark aluminium locked (taste-079, toe.5) — no chooser, no legacy keys.
+    document.documentElement.classList.add('skin-alu', 'theme-dark');
   </script>
 </head>
 <body>
@@ -65,16 +50,16 @@
     <p>The line parses right-to-left: if the <em>last</em> word is a function mnemonic, it is the function, and
       everything before it is the entity query. Three shapes:</p>
     <ul class="adj-list howto-fn-list">
-      <li><span class="sk-chip blue">entity&nbsp;FUNC</span><span><code class="mono">spolsky pre</code> — fuzzy-match an
+      <li><span class="sk-chip blue">entity&nbsp;FUNC</span><span><code class="mono">eghbal pre</code> — fuzzy-match an
         entity, then open a named function on it.</span></li>
-      <li><span class="sk-chip">entity</span><span><code class="mono">gsig-008</code> — no function named, so the
+      <li><span class="sk-chip">entity</span><span><code class="mono">sig-004</code> — no function named, so the
         entity's default page opens (the first in its function list).</span></li>
       <li><span class="sk-chip">FUNC</span><span><code class="mono">net</code>, <code class="mono">help</code> — a bare
         function; the two global commands need no entity at all.</span></li>
     </ul>
     <p class="axis-notes">Matching is fuzzy and forgiving — an fzf-style subsequence score over each entity's searchable
       text, with bonuses for hits at word boundaries and in an unbroken run, small penalties for scattered gaps.
-      <code class="mono">joel</code>, <code class="mono">spolsky</code>, and <code class="mono">jspol</code> all land on
+      <code class="mono">nadia</code>, <code class="mono">eghbal</code>, and <code class="mono">negh</code> all land on
       the same seat. Naming a function first narrows the pool to the entity types that accept it — so a line ending in
       <code class="mono">adj</code> only ever ranks forums.</p>
   </section>
@@ -113,16 +98,15 @@
   <section class="run-card">
     <div class="card-head"><span class="sk-label">six lines, six pages</span><span class="rule"></span>
       <span class="sk-chip">each resolves against today's corpus</span></div>
-    <p class="sk-note">Forum seats are AI-simulated personas of public figures, clearly labelled as such in the corpus.</p>
     <ul class="adj-list howto-eg">
-      <li><code class="mono">spolsky pre</code><span>Joel Spolsky's blind pre-interview — his opening read on the crux,
-        written from his seat's mandate alone, before anyone argued.</span></li>
-      <li><code class="mono">gbrain adj</code><span>the g-brain forum's typed adjudication — converged actions, the
+      <li><code class="mono">eghbal pre</code><span>Nadia Eghbal's blind pre-interview — her opening read on the crux,
+        written from her seat's mandate alone, before anyone argued.</span></li>
+      <li><code class="mono">ferrite adj</code><span>the ferrite room's typed adjudication — converged actions, the
         residual fork routed to the human, and who moved versus who held.</span></li>
-      <li><code class="mono">gsig-008</code><span>an evidence signal (default <code class="mono">DES</code>) — the
-        dual-engine-parity finding, and its <strong>cited-by</strong> list: Spolsky, Gabriel, Kleppmann.</span></li>
+      <li><code class="mono">sig-004</code><span>an evidence signal (default <code class="mono">DES</code>) — one of the
+        tape's cited signals, with its <strong>cited-by</strong> seats one click away.</span></li>
       <li><code class="mono">ferrite-inverted open</code><span>leaves the terminal and reloads the run viewer on the
-        ferrite-inverted tape.</span></li>
+        ferrite-inverted tape — screen, triage, forum, axes, memo.</span></li>
       <li><code class="mono">net</code><span>the whole room as a force graph — forums, seated and suggested attendants,
         and the signals their mandates cite.</span></li>
       <li><code class="mono">help</code><span>the grammar reference rendered inline — the same mnemonics, one keystroke
@@ -132,7 +116,7 @@
 
   <section class="run-card">
     <div class="card-head"><span class="sk-label">the citation spine</span><span class="rule"></span></div>
-    <p>Nothing in the terminal is a dead end. Every <code class="mono">gsig-*</code> chip and every person's name is a
+    <p>Nothing in the terminal is a dead end. Every <code class="mono">sig-*</code> chip and every person's name is a
       link — on interview pages, in the debate transcript, throughout the adjudication. Click a signal chip and you land
       on its page; each signal carries a <strong>cited-by</strong> list naming the seats whose mandate leans on it, and
       each of those names links back to the person. The <code class="mono">net</code> graph draws the same relations in
@@ -143,8 +127,8 @@
   <section class="run-card">
     <div class="card-head"><span class="sk-label">the second register</span><span class="rule"></span></div>
     <p>Everything above is the <em>first</em> register: a human types the grammar and reads the page. The planned
-      second register is an agent that drives the same grammar <em>visibly</em> — it opens <code class="mono">spolsky pre</code>,
-      follows a <code class="mono">gsig-*</code> citation to its cited-by seats, pivots to <code class="mono">net</code>,
+      second register is an agent that drives the same grammar <em>visibly</em> — it opens <code class="mono">eghbal pre</code>,
+      follows a <code class="mono">sig-*</code> citation to its cited-by seats, pivots to <code class="mono">net</code>,
       and every move it makes is a line you could have typed yourself. Parity is the whole point: no hidden verbs, no
       private API — the agent's transcript reads back as terminal history.</p>
     <div class="axis-chips">

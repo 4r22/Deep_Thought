@@ -5,7 +5,10 @@
 // in this loop. The server (scripts/agent_server.py) does inference only, with
 // the system prompt and action registry pinned server-side.
 import { esc } from './md.js?v=2026-07-21-2';
-import { searchEntities, executeCommand, navigateCommand } from './terminal.js?v=2026-07-21-2';
+// MUST match the version app.js loads terminal.js at — a version skew here
+// loads a SECOND terminal module whose corpus is empty (never booted), and
+// the agent's search/execute silently return nothing.
+import { searchEntities, executeCommand, navigateCommand } from './terminal.js?v=2026-07-21-12';
 
 const MAX_HOPS = 8;
 let messages = [];

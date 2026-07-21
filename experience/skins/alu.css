@@ -18,12 +18,16 @@ html.skin-alu {
   --engrave-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 html.skin-alu.theme-dark {
-  --mat-relief: 7;
-  --mat-highlight: 0.1;
-  --mat-depth: 0.45;
-  --mat-border-darken: 10;
-  --plate-base: #2c2f35;
-  --btn-metal-base: #2f323a;
+  /* taste-098 quick win (a): the shipped 7 / 0.10 pair nearly erased the metal —
+     the plate read as flat dimmed grey. Widen the relief dome, brighten the top
+     inset highlight, deepen the base shadow, and crisp the border so the same
+     flat-CSS path reads as brushed dark aluminium. Operator judges the final. */
+  --mat-relief: 13;
+  --mat-highlight: 0.28;
+  --mat-depth: 0.5;
+  --mat-border-darken: 16;
+  --plate-base: #30343c;
+  --btn-metal-base: #33373f;
   --engrave-ink: #d3d6db;
   --engrave-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
 }
@@ -106,9 +110,39 @@ html.skin-alu .view-menu {
   box-shadow: var(--plate-inset);
 }
 
+/* Search well (toe.10): a quiet near-black trough — the writable face paints
+   no metal (taste-037); the lip is the same milled-inlay recipe as the
+   reading cavities (taste-043). Reactivity stays blue-only. */
+html.skin-alu.theme-dark .search-bar {
+  background: rgba(0, 0, 0, 0.26);
+  border-color: var(--plate-border);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+html.skin-alu.theme-dark .search-bar:hover,
+html.skin-alu.theme-dark .search-bar:focus-visible {
+  border-color: var(--blue);
+}
+
 /* Band track: machined groove */
 html.skin-alu .band-track {
   border-color: var(--plate-border);
   background: linear-gradient(180deg, var(--groove-top), var(--groove-bot));
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, var(--mat-depth));
+}
+
+/* taste-098 quick win (b): quiet content cavities. Long prose — the adjudication
+   and interviews, the debate transcript, the memo body, the recommendation
+   rationale — reads in a near-black milled inlay sunk into the slab (taste-043),
+   never on a plate gradient. Chrome plates stay above; the reading ground is
+   calm and dark. Skin-off (skeleton) keeps the bare card, no inlay. */
+html.skin-alu.theme-dark .memo-body,
+html.skin-alu.theme-dark .rec-body {
+  background: rgba(0, 0, 0, 0.26);
+  border-radius: var(--sub-radius);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  padding: 14px 16px;
 }
