@@ -71,6 +71,8 @@ Forum seats are **AI-simulated counterfactual personas** of public figures, reas
 
 Real-candidate runs, sourcing archives, and internal process records are **deliberately excluded** from this repository. That is not missing polish — it is the same privacy discipline the pipeline itself enforces: real people's data does not ship without consent and anonymization. Everything needed to evaluate the architecture — code, schemas, prompts, tests, specs, and a fully-verified fictional tape — is here.
 
+Every exclusion is a declared decision, not a quiet omission: [`docs/CURATION.md`](docs/CURATION.md) is the full ledger — each exclusion, the rule behind it, the reasoning, and the condition that reverses it.
+
 ## What this repo is not (yet)
 
 Called by its name, per [`docs/ROADMAP.md`](docs/ROADMAP.md): the live demo is a **static build over committed run tapes** — nothing updates until it is rebuilt. There is no live store (memory is flat JSON in git), no scheduler, no signal-driven triggers, no server. The roadmap to an always-on terminal — Store → Harvesters → Triggers → Serving, each with a named exit test — is designed and sequenced, not built, on top of machinery that already runs in batch ([`intelligence/scripts/farm_run.py`](intelligence/scripts/farm_run.py)).
@@ -101,7 +103,7 @@ cd intelligence && python3 -m unittest discover -s tests
 | [`intelligence/`](intelligence/) | Pipeline runner, sourcing gate, prompts, schemas, tests, verified demo tape |
 | [`memory/`](memory/) | Founder/Signal memory modules + eval harness (gbrain-adapted, MIT) |
 | [`experience/`](experience/) | Zero-dependency run viewer + keyboard terminal |
-| [`docs/`](docs/) | [`WHY-THIS-WINS.md`](docs/WHY-THIS-WINS.md) · [`COUNSEL.md`](docs/COUNSEL.md) · [`ROADMAP.md`](docs/ROADMAP.md) · [`CLEAN-ROOM.md`](docs/CLEAN-ROOM.md) · [`DESIGN-FORUM.md`](docs/DESIGN-FORUM.md) · [`specs/tests/`](docs/specs/tests/) |
+| [`docs/`](docs/) | [`WHY-THIS-WINS.md`](docs/WHY-THIS-WINS.md) · [`CURATION.md`](docs/CURATION.md) · [`COUNSEL.md`](docs/COUNSEL.md) · [`ROADMAP.md`](docs/ROADMAP.md) · [`CLEAN-ROOM.md`](docs/CLEAN-ROOM.md) · [`DESIGN-FORUM.md`](docs/DESIGN-FORUM.md) · [`specs/tests/`](docs/specs/tests/) |
 | [`research/`](research/) | gbrain spec extraction, OSS terminal survey |
 | [`config/`](config/) | Example fund thesis (the editable mandate) |
 
